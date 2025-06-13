@@ -24,9 +24,10 @@ namespace AppStore
 
         private void InitializeComponent()
         {
-            this.Size = new Size(200, 120);
+            this.Size = new Size(220, 180);
             this.BackColor = Color.White;
             this.BorderStyle = BorderStyle.FixedSingle;
+            this.Padding = new Padding(5);
 
             // 应用图标
             iconBox = new PictureBox();
@@ -37,16 +38,18 @@ namespace AppStore
 
             // 应用名称
             nameLabel = new Label();
-            nameLabel.AutoSize = true;
+            nameLabel.AutoSize = false;
+            nameLabel.Size = new Size(140, 60);
             nameLabel.Location = new Point(80, 15);
             nameLabel.Font = new Font("Microsoft YaHei", 10, FontStyle.Bold);
+            nameLabel.TextAlign = ContentAlignment.TopLeft;
             this.Controls.Add(nameLabel);
 
             // 下载按钮
             downloadBtn = new Button();
             downloadBtn.Text = "下载";
             downloadBtn.Size = new Size(80, 30);
-            downloadBtn.Location = new Point(60, 80);
+            downloadBtn.Location = new Point(70, 120);
             downloadBtn.BackColor = Color.FromArgb(0, 120, 215);
             downloadBtn.ForeColor = Color.White;
             downloadBtn.FlatStyle = FlatStyle.Flat;

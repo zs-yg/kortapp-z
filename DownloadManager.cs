@@ -55,9 +55,13 @@ namespace AppStore
 
         public void StartDownload(string fileName, string url)
         {
+            // 从URL获取原始文件名用于显示
+            var uri = new Uri(url);
+            var originalFileName = Path.GetFileName(uri.LocalPath);
+            
             var downloadItem = new DownloadItem
             {
-                FileName = fileName,
+                FileName = originalFileName, // 显示原始文件名
                 Progress = 0,
                 Status = "准备下载"
             };
@@ -87,7 +91,10 @@ namespace AppStore
                 }
 
                 // 设置线程数为16并添加详细日志
-                var arguments = $"--out={fileName} --dir=\"{downloadsDir}\" --split=16 --max-connection-per-server=16 {url}";
+                // 从URL获取原始文件名
+                var uri = new Uri(url);
+                var originalFileName = Path.GetFileName(uri.LocalPath);
+                var arguments = $"--out=\"{originalFileName}\" --dir=\"{downloadsDir}\" --split=16 --max-connection-per-server=16 {url}";
                 Console.WriteLine($"下载目录: {downloadsDir}");
 
                 currentProcess = new Process
