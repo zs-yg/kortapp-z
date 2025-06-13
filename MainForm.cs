@@ -163,6 +163,11 @@ namespace AppStore
                 "ShareX",
                 "https://ghproxy.net/https://github.com/ShareX/ShareX/releases/download/v17.1.0/ShareX-17.1.0-setup.exe",
                 "img/png/ShareX.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "fluxy",
+                "https://ghproxy.net/https://github.com/alley-rs/fluxy/releases/download/v0.1.17/fluxy_0.1.17_x64-setup.exe",
+                "img/png/fluxy.png"));
         }
 
         private FlowLayoutPanel downloadsFlowPanel = new FlowLayoutPanel();
