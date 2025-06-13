@@ -63,3 +63,17 @@ AppStore/
 MIT License
 
 Copyright (c) 2025 kortapp-z项目组
+
+## 维护
+
+每一个人都可以通过PR添加属于自己的合法软件
+
+qq群：
+```
+1043867176
+```
+
+b站账号：
+```
+Zayisynth
+```
