@@ -1,6 +1,6 @@
 # AppStore - Windows应用商店
 
-![应用图标](img/png/kortapp-z.png)
+![应用图标](img/jpg/screenshot.jpg)
 
 一个简单的Windows应用商店应用，提供软件下载和管理功能。
 
