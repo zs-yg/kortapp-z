@@ -83,9 +83,12 @@ namespace AppStore
             FlowLayoutPanel flowPanel = new FlowLayoutPanel();
             flowPanel.Dock = DockStyle.Fill;
             flowPanel.AutoScroll = true;
-            flowPanel.Padding = new Padding(15, 50, 15, 15); // 进一步增加顶部内边距
+            flowPanel.Padding = new Padding(15, 50, 15, 15); // 恢复原有内边距
             flowPanel.WrapContents = true;
             flowPanel.Margin = new Padding(0);
+            flowPanel.AutoSize = true;
+            flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            flowPanel.AutoScrollMinSize = new Size(0, 2000); // 增加滑动距离
             contentPanel.Controls.Add(flowPanel);
 
             // 添加所有应用卡片
@@ -121,7 +124,7 @@ namespace AppStore
 
             flowPanel.Controls.Add(CreateAppCard(
                 "7-Zip",
-                "https://objects.githubusercontent.com/github-production-release-asset-2e65be/466446150/1645817e-3677-4207-93ff-e62de7e147be?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250613T035936Z&X-Amz-Expires=300&X-Amz-Signature=5e02d5fc34f45bd8308029c9fc78052007e9475ce0e32775619921cb8f3b83ea&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D7z2409-x64.exe&response-content-type=application%2Foctet-stream"，
+                "https://objects.githubusercontent.com/github-production-release-asset-2e65be/466446150/1645817e-3677-4207-93ff-e62de7e147be?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250613T035936Z&X-Amz-Expires=300&X-Amz-Signature=5e02d5fc34f45bd8308029c9fc78052007e9475ce0e32775619921cb8f3b83ea&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D7z2409-x64.exe&response-content-type=application%2Foctet-stream",
                 "img/png/7ziplogo.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
@@ -131,7 +134,7 @@ namespace AppStore
 
             flowPanel.Controls.Add(CreateAppCard(
                 "GreenShot",
-                "https://objects.githubusercontent.com/github-production-release-asset-2e65be/36756917/239aedb0-7d29-11e7-9f9c-d36ec4466ade?X-Amz-Algorithm=AWS4-HMAC-SSHA256&X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250613T041723Z&X-Amz-Expires=300&X-Amz-Signature=be1ef88a68bbc7065af5111809d11de881022933b44f6d961eb6bd6e6b7e60a8&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3DGreenshot-INSTALLER-1.2.10.6-RELEASE.exe&response-content-type=application%2Foctet-stream"，
+                "https://objects.githubusercontent.com/github-production-release-asset-2e65be/36756917/239aedb0-7d29-11e7-9f9c-d36ec4466ade?X-Amz-Algorithm=AWS4-HMAC-SSHA256&X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250613T041723Z&X-Amz-Expires=300&X-Amz-Signature=be1ef88a68bbc7065af5111809d11de881022933b44f6d961eb6bd6e6b7e60a8&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3DGreenshot-INSTALLER-1.2.10.6-RELEASE.exe&response-content-type=application%2Foctet-stream",
                 "img/png/greenshot-logo.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
@@ -165,9 +168,135 @@ namespace AppStore
                 "img/png/ShareX.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "LosslessCut",
+                "https://ghproxy.net/https://github.com/mifi/lossless-cut/releases/download/v3.64.0/LosslessCut-win-x64.7z",
+                "img/png/LosslessCut.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Edge",
+                "https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/cb21e6b5-3f63-4df2-bec3-a2015b80dc56/MicrosoftEdgeEnterpriseX64.msi",
+                "img/jpg/edge.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Firefox",
+                "https://download-ssl.firefox.com.cn/releases-sha2/full/116.0/zh-CN/Firefox-full-latest-win64.exe",
+                "img/jpg/firefox.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Msys2",
+                "https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe",
+                "img/png/MSYS2.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Mem Reduct",
+                "https://memreduct.org/files/memreduct-3.5.2-setup.exe",
+                "img/png/mem reduct.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "LibreOffice",
+                "https://mirrors.cloud.tencent.com/libreoffice/libreoffice/stable/24.8.6/win/x86_64/LibreOffice_24.8.6_Win_x86-64.msi",
+                "img/png/LibreOffice.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "CherryStudio",
+                "https://file-cdn.gitcode.com/5007375/releases/untagger_fa019f33ee3b413db46d9329625a2fdf/Cherry-Studio-1.4.2-x64-setup.signed.exe?auth_key=1749794532-8fe6a6851ae34764bb94ea340cd34724-0-84f8c3bb7ca7abe033b03fc07bac78b97e1c9b2863dedb89e5b89ea236205bc0",
+                "img/png/CherryStudio.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "GeekUninstaller",
+                "https://geekuninstaller.com/geek.zip",
+                "img/png/geek.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "aria2 (命令行工具)",
+                "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.2/aria2c.7z",
+                ""));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Git",
+                "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.2/Git-2.49.0-64-bit.exe.7z",
+                "img/png/git.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "BleachBit",
+                "https://download.bleachbit.org/BleachBit-5.0.0-setup.exe",
+                "img/png/BleachBit.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "WinDirStat",
+                "https://objects.githubusercontent.com/github-production-release-asset-2e65be/55435293/ec421a5f-c893-4eb3-a75f-53791d7290dd?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250613T063808Z&X-Amz-Expires=300&X-Amz-Signature=c21542e5c607a37dfa9e49d3fd9098b8717eaaaf04782d7f8d3a73ef9501c1a9&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3DWinDirStat-x64.msi&response-content-type=application%2Foctet-stream",
+                "img/png/WinDirStat.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "HandBrake",
+                "https://objects.githubusercontent.com/github-production-release-asset-2e65be/41215835/5cfe9f3c-b233-4ec1-a3db-84a374cbdd7d?X-Amz-Algorithm=AWS4-HMAC-SSHA256&X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250613T064143Z&X-Amz-Expires=300&X-Amz-Signature=896229c1c4668f0560f6c9ac38fbd22b04f15241717357e7c4d83ed97c65cf0d&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3DHandBrake-1.9.2-x86_64-Win_GUI.exe&response-content-type=application%2Foctet-stream",
+                "img/png/HandBrake.png"));
+            
+            flowPanel.Controls.Add(CreateAppCard(
+                "Catclock",
+                "https://ghproxy.net/https://github.com/vladelaina/Catime/releases/download/v1.1.1/catime_1.1.1.exe",
+                "img/png/catime_resize.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 "fluxy",
                 "https://ghproxy.net/https://github.com/alley-rs/fluxy/releases/download/v0.1.17/fluxy_0.1.17_x64-setup.exe",
                 "img/png/fluxy.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "vnote",
+                "https://ghproxy.net/https://github.com/vnotex/vnote/releases/download/v3.19.2/VNote-3.19.2-win64.zip",
+                "img/png/vnote.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "PowerToys",
+                "https://ghproxy.net/https://github.com/microsoft/PowerToys/releases/download/v0.91.1/PowerToysSetup-0.91.1-x64.exe",
+                "img/png/PowerToys.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "terminal",
+                "https://ghproxy.net/https://github.com/microsoft/terminal/releases/download/v1.22.11141.0/Microsoft.WindowsTerminal_1.22.11141.0_x64.zip",
+                "img/png/terminal.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "typescript",
+                "https://ghproxy.net/https://github.com/microsoft/TypeScript/releases/download/v5.8.3/typescript-5.8.3.tgz",
+                ""));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "peazip",
+                "https://ghproxy.net/https://github.com/peazip/PeaZip/releases/download/10.4.0/peazip-10.4.0.WIN64.exe",
+                "img/jpg/peazip.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Gimp",
+                "https://mirror.nju.edu.cn/gimp/gimp/v3.0/windows/gimp-3.0.4-setup.exe",
+                "img/jpg/Gimp.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Shotcut",
+                "https://sourceforge.net/projects/shotcut/files/v25.05.11/shotcut-win64-250511.exe/download",
+                "img/png/Shotcut.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Audacity",
+                "https://muse-cdn.com/Audacity_Installer_via_MuseHub.exe",
+                "img/jpg/Audacity.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "KeePass",
+                "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.3/KeePass-2.58-Setup.exe",
+                "img/png/KeePass.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Thunderbird",
+                "https://download-installer.cdn.mozilla.net/pub/thunderbird/releases/139.0.2/win64/zh-CN/Thunderbird%20Setup%20139.0.2.exe",
+                "img/png/Thunderbird.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Dism++",
+                "https://ghproxy.net/https://github.com/Chuyu-Team/Dism-Multi-language/releases/download/v10.1.1002.2/Dism++10.1.1002.1B.zip",
+                "img/jpg/Dism++.jpg"));
+
         }
 
         private FlowLayoutPanel downloadsFlowPanel = new FlowLayoutPanel();
@@ -193,6 +322,7 @@ namespace AppStore
             downloadsFlowPanel.Padding = new Padding(10, 30, 10, 10); // 增加顶部间距
             downloadsFlowPanel.FlowDirection = FlowDirection.TopDown;
             downloadsFlowPanel.WrapContents = false;
+            downloadsFlowPanel.AutoScrollMinSize = new Size(0, 2000); // 增加滑动距离
             contentPanel.Controls.Add(downloadsFlowPanel);
 
             // 显示所有下载项
