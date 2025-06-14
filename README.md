@@ -2,7 +2,7 @@
 
 小立一个flag：从不接受广告，不停更新
 
-![应用图标](img/jpg/screenshot.jpg)
+![image](https://github.com/user-attachments/assets/7c269d0c-b008-43eb-af19-91d1bacbd360)
 
 一个简单的Windows应用商店应用，提供软件下载和管理功能。
 
