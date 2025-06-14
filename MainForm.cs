@@ -208,7 +208,7 @@ namespace AppStore
                 "img/png/geek.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
-                "aria2 (命令行工具)",
+                "aria2",
                 "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.2/aria2c.7z",
                 ""));
 
@@ -233,7 +233,7 @@ namespace AppStore
                 "img/png/HandBrake.png"));
             
             flowPanel.Controls.Add(CreateAppCard(
-                "Catclock",
+                "Catime",
                 "https://ghproxy.net/https://github.com/vladelaina/Catime/releases/download/v1.1.1/catime_1.1.1.exe",
                 "img/png/catime_resize.png"));
 
@@ -297,6 +297,95 @@ namespace AppStore
                 "https://ghproxy.net/https://github.com/Chuyu-Team/Dism-Multi-language/releases/download/v10.1.1002.2/Dism++10.1.1002.1B.zip",
                 "img/jpg/Dism++.jpg"));
 
+            flowPanel.Controls.Add(CreateAppCard(
+                "LANDrop",
+                "https://releases.landrop.app/landrop-v2-electron/LANDrop-2.7.2-win-x64-setup.exe",
+                "img/png/banner.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "jarkViewer",
+                "https://ghproxy.net/https://github.com/jark006/jarkViewer/releases/download/v1.24/jarkViewer.exe",
+                "img/png/jarkViewer.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "CopyQ",
+                "https://ghproxy.net/https://github.com/hluk/CopyQ/releases/download/v10.0.0/copyq-10.0.0-setup.exe",
+                "img/png/CopyQ.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Bulk Crap Uninstaller",
+                "https://ghproxy.net/https://github.com/Klocman/Bulk-Crap-Uninstaller/releases/download/v5.8.3/BCUninstaller_5.8.3_setup.exe",
+                "img/png/Bulk-Crap-Uninstaller.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Local Send",
+                "https://d.localsend.org/LocalSend-1.17.0-windows-x86-64.exe",
+                "img/png/localsend.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Lively Wallpaper",
+                "https://ghproxy.net/github.com/rocksdanister/lively/releases/download/v2.1.0.8/lively_setup_x86_full_v2108.exe",
+                "img/png/lively.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "inno setup_Zh-CN",
+                "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.4/InnoSetup-6.4.3_zh_setup.exe.7z",
+                "img/png/innosetup.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Krita",
+                "https://mirror.twds.com.tw/kde/stable/krita/5.2.9/krita-x64-5.2.9-setup.exe",
+                "img/png/Krita.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "LMMS",
+                "https://objects.githubusercontent.com/github-production-release-asset-2e65be/15778896/bceaac00-be3d-11ea-9a55-0b2b3f3add6d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20250614%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250614T004234Z&X-Amz-Expires=300&X-Amz-Signature=7f58d4e45578c1d04d8af60b1c738b3bbf11ab69931845564eb8d61868d2570f&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3Dlmms-1.2.2-win64.exe&response-content-type=application%2Foctet-stream",
+                "img/jpg/LMMS.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Joplin",
+                "https://objects.githubusercontent.com/github-production-release-asset-2e65be/79162682/395bfb2b-7cde-42c6-b687-b5c277de2c25?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20250614%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250614T004521Z&X-Amz-Expires=300&X-Amz-Signature=76b7c86e0025a16d2834f444fea04ce8b4e143717781a6e487453ce206d886e3&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3DJoplin-Setup-3.3.13.exe&response-content-type=application%2Foctet-stream",
+                "img/png/Joplin.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Sumatra PDF",
+                "https://files2.sumatrapdfreader.org/software/sumatrapdf/rel/3.5.2/SumatraPDF-3.5.2-64-install.exe",
+                "img/ico/Sumatra PDF.ico"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Freeplane",
+                "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.5/Freeplane-Setup-1.12.11.exe.7z",
+                "img/png/Freeplane.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Motrix",
+                "https://dl.motrix.app/release/Motrix-Setup-1.8.19.exe",
+                "img/png/Motrix.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Aria2Explorer",
+                "https://cdn3.zzzmh.cn/v3/crx/1eb83fea34fe418b873e9e048796903f/mpkodccbngfoacfalldjimigbofkhgjn.zip?auth_key=1751644800-ad31ae586097e883b18b066801f9d5b9258cb5a5-0-1310adaee04ec796bc0becdb87f22315",
+                "img/png/Aria2Explorer.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Fufu_Tools",
+                "https://ghproxy.net/https://github.com/DuckDuckStudio/Fufu_Tools/releases/download/v1.3.10/Fufu_Tools.v1.3.10-Extreme_compression.7z",
+                "img/png/Fufu_Tools.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Optimizer",
+                "https://ghproxy.net/https://github.com/hellzerg/optimizer/releases/download/16.7/Optimizer-16.7.exe",
+                "img/png/optimizer.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Rclone",
+                "https://ghproxy.net/https://github.com/rclone/rclone/releases/download/v1.69.3/rclone-v1.69.3-windows-amd64.zip",
+                "img/png/Rclone.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "RIME",
+                "https://objects.githubusercontent.com/github-production-release-asset-2e65be/3777237/08e5cfdc-492c-444a-80b3-f8d8caeb5a2a?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20250614%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250614T012552Z&X-Amz-Expires=300&X-Amz-Signature=9d6c9431a037a9e520d506c917b0286f904a538ee6f95063783939b4c9cf9307&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3Dweasel-0.17.4.0-installer.exe&response-content-type=application%2Foctet-stream",
+                "img/png/RIME.png"));
         }
 
         private FlowLayoutPanel downloadsFlowPanel = new FlowLayoutPanel();
@@ -319,7 +408,7 @@ namespace AppStore
             downloadsFlowPanel = new FlowLayoutPanel();
             downloadsFlowPanel.Dock = DockStyle.Fill;
             downloadsFlowPanel.AutoScroll = true;
-            downloadsFlowPanel.Padding = new Padding(10, 30, 10, 10); // 增加顶部间距
+            downloadsFlowPanel.Padding = new Padding(10, 50, 10, 10); // 增加顶部间距
             downloadsFlowPanel.FlowDirection = FlowDirection.TopDown;
             downloadsFlowPanel.WrapContents = false;
             downloadsFlowPanel.AutoScrollMinSize = new Size(0, 2000); // 增加滑动距离
