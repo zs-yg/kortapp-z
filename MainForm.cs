@@ -419,6 +419,31 @@ namespace AppStore
                 "RIME",
                 "https://objects.githubusercontent.com/github-production-release-asset-2e65be/3777237/08e5cfdc-492c-444a-80b3-f8d8caeb5a2a?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20250614%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250614T012552Z&X-Amz-Expires=300&X-Amz-Signature=9d6c9431a037a9e520d506c917b0286f904a538ee6f95063783939b4c9cf9307&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3Dweasel-0.17.4.0-installer.exe&response-content-type=application%2Foctet-stream",
                 "img/png/RIME.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "PyDebloatX",
+                "https://ghproxy.net/https://github.com/Teraskull/PyDebloatX/releases/download/1.12.0/PyDebloatX_setup.exe",
+                "img/ico/PyDebloatX.ico"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "DropPoint",
+                "https://ghproxy.net/https://github.com/GameGodS3/DropPoint/releases/download/v1.2.1/DropPoint-Setup-1.2.1.exe",
+                "img/png/DropPoint.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Dnest",
+                "https://ghproxy.net/https://github.com/davidkane0526/Dnest/releases/download/V1.3.0/Dnest.exe",
+                "img/png/Dnest.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "lockpass",
+                "https://ghproxy.net/https://github.com/ftyszyx/lockpass/releases/download/v0.0.14/lockpass-0.0.14-win32-x64-setup.exe",
+                "img/png/lockpass.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "WinMerge",
+                "https://downloads.sourceforge.net/winmerge/WinMerge-2.16.48.2-x64-Setup.exe",
+                "img/png/winmerge.png"));
         }
 
         private FlowLayoutPanel downloadsFlowPanel = new FlowLayoutPanel();
