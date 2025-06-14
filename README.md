@@ -1,4 +1,6 @@
-# AppStore - Windows应用商店
+# Kortapp-z - Windows应用商店 --主张软件开源、免费，拒绝广告
+
+小立一个flag：从不接受广告，不停更新
 
 ![应用图标](img/jpg/screenshot.jpg)
 
