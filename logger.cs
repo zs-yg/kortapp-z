@@ -1,14 +1,12 @@
 using System;
 using System.IO;
 using System.Text;
-
 namespace AppStore
 {
     public static class Logger
     {
         private static readonly string LogsDirectory = "logs";
         private static readonly object LockObject = new object();
-
         static Logger()
         {
             // 确保logs目录存在
@@ -17,7 +15,6 @@ namespace AppStore
                 Directory.CreateDirectory(LogsDirectory);
             }
         }
-
         public static void Log(string message)
         {
             lock (LockObject)
@@ -26,7 +23,6 @@ namespace AppStore
                 {
                     string fileName = $"{DateTime.Now:yyyyMMddHHmmss}.log";
                     string filePath = Path.Combine(LogsDirectory, fileName);
-                    
                     using (StreamWriter writer = new StreamWriter(filePath, true, Encoding.UTF8))
                     {
                         writer.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {message}");
@@ -39,7 +35,6 @@ namespace AppStore
                 }
             }
         }
-
         public static void LogError(string message, Exception? ex = null)
         {
             string errorMessage = $"ERROR: {message}";
