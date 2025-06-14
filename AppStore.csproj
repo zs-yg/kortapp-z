@@ -16,10 +16,13 @@
 
   <ItemGroup>
     <None Include="help.txt" />
-    <None Include="resource\aria2c.exe">
+    <None Include="resource\*.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="img\png\WindowsCleaner.png">
+    <None Include="img\png\*.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\jpg\*.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="img\ico\icon.ico">

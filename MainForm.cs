@@ -2,6 +2,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using AppStore;
 
 namespace AppStore
 {
@@ -9,6 +10,7 @@ namespace AppStore
     {
         private Button btnApps = null!;
         private Button btnDownloads = null!;
+        private Button btnSettings = null!;
         private Panel contentPanel = null!;
 
         private void InitializeComponent()
@@ -32,7 +34,11 @@ namespace AppStore
             btnApps.Size = new Size(100, 30);
             btnApps.Location = new Point(20, 10);
             btnApps.Font = new Font("Microsoft YaHei", 9);
-            btnApps.Click += (s, e) => ShowAppsView();
+            btnApps.Click += (s, e) => 
+            {
+                Logger.Log("用户点击了'软件下载'按钮");
+                ShowAppsView();
+            };
             buttonPanel.Controls.Add(btnApps);
             
             // 下载进度按钮
@@ -41,19 +47,44 @@ namespace AppStore
             btnDownloads.Size = new Size(100, 30);
             btnDownloads.Location = new Point(140, 10);
             btnDownloads.Font = new Font("Microsoft YaHei", 9);
-            btnDownloads.Click += (s, e) => ShowDownloadsView();
+            btnDownloads.Click += (s, e) => 
+            {
+                Logger.Log("用户点击了'下载进度'按钮");
+                ShowDownloadsView();
+            };
             buttonPanel.Controls.Add(btnDownloads);
-            
-            this.Controls.Add(buttonPanel);
 
+            // 设置按钮
+            btnSettings = new Button
+            {
+                Text = "设置",
+                Size = new Size(100, 30),
+                Location = new Point(260, 10),
+                Font = new Font("Microsoft YaHei", 9)
+            };
+            btnSettings.Click += (s, e) => 
+            {
+                Logger.Log("用户点击了'设置'按钮");
+                ShowSettingsView();
+            };
+            buttonPanel.Controls.Add(btnSettings);
+            
             // 内容区域
             contentPanel = new Panel();
             contentPanel.Dock = DockStyle.Fill;
-            contentPanel.Padding = new Padding(10); // 减少内边距
+            contentPanel.Padding = new Padding(10);
             this.Controls.Add(contentPanel);
+
+            this.Controls.Add(buttonPanel);
 
             // 默认显示软件下载视图
             ShowAppsView();
+        }
+
+        private void ShowSettingsView()
+        {
+            var settingsForm = new SettingsForm();
+            settingsForm.ShowDialog();
         }
 
         private AppCard CreateAppCard(string appName, string downloadUrl, string iconPath)
@@ -65,10 +96,12 @@ namespace AppStore
             try
             {
                 card.AppIcon = Image.FromFile(iconPath);
+                Logger.Log($"成功创建应用卡片: {appName}, 图标路径: {iconPath}");
             }
-            catch
+            catch (Exception ex)
             {
                 card.AppIcon = SystemIcons.Application.ToBitmap();
+                Logger.LogError($"创建应用卡片时加载图标失败: {appName}, 使用默认图标", ex);
             }
             
             card.UpdateDisplay();
@@ -393,6 +426,7 @@ namespace AppStore
 
         public MainForm()
         {
+            Logger.Log("应用程序启动");
             InitializeComponent();
             // 订阅下载管理器事件
             DownloadManager.Instance.DownloadAdded += OnDownloadAdded;
@@ -429,6 +463,7 @@ namespace AppStore
                 return;
             }
 
+            Logger.Log($"添加新下载任务: {item.FileName}");
             downloadItems.Add(item);
             downloadsFlowPanel?.Controls.Add(item);
         }
@@ -441,6 +476,7 @@ namespace AppStore
                 return;
             }
 
+            Logger.Log($"下载进度更新: {item.FileName}, 进度: {item.Progress}%");
             item.UpdateDisplay();
         }
 
@@ -452,6 +488,7 @@ namespace AppStore
                 return;
             }
 
+            Logger.Log($"下载完成: {item.FileName}, 状态: {item.Status}");
             item.UpdateDisplay();
         }
     }
