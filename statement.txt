@@ -1,0 +1,68 @@
+WindowsCleaner: https://ghproxy.net/https://github.com/darkmatter2048/WindowsCleaner/releases/download/v5.0.8/windowscleaner_v5.0.8_amd64_x64_setup.exe
+openlist: https://ghproxy.net/https://github.com/OpenListTeam/OpenList/releases/download/beta/openlist-windows-amd64.zip
+OpenSpeedy: https://ghproxy.net/https://github.com/game1024/OpenSpeedy/releases/download/v1.7.1/OpenSpeedy-v1.7.1.zip
+QuickLook: https://ghproxy.net/https://github.com/QL-Win/QuickLook/releases/download/4.0.2/QuickLook-4.0.2.exe
+VSCode: https://vscode.download.prss.microsoft.com/dbazure/download/stable/dfaf44141ea9deb3b4096f7cd6d24e00c147a4b1/VSCodeSetup-x64-1.101.0.exe
+Notepad++: https://ghproxy.net/https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.8.1/npp.8.8.1.Installer.exe
+7-Zip: https://objects.githubusercontent.com/github-production-release-asset-2e65be/466446150/1645817e-3677-4207-93ff-e62de7e147be?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20250613T035936Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=5e02d5fc34f45bd8308029c9fc78052007e9475ce0e32775619921cb8f3b83ea&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=attachment%3B%20filename%3D7z2409-x64.exe&amp;response-content-type=application%2Foctet-stream
+7-Zip Lite: https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.1/7-Zip.7z
+GreenShot: https://objects.githubusercontent.com/github-production-release-asset-2e65be/36756917/239aedb0-7d29-11e7-9f9c-d36ec4466ade?X-Amz-Algorithm=AWS4-HMAC-SSHA256&amp;X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20250613T041723Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=be1ef88a68bbc7065af5111809d11de881022933b44f6d961eb6bd6e6b7e60a8&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=attachment%3B%20filename%3DGreenshot-INSTALLER-1.2.10.6-RELEASE.exe&amp;response-content-type=application%2Foctet-stream
+VLC Media Player: https://mirrors.ustc.edu.cn/videolan-ftp/vlc/3.0.21/win64/vlc-3.0.21-win64.exe
+OBS Studio: https://cdn-fastly.obsproject.com/downloads/OBS-Studio-31.0.3-Windows-Installer.exe
+Everything: https://www.voidtools.com/Everything-1.4.1.1027.x64-Setup.exe
+Everything Lite: https://www.voidtools.com/Everything-1.4.1.1027.x64.Lite-Setup.exe
+Pinta: https://ghproxy.net/https://github.com/PintaProject/Pinta/releases/download/3.0.1/pinta-3.0.1.zip
+ShareX: https://ghproxy.net/https://github.com/ShareX/ShareX/releases/download/v17.1.0/ShareX-17.1.0-setup.exe
+LosslessCut: https://ghproxy.net/https://github.com/mifi/lossless-cut/releases/download/v3.64.0/LosslessCut-win-x64.7z
+Edge: https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/cb21e6b5-3f63-4df2-bec3-a2015b80dc56/MicrosoftEdgeEnterpriseX64.msi
+Firefox: https://download-ssl.firefox.com.cn/releases-sha2/full/116.0/zh-CN/Firefox-full-latest-win64.exe
+Msys2: https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe
+Mem Reduct: https://memreduct.org/files/memreduct-3.5.2-setup.exe
+LibreOffice: https://mirrors.cloud.tencent.com/libreoffice/libreoffice/stable/24.8.6/win/x86_64/LibreOffice_24.8.6_Win_x86-64.msi
+CherryStudio: https://file-cdn.gitcode.com/5007375/releases/untagger_fa019f33ee3b413db46d9329625a2fdf/Cherry-Studio-1.4.2-x64-setup.signed.exe?auth_key=1749794532-8fe6a6851ae34764bb94ea340cd34724-0-84f8c3bb7ca7abe033b03fc07bac78b97e1c9b2863dedb89e5b89ea236205bc0
+GeekUninstaller: https://geekuninstaller.com/geek.zip
+aria2: https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.2/aria2c.7z
+Git: https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.2/Git-2.49.0-64-bit.exe.7z
+BleachBit: https://download.bleachbit.org/BleachBit-5.0.0-setup.exe
+WinDirStat: https://objects.githubusercontent.com/github-production-release-asset-2e65be/55435293/ec421a5f-c893-4eb3-a75f-53791d7290dd?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20250613T063808Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=c21542e5c607a37dfa9e49d3fd9098b8717eaaaf04782d7f8d3a73ef9501c1a9&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=attachment%3B%20filename%3DWinDirStat-x64.msi&amp;response-content-type=application%2Foctet-stream
+HandBrake: https://objects.githubusercontent.com/github-production-release-asset-2e65be/41215835/5cfe9f3c-b233-4ec1-a3db-84a374cbdd7d?X-Amz-Algorithm=AWS4-HMAC-SSHA256&amp;X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20250613T064143Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=896229c1c4668f0560f6c9ac38fbd22b04f15241717357e7c4d83ed97c65cf0d&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=attachment%3B%20filename%3DHandBrake-1.9.2-x86_64-Win_GUI.exe&amp;response-content-type=application%2Foctet-stream
+Catime: https://ghproxy.net/https://github.com/vladelaina/Catime/releases/download/v1.1.1/catime_1.1.1.exe
+fluxy: https://ghproxy.net/https://github.com/alley-rs/fluxy/releases/download/v0.1.17/fluxy_0.1.17_x64-setup.exe
+vnote: https://ghproxy.net/https://github.com/vnotex/vnote/releases/download/v3.19.2/VNote-3.19.2-win64.zip
+PowerToys: https://ghproxy.net/https://github.com/microsoft/PowerToys/releases/download/v0.91.1/PowerToysSetup-0.91.1-x64.exe
+terminal: https://ghproxy.net/https://github.com/microsoft/terminal/releases/download/v1.22.11141.0/Microsoft.WindowsTerminal_1.22.11141.0_x64.zip
+typescript: https://ghproxy.net/https://github.com/microsoft/TypeScript/releases/download/v5.8.3/typescript-5.8.3.tgz
+peazip: https://ghproxy.net/https://github.com/peazip/PeaZip/releases/download/10.4.0/peazip-10.4.0.WIN64.exe
+Gimp: https://mirror.nju.edu.cn/gimp/gimp/v3.0/windows/gimp-3.0.4-setup.exe
+Shotcut: https://sourceforge.net/projects/shotcut/files/v25.05.11/shotcut-win64-250511.exe/download
+Audacity: https://muse-cdn.com/Audacity_Installer_via_MuseHub.exe
+KeePass: https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.3/KeePass-2.58-Setup.exe
+Thunderbird: https://download-installer.cdn.mozilla.net/pub/thunderbird/releases/139.0.2/win64/zh-CN/Thunderbird%20Setup%20139.0.2.exe
+Dism++: https://ghproxy.net/https://github.com/Chuyu-Team/Dism-Multi-language/releases/download/v10.1.1002.2/Dism++10.1.1002.1B.zip
+LANDrop: https://releases.landrop.app/landrop-v2-electron/LANDrop-2.7.2-win-x64-setup.exe
+jarkViewer: https://ghproxy.net/https://github.com/jark006/jarkViewer/releases/download/v1.24/jarkViewer.exe
+CopyQ: https://ghproxy.net/https://github.com/hluk/CopyQ/releases/download/v10.0.0/copyq-10.0.0-setup.exe
+Bulk Crap Uninstaller: https://ghproxy.net/https://github.com/Klocman/Bulk-Crap-Uninstaller/releases/download/v5.8.3/BCUninstaller_5.8.3_setup.exe
+Local Send: https://d.localsend.org/LocalSend-1.17.0-windows-x86-64.exe
+Lively Wallpaper: https://ghproxy.net/github.com/rocksdanister/lively/releases/download/v2.1.0.8/lively_setup_x86_full_v2108.exe
+inno setup_Zh-CN: https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.4/InnoSetup-6.4.3_zh_setup.exe.7z
+Krita: https://mirror.twds.com.tw/kde/stable/krita/5.2.9/krita-x64-5.2.9-setup.exe
+LMMS: https://objects.githubusercontent.com/github-production-release-asset-2e65be/15778896/bceaac00-be3d-11ea-9a55-0b2b3f3add6d?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=releaseassetproduction%2F20250614%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20250614T004234Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=7f58d4e45578c1d04d8af60b1c738b3bbf11ab69931845564eb8d61868d2570f&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=attachment%3B%20filename%3Dlmms-1.2.2-win64.exe&amp;response-content-type=application%2Foctet-stream
+Joplin: https://objects.githubusercontent.com/github-production-release-asset-2e65be/79162682/395bfb2b-7cde-42c6-b687-b5c277de2c25?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=releaseassetproduction%2F20250614%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20250614T004521Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=76b7c86e0025a16d2834f444fea04ce8b4e143717781a6e487453ce206d886e3&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=attachment%3B%20filename%3DJoplin-Setup-3.3.13.exe&amp;response-content-type=application%2Foctet-stream
+Sumatra PDF: https://files2.sumatrapdfreader.org/software/sumatrapdf/rel/3.5.2/SumatraPDF-3.5.2-64-install.exe
+Freeplane: https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.5/Freeplane-Setup-1.12.11.exe.7z
+Motrix: https://dl.motrix.app/release/Motrix-Setup-1.8.19.exe
+Aria2Explorer: https://cdn3.zzzmh.cn/v3/crx/1eb83fea34fe418b873e9e048796903f/mpkodccbngfoacfalldjimigbofkhgjn.zip?auth_key=1751644800-ad31ae586097e883b18b066801f9d5b9258cb5a5-0-1310adaee04ec796bc0becdb87f22315
+Fufu_Tools: https://ghproxy.net/https://github.com/DuckDuckStudio/Fufu_Tools/releases/download/v1.3.10/Fufu_Tools.v1.3.10-Extreme_compression.7z
+Optimizer: https://ghproxy.net/https://github.com/hellzerg/optimizer/releases/download/16.7/Optimizer-16.7.exe
+Rclone: https://ghproxy.net/https://github.com/rclone/rclone/releases/download/v1.69.3/rclone-v1.69.3-windows-amd64.zip
+RIME: https://objects.githubusercontent.com/github-production-release-asset-2e65be/3777237/08e5cfdc-492c-444a-80b3-f8d8caeb5a2a?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=releaseassetproduction%2F20250614%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20250614T012552Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=9d6c9431a037a9e520d506c917b0286f904a538ee6f95063783939b4c9cf9307&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=attachment%3B%20filename%3Dweasel-0.17.4.0-installer.exe&amp;response-content-type=application%2Foctet-stream
+PyDebloatX: https://ghproxy.net/https://github.com/Teraskull/PyDebloatX/releases/download/1.12.0/PyDebloatX_setup.exe
+DropPoint: https://ghproxy.net/https://github.com/GameGodS3/DropPoint/releases/download/v1.2.1/DropPoint-Setup-1.2.1.exe
+Dnest: https://ghproxy.net/https://github.com/davidkane0526/Dnest/releases/download/V1.3.0/Dnest.exe
+lockpass: https://ghproxy.net/https://github.com/ftyszyx/lockpass/releases/download/v0.0.14/lockpass-0.0.14-win32-x64-setup.exe
+WinMerge: https://downloads.sourceforge.net/winmerge/WinMerge-2.16.48.2-x64-Setup.exe
+Keypirinha: https://ghproxy.net/https://github.com/Keypirinha/Keypirinha/releases/download/v2.26/keypirinha-2.26-x64-portable.7z
+FileBrowser: https://ghproxy.net/https://github.com/filebrowser/filebrowser/releases/download/v2.32.0/windows-amd64-filebrowser.zip
+Cloudreve: https://ghproxy.net/https://github.com/cloudreve/cloudreve/releases/download/3.8.3/cloudreve_3.8.3_windows_amd64.zip
+SeelenUI: https://ghproxy.net/https://github.com/eythaann/Seelen-UI/releases/download/v2.3.8/Seelen.UI_2.3.8_x64-setup.exe
