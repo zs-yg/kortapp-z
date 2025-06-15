@@ -6,57 +6,77 @@ using AppStore;
 
 namespace AppStore
 {
+    /// <summary>
+    /// 主窗体类，负责应用程序的主界面显示和交互
+    /// </summary>
     public class MainForm : Form
     {
+        // 软件下载按钮
         private Button btnApps = null!;
+        // 下载进度按钮
         private Button btnDownloads = null!;
+        // 设置按钮
         private Button btnSettings = null!;
+        // 内容显示面板
         private Panel contentPanel = null!;
 
+        /// <summary>
+        /// 初始化窗体组件
+        /// </summary>
         private void InitializeComponent()
         {
+            // 设置窗体基本属性
             // 窗体基本设置
             this.Text = "kortapp-z";
             this.Size = new Size(1430, 1050); // 增加窗体高度
             this.MinimumSize = new Size(600, 600); // 设置最小尺寸
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.Icon = new Icon("img/ico/icon.ico");
+            this.Icon = new Icon("img/ico/icon.ico"); // 设置窗体图标
 
             // 顶部按钮面板
+            // 创建顶部按钮面板
             Panel buttonPanel = new Panel();
-            buttonPanel.Dock = DockStyle.Top;
-            buttonPanel.Height = 60;
-            buttonPanel.BackColor = Color.LightGray;
+            buttonPanel.Dock = DockStyle.Top; // 停靠在顶部
+            buttonPanel.Height = 60; // 设置高度
+            buttonPanel.BackColor = Color.LightGray; // 设置背景色
             
             // 软件下载按钮
+            // 初始化软件下载按钮
+            // 初始化软件下载按钮
             btnApps = new Button();
-            btnApps.Text = "软件下载";
-            btnApps.Size = new Size(100, 30);
-            btnApps.Location = new Point(20, 10);
-            btnApps.Font = new Font("Microsoft YaHei", 9);
-            btnApps.Click += (s, e) => 
+            btnApps.Text = "软件下载"; // 设置按钮文本
+            btnApps.Size = new Size(100, 30); // 设置按钮大小(宽度,高度)
+            btnApps.Location = new Point(20, 10); // 设置按钮位置(X坐标,Y坐标)
+            btnApps.Font = new Font("Microsoft YaHei", 9); // 设置字体(字体名称,字号)
+            btnApps.Click += (s, e) =>  // 按钮点击事件处理器
             {
+                // 点击后显示软件下载视图
                 Logger.Log("用户点击了'软件下载'按钮");
                 ShowAppsView();
             };
             buttonPanel.Controls.Add(btnApps);
             
             // 下载进度按钮
+            // 初始化下载进度按钮
+            // 初始化下载进度按钮
             btnDownloads = new Button();
-            btnDownloads.Text = "下载进度";
-            btnDownloads.Size = new Size(100, 30);
-            btnDownloads.Location = new Point(140, 10);
-            btnDownloads.Font = new Font("Microsoft YaHei", 9);
-            btnDownloads.Click += (s, e) => 
+            btnDownloads.Text = "下载进度"; // 设置按钮文本
+            btnDownloads.Size = new Size(100, 30); // 设置按钮大小(宽度,高度)
+            btnDownloads.Location = new Point(140, 10); // 设置按钮位置(X坐标,Y坐标)
+            btnDownloads.Font = new Font("Microsoft YaHei", 9); // 设置字体(字体名称,字号)
+            btnDownloads.Click += (s, e) =>  // 按钮点击事件处理器
             {
+                // 点击后显示下载进度视图
                 Logger.Log("用户点击了'下载进度'按钮");
                 ShowDownloadsView();
             };
             buttonPanel.Controls.Add(btnDownloads);
 
             // 设置按钮
+            // 初始化设置按钮
             btnSettings = new Button
             {
+                // 设置按钮属性
                 Text = "设置",
                 Size = new Size(100, 30),
                 Location = new Point(260, 10),
@@ -64,16 +84,19 @@ namespace AppStore
             };
             btnSettings.Click += (s, e) => 
             {
+                // 点击后显示设置窗口
                 Logger.Log("用户点击了'设置'按钮");
                 ShowSettingsView();
             };
             buttonPanel.Controls.Add(btnSettings);
             
             // 内容区域
+            // 初始化内容面板
+            // 初始化内容显示面板
             contentPanel = new Panel();
-            contentPanel.Dock = DockStyle.Fill;
-            contentPanel.Padding = new Padding(10);
-            this.Controls.Add(contentPanel);
+            contentPanel.Dock = DockStyle.Fill; // 设置停靠方式为填充剩余空间
+            contentPanel.Padding = new Padding(10); // 设置内边距为10像素
+            this.Controls.Add(contentPanel); // 将面板添加到主窗体
 
             this.Controls.Add(buttonPanel);
 
@@ -81,30 +104,55 @@ namespace AppStore
             ShowAppsView();
         }
 
+        /// <summary>
+        /// 显示设置窗口
+        /// </summary>
         private void ShowSettingsView()
         {
             var settingsForm = new SettingsForm();
-            settingsForm.ShowDialog();
+            settingsForm.ShowDialog(); // 以模态对话框形式显示设置窗口
         }
 
+        /// <summary>
+        /// 创建应用卡片
+        /// </summary>
+        /// <param name="appName">应用名称</param>
+        /// <param name="downloadUrl">下载URL</param>
+        /// <param name="iconPath">图标路径</param>
+        /// <returns>创建好的应用卡片</returns>
+        /// <summary>
+        /// 创建应用卡片控件
+        /// </summary>
+        /// <param name="appName">应用名称</param>
+        /// <param name="downloadUrl">应用下载地址</param>
+        /// <param name="iconPath">应用图标路径</param>
+        /// <returns>创建完成的应用卡片对象</returns>
         private AppCard CreateAppCard(string appName, string downloadUrl, string iconPath)
         {
+            // 创建新的应用卡片实例
             AppCard card = new AppCard();
-            card.AppName = appName;
-            card.DownloadUrl = downloadUrl;
+            
+            // 设置卡片基本属性
+            card.AppName = appName; // 设置显示的应用名称
+            card.DownloadUrl = downloadUrl; // 设置下载链接地址
             
             try
             {
+                // 尝试从指定路径加载应用图标
                 card.AppIcon = Image.FromFile(iconPath);
                 Logger.Log($"成功创建应用卡片: {appName}, 图标路径: {iconPath}");
             }
             catch (Exception ex)
             {
+                // 图标加载失败时使用系统默认图标
                 card.AppIcon = SystemIcons.Application.ToBitmap();
                 Logger.LogError($"创建应用卡片时加载图标失败: {appName}, 使用默认图标", ex);
             }
             
-            card.UpdateDisplay();
+            // 更新卡片UI显示
+            card.UpdateDisplay(); 
+            
+            // 返回创建完成的应用卡片
             return card;
         }
 
@@ -131,9 +179,9 @@ namespace AppStore
                 "img/png/WindowsCleaner.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
-                "Alist",
-                "https://ghproxy.net/https://github.com/AlistGo/alist/releases/download/v3.45.0/alist-windows-amd64.zip",
-                "img/png/alist.png"));
+                "openlist",
+                "https://ghproxy.net/https://github.com/OpenListTeam/OpenList/releases/download/beta/openlist-windows-amd64.zip",
+                "img/png/openlist.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "OpenSpeedy",
@@ -444,77 +492,111 @@ namespace AppStore
                 "WinMerge",
                 "https://downloads.sourceforge.net/winmerge/WinMerge-2.16.48.2-x64-Setup.exe",
                 "img/png/winmerge.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Keypirinha",
+                "https://ghproxy.net/https://github.com/Keypirinha/Keypirinha/releases/download/v2.26/keypirinha-2.26-x64-portable.7z",
+                "img/png/Keypirinha.png"));
+            
+            flowPanel.Controls.Add(CreateAppCard(
+                "FileBrowser",
+                "https://ghproxy.net/https://github.com/filebrowser/filebrowser/releases/download/v2.32.0/windows-amd64-filebrowser.zip",
+                "img/png/FileBrowser.png"));
         }
 
         private FlowLayoutPanel downloadsFlowPanel = new FlowLayoutPanel();
         private List<DownloadItem> downloadItems = new List<DownloadItem>();
 
+        /// <summary>
+        /// 主窗体构造函数
+        /// </summary>
         public MainForm()
         {
-            Logger.Log("应用程序启动");
+            Logger.Log("应用程序启动"); // 记录启动日志
+            
+            // 初始化窗体组件
             InitializeComponent();
+            
             // 订阅下载管理器事件
-            DownloadManager.Instance.DownloadAdded += OnDownloadAdded;
-            DownloadManager.Instance.DownloadProgressChanged += OnDownloadProgressChanged;
-            DownloadManager.Instance.DownloadCompleted += OnDownloadCompleted;
+            DownloadManager.Instance.DownloadAdded += OnDownloadAdded; // 下载添加事件
+            DownloadManager.Instance.DownloadProgressChanged += OnDownloadProgressChanged; // 下载进度变化事件
+            DownloadManager.Instance.DownloadCompleted += OnDownloadCompleted; // 下载完成事件
         }
 
+        /// <summary>
+        /// 显示下载视图
+        /// </summary>
         private void ShowDownloadsView()
         {
-            contentPanel.Controls.Clear();
+            contentPanel.Controls.Clear(); // 清空内容面板
 
-            // 使用FlowLayoutPanel组织下载项
+            // 初始化下载项容器面板
             downloadsFlowPanel = new FlowLayoutPanel();
-            downloadsFlowPanel.Dock = DockStyle.Fill;
-            downloadsFlowPanel.AutoScroll = true;
-            downloadsFlowPanel.Padding = new Padding(10, 50, 10, 10); // 增加顶部间距
-            downloadsFlowPanel.FlowDirection = FlowDirection.TopDown;
-            downloadsFlowPanel.WrapContents = false;
-            downloadsFlowPanel.AutoScrollMinSize = new Size(0, 2000); // 增加滑动距离
-            contentPanel.Controls.Add(downloadsFlowPanel);
+            downloadsFlowPanel.Dock = DockStyle.Fill; // 填充整个内容区域
+            downloadsFlowPanel.AutoScroll = true; // 启用自动滚动
+            downloadsFlowPanel.Padding = new Padding(10, 50, 10, 10); // 设置内边距(增加顶部间距)
+            downloadsFlowPanel.FlowDirection = FlowDirection.TopDown; // 垂直排列下载项
+            downloadsFlowPanel.WrapContents = false; // 禁止换行
+            downloadsFlowPanel.AutoScrollMinSize = new Size(0, 2000); // 设置最小滚动区域
+            contentPanel.Controls.Add(downloadsFlowPanel); // 添加到内容面板
 
-            // 显示所有下载项
+            // 加载并显示所有下载项
             foreach (var item in DownloadManager.Instance.DownloadItems)
             {
-                downloadsFlowPanel.Controls.Add(item);
+                downloadsFlowPanel.Controls.Add(item); // 添加下载项到面板
             }
         }
 
+        /// <summary>
+        /// 处理下载添加事件
+        /// </summary>
+        /// <param name="item">新添加的下载项</param>
         private void OnDownloadAdded(DownloadItem item)
         {
+            // 检查是否需要跨线程调用
             if (InvokeRequired)
             {
                 Invoke(new Action<DownloadItem>(OnDownloadAdded), item);
                 return;
             }
 
-            Logger.Log($"添加新下载任务: {item.FileName}");
-            downloadItems.Add(item);
-            downloadsFlowPanel?.Controls.Add(item);
+            Logger.Log($"添加新下载任务: {item.FileName}"); // 记录日志
+            downloadItems.Add(item); // 添加到下载项列表
+            downloadsFlowPanel?.Controls.Add(item); // 添加到下载面板显示
         }
 
+        /// <summary>
+        /// 处理下载进度更新事件
+        /// </summary>
+        /// <param name="item">进度更新的下载项</param>
         private void OnDownloadProgressChanged(DownloadItem item)
         {
+            // 检查是否需要跨线程调用
             if (InvokeRequired)
             {
                 Invoke(new Action<DownloadItem>(OnDownloadProgressChanged), item);
                 return;
             }
 
-            Logger.Log($"下载进度更新: {item.FileName}, 进度: {item.Progress}%");
-            item.UpdateDisplay();
+            Logger.Log($"下载进度更新: {item.FileName}, 进度: {item.Progress}%"); // 记录日志
+            item.UpdateDisplay(); // 更新UI显示
         }
 
+        /// <summary>
+        /// 处理下载完成事件
+        /// </summary>
+        /// <param name="item">完成的下载项</param>
         private void OnDownloadCompleted(DownloadItem item)
         {
+            // 检查是否需要跨线程调用
             if (InvokeRequired)
             {
                 Invoke(new Action<DownloadItem>(OnDownloadCompleted), item);
                 return;
             }
 
-            Logger.Log($"下载完成: {item.FileName}, 状态: {item.Status}");
-            item.UpdateDisplay();
+            Logger.Log($"下载完成: {item.FileName}, 状态: {item.Status}"); // 记录日志
+            item.UpdateDisplay(); // 更新UI显示
         }
     }
 }
