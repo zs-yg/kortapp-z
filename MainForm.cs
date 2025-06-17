@@ -33,72 +33,84 @@ namespace AppStore
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Icon = new Icon("img/ico/icon.ico"); // 设置窗体图标
 
-            // 顶部按钮面板
-            // 创建顶部按钮面板
+            // 现代化顶部导航栏
             Panel buttonPanel = new Panel();
-            buttonPanel.Dock = DockStyle.Top; // 停靠在顶部
-            buttonPanel.Height = 60; // 设置高度
-            buttonPanel.BackColor = Color.LightGray; // 设置背景色
+            buttonPanel.Dock = DockStyle.Top;
+            buttonPanel.Height = 70;
+            buttonPanel.BackColor = Color.FromArgb(240, 240, 240);
+            buttonPanel.Padding = new Padding(10, 15, 10, 0);
             
+            // 导航按钮样式
+            Action<Button> styleButton = (Button btn) => {
+                btn.FlatStyle = FlatStyle.Flat;
+                btn.FlatAppearance.BorderSize = 0;
+                btn.BackColor = Color.Transparent;
+                btn.ForeColor = Color.FromArgb(64, 64, 64);
+                btn.Font = new Font("Microsoft YaHei", 10, FontStyle.Regular);
+                btn.Size = new Size(120, 40);
+                btn.Cursor = Cursors.Hand;
+                
+                // 悬停效果
+                btn.MouseEnter += (s, e) => {
+                    btn.ForeColor = Color.FromArgb(0, 120, 215);
+                    btn.Font = new Font(btn.Font, FontStyle.Bold);
+                };
+                
+                btn.MouseLeave += (s, e) => {
+                    btn.ForeColor = Color.FromArgb(64, 64, 64);
+                    btn.Font = new Font(btn.Font, FontStyle.Regular);
+                };
+            };
+
             // 软件下载按钮
-            // 初始化软件下载按钮
-            // 初始化软件下载按钮
             btnApps = new Button();
-            btnApps.Text = "软件下载"; // 设置按钮文本
-            btnApps.Size = new Size(100, 30); // 设置按钮大小(宽度,高度)
-            btnApps.Location = new Point(20, 10); // 设置按钮位置(X坐标,Y坐标)
-            btnApps.Font = new Font("Microsoft YaHei", 9); // 设置字体(字体名称,字号)
-            btnApps.Click += (s, e) =>  // 按钮点击事件处理器
-            {
-                // 点击后显示软件下载视图
+            btnApps.Text = "软件下载";
+            btnApps.Location = new Point(30, 0);
+            styleButton(btnApps);
+            btnApps.Click += (s, e) => {
                 Logger.Log("用户点击了'软件下载'按钮");
                 ShowAppsView();
             };
             buttonPanel.Controls.Add(btnApps);
             
             // 下载进度按钮
-            // 初始化下载进度按钮
-            // 初始化下载进度按钮
             btnDownloads = new Button();
-            btnDownloads.Text = "下载进度"; // 设置按钮文本
-            btnDownloads.Size = new Size(100, 30); // 设置按钮大小(宽度,高度)
-            btnDownloads.Location = new Point(140, 10); // 设置按钮位置(X坐标,Y坐标)
-            btnDownloads.Font = new Font("Microsoft YaHei", 9); // 设置字体(字体名称,字号)
-            btnDownloads.Click += (s, e) =>  // 按钮点击事件处理器
-            {
-                // 点击后显示下载进度视图
+            btnDownloads.Text = "下载进度";
+            btnDownloads.Location = new Point(170, 0);
+            styleButton(btnDownloads);
+            btnDownloads.Click += (s, e) => {
                 Logger.Log("用户点击了'下载进度'按钮");
                 ShowDownloadsView();
             };
             buttonPanel.Controls.Add(btnDownloads);
 
             // 设置按钮
-            // 初始化设置按钮
-            btnSettings = new Button
-            {
-                // 设置按钮属性
-                Text = "设置",
-                Size = new Size(100, 30),
-                Location = new Point(260, 10),
-                Font = new Font("Microsoft YaHei", 9)
-            };
-            btnSettings.Click += (s, e) => 
-            {
-                // 点击后显示设置窗口
+            btnSettings = new Button();
+            btnSettings.Text = "设置";
+            btnSettings.Location = new Point(310, 0);
+            styleButton(btnSettings);
+            btnSettings.Click += (s, e) => {
                 Logger.Log("用户点击了'设置'按钮");
                 ShowSettingsView();
             };
             buttonPanel.Controls.Add(btnSettings);
             
-            // 内容区域
-            // 初始化内容面板
-            // 初始化内容显示面板
+            // 现代化内容区域
             contentPanel = new Panel();
-            contentPanel.Dock = DockStyle.Fill; // 设置停靠方式为填充剩余空间
-            contentPanel.Padding = new Padding(10); // 设置内边距为10像素
-            this.Controls.Add(contentPanel); // 将面板添加到主窗体
+            contentPanel.Dock = DockStyle.Fill;
+            contentPanel.BackColor = Color.White;
+            contentPanel.Padding = new Padding(20);
+            this.Controls.Add(contentPanel);
+
+            // 添加分隔线
+            Panel separator = new Panel();
+            separator.Dock = DockStyle.Top;
+            separator.Height = 1;
+            separator.BackColor = Color.FromArgb(230, 230, 230);
+            contentPanel.Controls.Add(separator);
 
             this.Controls.Add(buttonPanel);
+            this.BackColor = Color.White;
 
             // 默认显示软件下载视图
             ShowAppsView();
@@ -169,15 +181,17 @@ namespace AppStore
             flowPanel.Margin = new Padding(0);
             flowPanel.AutoSize = true;
             flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            flowPanel.AutoScrollMinSize = new Size(0, 2000); // 增加滑动距离
+            flowPanel.AutoScrollMinSize = new Size(0, 999999); // 增加滑动距离
             contentPanel.Controls.Add(flowPanel);
 
             // 添加所有应用卡片
-            flowPanel.Controls.Add(CreateAppCard(
-                "WindowsCleaner",
-                "https://ghproxy.net/https://github.com/darkmatter2048/WindowsCleaner/releases/download/v5.0.8/windowscleaner_v5.0.8_amd64_x64_setup.exe",
-                "img/png/WindowsCleaner.png"));
+            
 
+            flowPanel.Controls.Add(CreateAppCard(
+                "python3.8",
+                "https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64.exe",
+                "img/png/python.png"));
+                
             flowPanel.Controls.Add(CreateAppCard(
                 "openlist",
                 "https://ghproxy.net/https://github.com/OpenListTeam/OpenList/releases/download/beta/openlist-windows-amd64.zip",
@@ -197,11 +211,6 @@ namespace AppStore
                 "VSCode",
                 "https://vscode.download.prss.microsoft.com/dbazure/download/stable/dfaf44141ea9deb3b4096f7cd6d24e00c147a4b1/VSCodeSetup-x64-1.101.0.exe",
                 "img/png/vscode.png"));
-
-            flowPanel.Controls.Add(CreateAppCard(
-                "Notepad++",
-                "https://ghproxy.net/https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.8.1/npp.8.8.1.Installer.exe",
-                "img/png/notepad++.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "7-Zip",
@@ -252,6 +261,11 @@ namespace AppStore
                 "LosslessCut",
                 "https://ghproxy.net/https://github.com/mifi/lossless-cut/releases/download/v3.64.0/LosslessCut-win-x64.7z",
                 "img/png/LosslessCut.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "mingw-64",
+                "https://ghproxy.net/https://github.com/niXman/mingw-builds-binaries/releases/download/15.1.0-rt_v12-rev0/x86_64-15.1.0-release-posix-seh-ucrt-rt_v12-rev0.7z",
+                "img/png/mingw-64.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Edge",
@@ -502,6 +516,86 @@ namespace AppStore
                 "FileBrowser",
                 "https://ghproxy.net/https://github.com/filebrowser/filebrowser/releases/download/v2.32.0/windows-amd64-filebrowser.zip",
                 "img/png/FileBrowser.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Cloudreve",
+                "https://ghproxy.net/https://github.com/cloudreve/cloudreve/releases/download/3.8.3/cloudreve_3.8.3_windows_amd64.zip",
+                "img/png/cloudreve.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "SeelenUI",
+                "https://ghproxy.net/https://github.com/eythaann/Seelen-UI/releases/download/v2.3.8/Seelen.UI_2.3.8_x64-setup.exe",
+                "img/png/SeelenUI.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "git汉化包",
+                "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.6/zh_cn.msg",
+                ""));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "everything便携版",
+                "https://www.voidtools.com/Everything-1.4.1.1027.x64.zip",
+                "img/jpg/everything.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "BongoCat",
+                "https://ghproxy.net/https://github.com/ayangweb/BongoCat/releases/download/v0.5.0/BongoCat_0.5.0_x64-setup.exe",
+                "img/png/BongoCat.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "GalaceanEngine(code)",
+                "https://ghproxy.net/https://github.com/galacean/engine/archive/refs/tags/v1.5.7.zip",
+                "img/png/GalaceanEngine.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "trivy",
+                "https://ghproxy.net/https://github.com/aquasecurity/trivy/releases/download/v0.63.0/trivy_0.63.0_windows-64bit.zip",
+                "img/png/trivy.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "daytona(code)",
+                "https://ghproxy.net/https://github.com/aquasecurity/trivy/releases/download/v0.63.0/trivy_0.63.0_windows-64bit.zip",
+                "img/png/daytona.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "HowToCook",
+                "https://ghproxy.net/https://github.com/Anduin2017/HowToCook/archive/refs/tags/1.5.0.zip",
+                ""));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "code-server",
+                "https://ghproxy.net/https://github.com/coder/code-server/archive/refs/tags/v4.100.3.zip",
+                "img/png/code-server.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "yt-dlp",
+                "https://ghproxy.net/https://github.com/yt-dlp/yt-dlp/releases/download/2025.06.09/yt-dlp_win.zip",
+                "img/png/yt-dlp.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "omi(code)",
+                "https://ghproxy.net/https://github.com/Tencent/omi/archive/refs/tags/v7.7.0.zip",
+                "img/png/omi.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Maxun(code)",
+                "https://ghproxy.net/https://github.com/getmaxun/maxun/archive/refs/tags/v0.0.16.zip",
+                "img/png/Maxun.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "n8n(code)",
+                "https://ghproxy.net/https://github.com/n8n-io/n8n/archive/refs/tags/n8n@1.97.1.zip",
+                "img/png/n8n.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "WechatRealFriends",
+                "https://ghproxy.net/https://github.com/StrayMeteor3337/WechatRealFriends/releases/download/v1.0.4/WechatRealFriends_1.0.4.zip",
+                "img/jpg/wx.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "glance",
+                "https://ghproxy.net/https://github.com/glanceapp/glance/releases/download/v0.8.4/glance-windows-amd64.zip",
+                "img/png/glance.png"));
         }
 
         private FlowLayoutPanel downloadsFlowPanel = new FlowLayoutPanel();

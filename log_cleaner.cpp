@@ -1,14 +1,18 @@
 #include <iostream>
 #include <filesystem>
 #include <chrono>
+
 namespace fs = std::filesystem;
+
 int main() {
     try {
         auto start = std::chrono::high_resolution_clock::now();
+        
         // 定义日志目录路径
         fs::path logDir = "logs";
         size_t deletedCount = 0;
         size_t errorCount = 0;
+
         // 检查目录是否存在
         if (fs::exists(logDir) && fs::is_directory(logDir)) {
             // 遍历并删除所有日志文件
@@ -27,15 +31,19 @@ int main() {
             std::cout << "日志目录不存在，无需清理" << std::endl;
             return 0;
         }
+
         auto end = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
         std::cout << "日志清理完成: " << std::endl;
         std::cout << "删除文件数: " << deletedCount << std::endl;
         std::cout << "错误数: " << errorCount << std::endl;
         std::cout << "耗时: " << duration.count() << " 毫秒" << std::endl;
+
     } catch (const std::exception& e) {
         std::cerr << "发生错误: " << e.what() << std::endl;
         return 1;
     }
+
     return 0;
 }
