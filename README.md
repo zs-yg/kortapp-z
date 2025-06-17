@@ -16,7 +16,7 @@
 
 ## 项目简介
 
-![image](https://github.com/user-attachments/assets/7c8e9b82-c5f8-4bfc-a63d-091e1ba8bdb0)
+![image](https://github.com/user-attachments/assets/54237abe-b159-4e8c-8953-31cab4044949)
 
 一个简单的Windows应用商店应用，提供软件下载和管理功能。
 
