@@ -16,7 +16,7 @@
 
 ## 项目简介
 
-![image]([[https://github.com/user-attachments/assets/721c63bb-44aa-444b-9c92-bdf1b919374e](https://gitee.com/chr_super/kortapp-z/raw/master/img/pngimage.png](https://gitee.com/chr_super/kortapp-z/raw/master/img/pngimage.png)))
+![image](https://gitee.com/chr_super/kortapp-z/raw/master/img/pngimage.png)
 
 一个简单的Windows应用商店应用，提供软件下载和管理功能。
 
