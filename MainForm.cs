@@ -17,6 +17,8 @@ namespace AppStore
         private Button btnDownloads = null!;
         // 设置按钮
         private Button btnSettings = null!;
+        // 关于按钮
+        private Button btnAbout = null!;
         // 内容显示面板
         private Panel contentPanel = null!;
 
@@ -94,6 +96,18 @@ namespace AppStore
                 ShowSettingsView();
             };
             buttonPanel.Controls.Add(btnSettings);
+            
+            // 关于按钮
+            btnAbout = new Button();
+            btnAbout.Text = "关于";
+            btnAbout.Location = new Point(450, 0);
+            styleButton(btnAbout);
+            btnAbout.Click += (s, e) => {
+                Logger.Log("用户点击了'关于'按钮");
+                var aboutForm = new AboutForm();
+                aboutForm.ShowDialog();
+            };
+            buttonPanel.Controls.Add(btnAbout);
             
             // 现代化内容区域
             contentPanel = new Panel();
@@ -596,6 +610,36 @@ namespace AppStore
                 "glance",
                 "https://ghproxy.net/https://github.com/glanceapp/glance/releases/download/v0.8.4/glance-windows-amd64.zip",
                 "img/png/glance.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "openark",
+                "https://ghproxy.net/https://github.com/BlackINT3/OpenArk/releases/download/v1.3.8/OpenArk64.exe",
+                "img/png/openark.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "SSM",
+                "https://ghproxy.net/https://github.com/AlexanderPro/SmartSystemMenu/releases/download/v2.31.0/SmartSystemMenu_v2.31.0.zip",
+                "img/png/SSM.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Ditto",
+                "https://ghproxy.net/https://github.com/sabrogden/Ditto/releases/download/3.24.246.0/DittoSetup_64bit_3_24_246_0.exe",
+                "img/png/Ditto.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "XDM",
+                "https://github.com/subhra74/xdm/releases/download/7.2.11/xdm-setup.msi",
+                "img/png/XDM.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "FDM",
+                "https://files2.freedownloadmanager.org/6/latest/fdm_x64_setup.exe",
+                "img/png/FDM.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "ABDM",
+                "https://ghproxy.net/https://github.com/amir1376/ab-download-manager/releases/download/v1.6.4/ABDownloadManager_1.6.4_windows_x64.exe",
+                "img/png/ABDM.png"));
         }
 
         private FlowLayoutPanel downloadsFlowPanel = new FlowLayoutPanel();
