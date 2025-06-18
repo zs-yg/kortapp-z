@@ -80,6 +80,10 @@ MIT License
 
 Copyright (c) 2025 kortapp-z项目组
 
+## 其他网站
+
+gitee镜像仓库:https://gitee.com/chr_super/kortapp-z
+
 ## 维护
 
 每一个人都可以通过PR添加属于自己的合法软件
