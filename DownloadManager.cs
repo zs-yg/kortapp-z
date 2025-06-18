@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -9,6 +10,16 @@ namespace AppStore
 {
     public class DownloadManager
     {
+
+
+        [DllImport("shell32.dll")]
+        private static extern int SHGetKnownFolderPath(
+            [MarshalAs(UnmanagedType.LPStruct)] Guid rfid,
+            uint dwFlags,
+            IntPtr hToken,
+            out IntPtr ppszPath);
+
+
         private static DownloadManager instance = null!;
         public static DownloadManager Instance => instance ??= new DownloadManager();
 
@@ -77,10 +88,35 @@ namespace AppStore
             try
             {
                 // 设置下载目录为用户文件夹中的Downloads
-                var downloadsDir = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), 
-                    "Downloads");
+                // 获取系统下载文件夹路径
+                // 获取系统下载文件夹路径
+                string downloadsDir;
+                IntPtr pathPtr = IntPtr.Zero;
+                try
+                {
+                    // 使用SHGetKnownFolderPath API获取下载文件夹
+                    var downloadsFolderGuid = new Guid("374DE290-123F-4565-9164-39C4925E467B");
+                    if (SHGetKnownFolderPath(downloadsFolderGuid, 0, IntPtr.Zero, out pathPtr) != 0)
+                    {
+                        throw new Exception("无法获取下载文件夹路径");
+                    }
+                    
+                    downloadsDir = Marshal.PtrToStringUni(pathPtr);
+                }
+                catch 
+                {
+                    throw new Exception("无法确定下载文件夹位置，请手动指定下载路径");
+                }
+                finally
+                {
+                    if (pathPtr != IntPtr.Zero)
+                    {
+                        Marshal.FreeCoTaskMem(pathPtr);
+                    }
+                }
                 Directory.CreateDirectory(downloadsDir);
+                
+
 
                 // 构建aria2c路径
                 var aria2cPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "resource", "aria2c.exe");
@@ -95,7 +131,7 @@ namespace AppStore
                 var uri = new Uri(url);
                 var originalFileName = Path.GetFileName(uri.LocalPath);
                 var arguments = $"--out=\"{originalFileName}\" --dir=\"{downloadsDir}\" --split=16 --max-connection-per-server=16 {url}";
-                Console.WriteLine($"下载目录: {downloadsDir}");
+
 
                 currentProcess = new Process
                 {
@@ -134,7 +170,7 @@ namespace AppStore
                 {
                     if (!string.IsNullOrEmpty(e.Data))
                     {
-                        Console.WriteLine($"输出: {e.Data}");
+
                         
                         // 重置超时计时器
                         progressTimer.Stop();
@@ -147,7 +183,7 @@ namespace AppStore
                                 .Split('(')[0].Trim();
                             if (long.TryParse(sizeStr, out totalSize))
                             {
-                                Console.WriteLine($"检测到文件总大小: {totalSize} bytes");
+
                             }
                         }
                         
@@ -175,7 +211,7 @@ namespace AppStore
                 {
                     if (!string.IsNullOrEmpty(e.Data))
                     {
-                        Console.WriteLine($"错误: {e.Data}");
+
                         downloadItem.Status = $"错误: {e.Data}";
                         DownloadProgressChanged?.Invoke(downloadItem);
                     }
@@ -202,11 +238,11 @@ namespace AppStore
                             
                         if (File.Exists(downloadPath))
                         {
-                            Console.WriteLine($"文件下载完成: {downloadPath}");
+
                         }
                         else
                         {
-                            Console.WriteLine("警告: 下载完成但文件不存在");
+
                         }
                         
                         // 触发界面更新
@@ -221,21 +257,20 @@ namespace AppStore
                             {
                                 var mainForm = Application.OpenForms[0];
                                 mainForm.Invoke((MethodInvoker)delegate {
-                                    MessageBox.Show(mainForm, 
-                                        $"文件 {downloadItem.FileName} 已成功下载到：\n{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", downloadItem.FileName)}", 
-                                        "下载完成", 
-                                        MessageBoxButtons.OK, 
-                                        MessageBoxIcon.Information);
+                            MessageBox.Show(mainForm, 
+                                $"文件 {downloadItem.FileName} 已成功下载到：\n{Path.Combine(downloadsDir, downloadItem.FileName)}", 
+                                "下载完成", 
+                                MessageBoxButtons.OK, 
+                                MessageBoxIcon.Information);
                                 });
                             }
                             else
                             {
-                                Console.WriteLine("下载完成提示：无法找到主窗体");
+
                             }
                         }
-                        catch (Exception ex)
+                        catch 
                         {
-                            Console.WriteLine($"显示下载完成提示时出错：{ex}");
                         }
                     }
                     else
@@ -263,8 +298,7 @@ namespace AppStore
                     downloadItem.UpdateDisplay();
                 };
 
-                Console.WriteLine($"启动aria2c: {aria2cPath}");
-                Console.WriteLine($"参数: {arguments}");
+
 
                 if (!currentProcess.Start())
                 {
@@ -278,8 +312,8 @@ namespace AppStore
             catch (Exception ex)
             {
                 downloadItem.Status = $"下载错误: {ex.Message}";
-                Console.WriteLine($"下载错误: {ex}");
                 DownloadCompleted?.Invoke(downloadItem);
+
             }
         }
 
@@ -304,7 +338,6 @@ namespace AppStore
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"取消下载时出错: {ex}");
                 item.Status = $"取消失败: {ex.Message}";
                 DownloadProgressChanged?.Invoke(item);
             }
