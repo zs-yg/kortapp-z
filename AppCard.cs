@@ -23,9 +23,14 @@ namespace AppStore
 
         public AppCard()
         {
-            iconBox = new PictureBox();
-            nameLabel = new Label();
-            downloadBtn = new Button();
+            // 确保关键对象不为null
+            iconBox = new PictureBox() { SizeMode = PictureBoxSizeMode.StretchImage };
+            nameLabel = new Label() { Text = string.Empty };
+            downloadBtn = new Button() { Text = "下载" };
+            
+            // 确保DownloadManager已初始化
+            var _ = DownloadManager.Instance;
+            
             InitializeComponent();
         }
 
@@ -241,25 +246,64 @@ namespace AppStore
                 }
             }
 
-            // 应用计算好的路径
-            if (path != null)
+            // 应用计算好的路径 - 更严格的null检查和异常处理
+            try 
             {
-                this.Invoke((MethodInvoker)delegate {
-                    this.Region = new Region(path); // 设置控件区域
-                    this.Refresh(); // 重绘控件
-                });
+                var safePath = path ?? CalculatePathFallback(Width, Height, 10);
+                // 更严格的null检查，包括路径和控件状态
+                if (safePath != null && 
+                    safePath.PointCount > 0 && 
+                    this.IsHandleCreated &&
+                    !this.IsDisposed)
+                {
+                    this.Invoke((MethodInvoker)delegate {
+                        try 
+                        {
+                            // 委托内部再次验证safePath
+                            if (safePath != null && safePath.PointCount > 0)
+                            {
+                                var validPath = safePath; // 确保非null
+                                using (var region = new Region(validPath))
+                                {
+                                    this.Region = region;
+                                    this.Refresh();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"创建Region失败: {ex.Message}");
+                            this.Region = null;
+                            this.Refresh();
+                        }
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"初始化卡片路径失败: {ex.Message}");
             }
         }
 
         private System.Drawing.Drawing2D.GraphicsPath CalculatePathFallback(int width, int height, int radius)
         {
-            var path = new System.Drawing.Drawing2D.GraphicsPath();
-            path.AddArc(0, 0, radius * 2, radius * 2, 180, 90);
-            path.AddArc(width - radius * 2, 0, radius * 2, radius * 2, 270, 90);
-            path.AddArc(width - radius * 2, height - radius * 2, radius * 2, radius * 2, 0, 90);
-            path.AddArc(0, height - radius * 2, radius * 2, radius * 2, 90, 90);
-            path.CloseFigure();
-            return path;
+            try 
+            {
+                var path = new System.Drawing.Drawing2D.GraphicsPath();
+                path.AddArc(0, 0, radius * 2, radius * 2, 180, 90);
+                path.AddArc(width - radius * 2, 0, radius * 2, radius * 2, 270, 90);
+                path.AddArc(width - radius * 2, height - radius * 2, radius * 2, radius * 2, 0, 90);
+                path.AddArc(0, height - radius * 2, radius * 2, radius * 2, 90, 90);
+                path.CloseFigure();
+                return path;
+            }
+            catch
+            {
+                // 绝对回退方案 - 返回最小有效路径
+                var path = new System.Drawing.Drawing2D.GraphicsPath();
+                path.AddRectangle(new Rectangle(0, 0, width, height));
+                return path;
+            }
         }
 
         public void UpdateDisplay()
@@ -270,19 +314,39 @@ namespace AppStore
 
         private void DownloadBtn_Click(object sender, EventArgs e)
         {
-            if (sender == null || e == null) return;
-            if (!string.IsNullOrEmpty(DownloadUrl))
+            try
             {
-                try
+                // 更严格的null检查
+                // 更严格的null检查，包括DownloadManager.Instance和其方法
+                // 全面的null和状态检查
+                if (sender == null || e == null || 
+                    string.IsNullOrWhiteSpace(DownloadUrl) || 
+                    string.IsNullOrWhiteSpace(AppName) ||
+                    !this.IsHandleCreated ||
+                    this.IsDisposed ||
+                    DownloadManager.Instance == null ||
+                    DownloadManager.Instance.DownloadItems == null ||
+                    DownloadManager.Instance.StartDownload == null)
                 {
-                    string fileName = $"{AppName.Replace(" ", "_")}.exe";
-                    DownloadManager.Instance.StartDownload(fileName, DownloadUrl);
-                    MessageBox.Show($"已开始下载: {AppName}", "下载中", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"下载失败: {ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+
+                string safeAppName = AppName ?? "未知应用";
+                string fileName = $"{safeAppName.Replace(" ", "_")}.exe";
+                
+                DownloadManager.Instance.StartDownload(fileName, DownloadUrl);
+                
+                string message = $"已开始下载: {safeAppName}";
+                this.Invoke((MethodInvoker)delegate {
+                    MessageBox.Show(this, message, "下载中", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"下载按钮点击处理失败: {ex.Message}");
+                this.Invoke((MethodInvoker)delegate {
+                    MessageBox.Show(this, "下载处理发生错误", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                });
             }
         }
     }

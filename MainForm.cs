@@ -202,10 +202,85 @@ namespace AppStore
             
 
             flowPanel.Controls.Add(CreateAppCard(
+                "XDM",
+                "https://github.com/subhra74/xdm/releases/download/7.2.11/xdm-setup.msi",
+                "img/png/XDM.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "FDM",
+                "https://files2.freedownloadmanager.org/6/latest/fdm_x64_setup.exe",
+                "img/png/FDM.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "ABDM",
+                "https://ghproxy.net/https://github.com/amir1376/ab-download-manager/releases/download/v1.6.4/ABDownloadManager_1.6.4_windows_x64.exe",
+                "img/png/ABDM.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 "python3.8",
                 "https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64.exe",
                 "img/png/python.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Oracle Java8",
+                "https://sdlc-esd.oracle.com/ESD6/JSCDL/jdk/8u451-b10/8a1589aa0fe24566b4337beee47c2d29/jre-8u451-windows-x64.exe?GroupName=JSC&FilePath=/ESD6/JSCDL/jdk/8u451-b10/8a1589aa0fe24566b4337beee47c2d29/jre-8u451-windows-x64.exe&BHost=javadl.sun.com&File=jre-8u451-windows-x64.exe&AuthParam=1750252610_4d0f61835e3392b8f0158398fd5ebd90&ext=.exe",
+                "img/png/java.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Rust",
+                "https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe",
+                "img/png/rust.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Ruby",
+                "https://mirror.sjtu.edu.cn/github-release/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.4.4-2/rubyinstaller-devkit-3.4.4-2-x64.exe",
+                "img/png/ruby.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "D",
+                "https://downloads.dlang.org/releases/2.x/2.111.0/dmd-2.111.0.exe",
+                "img/jpg/D.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Go",
+                "https://golang.google.cn/dl/go1.24.4.windows-amd64.msi",
+                "img/png/Go.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Node.js",
+                "https://nodejs.org/dist/v22.16.0/node-v22.16.0-x64.msi",
+                "img/png/nodejs.png"));
                 
+            flowPanel.Controls.Add(CreateAppCard(
+                "mingw-64",
+                "https://ghproxy.net/https://github.com/niXman/mingw-builds-binaries/releases/download/15.1.0-rt_v12-rev0/x86_64-15.1.0-release-posix-seh-ucrt-rt_v12-rev0.7z",
+                "img/png/mingw-64.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Msys2",
+                "https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe",
+                "img/png/MSYS2.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                ".NET SDK 8.0",
+                "https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.411-windows-x64-installer",
+                "img/png/.NET.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "ASP.NET Core 运行时 8.0",
+                "https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-aspnetcore-8.0.17-windows-x64-installer",
+                "img/png/.NET.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                ".NET 桌面运行时 8.0",
+                "https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-desktop-8.0.17-windows-x64-installer",
+                "img/png/.NET.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                ".NET 运行时 8.0",
+                "https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-8.0.17-windows-x64-installer",
+                "img/png/.NET.png"));
+            
             flowPanel.Controls.Add(CreateAppCard(
                 "openlist",
                 "https://ghproxy.net/https://github.com/OpenListTeam/OpenList/releases/download/beta/openlist-windows-amd64.zip",
@@ -227,6 +302,11 @@ namespace AppStore
                 "img/png/vscode.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "vs community 2022",
+                "https://visualstudio.microsoft.com/zh-hans/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false",
+                "img/jpg/vs.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 "7-Zip",
                 "https://objects.githubusercontent.com/github-production-release-asset-2e65be/466446150/1645817e-3677-4207-93ff-e62de7e147be?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250613T035936Z&X-Amz-Expires=300&X-Amz-Signature=5e02d5fc34f45bd8308029c9fc78052007e9475ce0e32775619921cb8f3b83ea&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D7z2409-x64.exe&response-content-type=application%2Foctet-stream",
                 "img/png/7ziplogo.png"));
@@ -235,6 +315,11 @@ namespace AppStore
                 "7-Zip Lite",
                 "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.1/7-Zip.7z",
                 "img/png/7ziplogo.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "peazip",
+                "https://ghproxy.net/https://github.com/peazip/PeaZip/releases/download/10.4.0/peazip-10.4.0.WIN64.exe",
+                "img/jpg/peazip.jpg"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "GreenShot",
@@ -277,24 +362,24 @@ namespace AppStore
                 "img/png/LosslessCut.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
-                "mingw-64",
-                "https://ghproxy.net/https://github.com/niXman/mingw-builds-binaries/releases/download/15.1.0-rt_v12-rev0/x86_64-15.1.0-release-posix-seh-ucrt-rt_v12-rev0.7z",
-                "img/png/mingw-64.png"));
-
-            flowPanel.Controls.Add(CreateAppCard(
                 "Edge",
                 "https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/cb21e6b5-3f63-4df2-bec3-a2015b80dc56/MicrosoftEdgeEnterpriseX64.msi",
                 "img/jpg/edge.jpg"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "Min",
+                "https://ghproxy.net/https://github.com/minbrowser/min/releases/download/v1.35.0/min-1.35.0-setup.exe",
+                "img/jpg/Min.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Brave",
+                "https://ghproxy.net/https://github.com/brave/brave-browser/releases/download/v1.79.126/BraveBrowserSetup.exe",
+                "img/png/brave.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 "Firefox",
                 "https://download-ssl.firefox.com.cn/releases-sha2/full/116.0/zh-CN/Firefox-full-latest-win64.exe",
                 "img/jpg/firefox.jpg"));
-
-            flowPanel.Controls.Add(CreateAppCard(
-                "Msys2",
-                "https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe",
-                "img/png/MSYS2.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Mem Reduct",
@@ -370,11 +455,6 @@ namespace AppStore
                 "typescript",
                 "https://ghproxy.net/https://github.com/microsoft/TypeScript/releases/download/v5.8.3/typescript-5.8.3.tgz",
                 ""));
-
-            flowPanel.Controls.Add(CreateAppCard(
-                "peazip",
-                "https://ghproxy.net/https://github.com/peazip/PeaZip/releases/download/10.4.0/peazip-10.4.0.WIN64.exe",
-                "img/jpg/peazip.jpg"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Gimp",
@@ -625,21 +705,6 @@ namespace AppStore
                 "Ditto",
                 "https://ghproxy.net/https://github.com/sabrogden/Ditto/releases/download/3.24.246.0/DittoSetup_64bit_3_24_246_0.exe",
                 "img/png/Ditto.png"));
-
-            flowPanel.Controls.Add(CreateAppCard(
-                "XDM",
-                "https://github.com/subhra74/xdm/releases/download/7.2.11/xdm-setup.msi",
-                "img/png/XDM.png"));
-
-            flowPanel.Controls.Add(CreateAppCard(
-                "FDM",
-                "https://files2.freedownloadmanager.org/6/latest/fdm_x64_setup.exe",
-                "img/png/FDM.png"));
-
-            flowPanel.Controls.Add(CreateAppCard(
-                "ABDM",
-                "https://ghproxy.net/https://github.com/amir1376/ab-download-manager/releases/download/v1.6.4/ABDownloadManager_1.6.4_windows_x64.exe",
-                "img/png/ABDM.png"));
         }
 
         private FlowLayoutPanel downloadsFlowPanel = new FlowLayoutPanel();
