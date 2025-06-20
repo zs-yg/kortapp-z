@@ -104,8 +104,7 @@ namespace AppStore
             styleButton(btnAbout);
             btnAbout.Click += (s, e) => {
                 Logger.Log("用户点击了'关于'按钮");
-                var aboutForm = new AboutForm();
-                aboutForm.ShowDialog();
+                ShowAboutView();
             };
             buttonPanel.Controls.Add(btnAbout);
             
@@ -135,8 +134,16 @@ namespace AppStore
         /// </summary>
         private void ShowSettingsView()
         {
-            var settingsForm = new SettingsForm();
-            settingsForm.ShowDialog(); // 以模态对话框形式显示设置窗口
+            contentPanel.Controls.Clear();
+            var settingsControl = new SettingsUserControl();
+            contentPanel.Controls.Add(settingsControl);
+        }
+
+        private void ShowAboutView()
+        {
+            contentPanel.Controls.Clear();
+            var aboutControl = new AboutUserControl();
+            contentPanel.Controls.Add(aboutControl);
         }
 
         /// <summary>
@@ -215,6 +222,11 @@ namespace AppStore
                 "ABDM",
                 "https://ghproxy.net/https://github.com/amir1376/ab-download-manager/releases/download/v1.6.4/ABDownloadManager_1.6.4_windows_x64.exe",
                 "img/png/ABDM.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "NDM",
+                "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.7/NeatDM_setup.exe",
+                "img/jpg/NDM.jpg"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "python3.8",
@@ -305,6 +317,11 @@ namespace AppStore
                 "vs community 2022",
                 "https://visualstudio.microsoft.com/zh-hans/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false",
                 "img/jpg/vs.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "VSCodium",
+                "https://visualstudio.microsoft.com/zh-hans/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false",
+                "img/png/codium_cnl.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "7-Zip",

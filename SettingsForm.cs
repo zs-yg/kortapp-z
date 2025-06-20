@@ -5,21 +5,24 @@ using System.Windows.Forms;
 
 namespace AppStore
 {
-    public class SettingsForm : Form
+    public class SettingsUserControl : UserControl
     {
         private Button btnCleanLogs;
 
-        public SettingsForm()
+        public SettingsUserControl()
         {
-            this.Text = "设置";
-            this.Size = new Size(400, 300);
-            this.StartPosition = FormStartPosition.CenterParent;
-
+            this.Dock = DockStyle.Fill;
+            this.BackColor = Color.White;
+            
+            // 设置顶部内边距
+            this.Padding = new Padding(0, 30, 0, 0);
+            
             btnCleanLogs = new Button();
             btnCleanLogs.Text = "清理日志";
             btnCleanLogs.Size = new Size(150, 40);
-            btnCleanLogs.Location = new Point(120, 100);
+            btnCleanLogs.Location = new Point((this.Width - 150) / 2, 50); // 调整Y坐标为50靠近顶部
             btnCleanLogs.Font = new Font("Microsoft YaHei", 10);
+            btnCleanLogs.Anchor = AnchorStyles.Top; // 添加顶部锚点
             btnCleanLogs.Click += (s, e) => CleanLogs();
             this.Controls.Add(btnCleanLogs);
         }
