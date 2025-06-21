@@ -9,7 +9,23 @@ int main() {
         auto start = std::chrono::high_resolution_clock::now();
         
         // 定义日志目录路径
-        fs::path logDir = "logs";
+        fs::path logDir;
+        
+        #ifdef _WIN32
+            // Windows系统获取AppData路径
+            char* appData = nullptr;
+            size_t len = 0;
+            if (_dupenv_s(&appData, &len, "APPDATA") == 0 && appData != nullptr) {
+                logDir = fs::path(appData) / "zsyg" / "kortapp-z" / ".logs";
+                free(appData);
+            } else {
+                std::cerr << "无法获取APPDATA环境变量" << std::endl;
+                return 1;
+            }
+        #else
+            // 非Windows系统使用默认路径
+            logDir = fs::path(getenv("HOME")) / ".zsyg" / "kortapp-z" / ".logs";
+        #endif
         size_t deletedCount = 0;
         size_t errorCount = 0;
 

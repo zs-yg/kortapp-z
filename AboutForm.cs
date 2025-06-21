@@ -50,16 +50,75 @@ namespace AppStore
 
             // 初始化并添加应用信息
             infoLabel = new Label();
-            infoLabel.Text = "kortapp-z\n版本: 0.9.8\n一个简单、开源的应用商店\nkortapp-z是完全免费的基于.NET8和C++的软件";
+            infoLabel.Text = "kortapp-z\n版本: 1.0.0\n作者: zs-yg\n一个简单、开源的应用商店\nkortapp-z是完全免费\n基于.NET8和C++的软件";
             infoLabel.Font = new Font("Microsoft YaHei", 12);
             infoLabel.AutoSize = false;
             infoLabel.Width = 300;
-            infoLabel.Height = 100;
+            infoLabel.Height = 130;  // 增加高度确保文字完整显示
             infoLabel.TextAlign = ContentAlignment.MiddleCenter;
             infoLabel.Anchor = AnchorStyles.None;
             mainLayout.Controls.Add(infoLabel, 0, 1);
 
+            // 调整主布局为3行
+            mainLayout.RowCount = 3;
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+
+            // 在底部添加GitHub链接区域
+            TableLayoutPanel githubPanel = new TableLayoutPanel();
+            githubPanel.Dock = DockStyle.Bottom;
+            githubPanel.Height = 60;
+            githubPanel.ColumnCount = 3;
+            githubPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            githubPanel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            githubPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            githubPanel.RowCount = 1;
+            githubPanel.Padding = new Padding(10);
+            
+            // 添加GitHub图标
+            PictureBox githubIcon = new PictureBox();
+            try
+            {
+                githubIcon.Image = Image.FromFile("img/jpg/github.jpg");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"无法加载GitHub图标: {ex.Message}");
+                githubIcon.Image = SystemIcons.Application.ToBitmap();
+            }
+            githubIcon.SizeMode = PictureBoxSizeMode.Zoom;
+            githubIcon.Width = 30;
+            githubIcon.Height = 30;
+            githubIcon.Cursor = Cursors.Hand;
+            githubIcon.Click += (s, e) => {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = "https://github.com/zs-yg/kortapp-z",
+                    UseShellExecute = true
+                });
+            };
+            
+            // 添加文字说明
+            Label githubLabel = new Label();
+            githubLabel.Text = "🤗🤗🤗开源地址 🌟 欢迎点star和提交pr 🚀";
+            githubLabel.Font = new Font("Microsoft YaHei", 10);
+            githubLabel.AutoSize = true;
+            githubLabel.Margin = new Padding(10, 0, 0, 0);
+            
+            // 创建包含图标和文字的面板
+            Panel linkPanel = new Panel();
+            linkPanel.AutoSize = true;
+            linkPanel.Controls.Add(githubIcon);
+            linkPanel.Controls.Add(githubLabel);
+            githubIcon.Location = new Point(0, 0);
+            githubLabel.Location = new Point(githubIcon.Width + 10, 5);
+            
+            // 将链接面板添加到中间列
+            githubPanel.Controls.Add(linkPanel, 1, 0);
+            
             this.Controls.Add(mainLayout);
+            this.Controls.Add(githubPanel);
         }
     }
 

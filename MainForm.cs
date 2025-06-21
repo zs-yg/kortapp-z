@@ -2,6 +2,10 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
 using AppStore;
 
 namespace AppStore
@@ -11,6 +15,106 @@ namespace AppStore
     /// </summary>
     public class MainForm : Form
     {
+        private static readonly string CacheDir = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "zsyg", "kortapp-z", ".cache");
+
+        private class AppPositionCache
+        {
+            public string AppName { get; set; } = string.Empty;
+            public int X { get; set; }
+            public int Y { get; set; }
+            public DateTime LastUpdated { get; set; } = DateTime.Now;
+        }
+
+        private static string GetPositionCacheFilePath(string appName)
+        {
+            using var md5 = MD5.Create();
+            var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(appName));
+            var fileName = BitConverter.ToString(hash).Replace("-", "").ToLower() + ".json";
+            return Path.Combine(CacheDir, fileName);
+        }
+
+        private static void EnsureCacheDirectory()
+        {
+            try 
+            {
+                if (!Directory.Exists(CacheDir))
+                {
+                    Directory.CreateDirectory(CacheDir);
+                    Logger.Log($"已创建缓存目录: {CacheDir}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"创建缓存目录失败: {CacheDir}", ex);
+                throw;
+            }
+        }
+
+        private static bool TryReadPositionCache(string appName, out AppPositionCache? cacheData)
+        {
+            cacheData = null;
+            var cacheFile = GetPositionCacheFilePath(appName);
+            
+            if (!File.Exists(cacheFile)) 
+                return false;
+
+            try
+            {
+                var json = File.ReadAllText(cacheFile);
+                cacheData = JsonSerializer.Deserialize<AppPositionCache>(json);
+                return cacheData != null;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private static void WritePositionCache(string appName, Point position)
+        {
+            try
+            {
+                EnsureCacheDirectory();
+                var cacheFile = GetPositionCacheFilePath(appName);
+                
+                var cacheData = new AppPositionCache
+                {
+                    AppName = appName,
+                    X = position.X,
+                    Y = position.Y,
+                    LastUpdated = DateTime.Now
+                };
+
+                var json = JsonSerializer.Serialize(cacheData);
+                File.WriteAllText(cacheFile, json);
+                Logger.Log($"已保存位置缓存: {appName} ({position.X}, {position.Y})");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"保存位置缓存失败: {appName}", ex);
+                throw;
+            }
+        }
+
+        private static bool IsPositionCacheValid(AppPositionCache cacheData)
+        {
+            // 缓存有效期设为7天
+            return (DateTime.Now - cacheData.LastUpdated).TotalDays <= 7;
+        }
+
+        private static void SaveAllCardPositions(FlowLayoutPanel flowPanel)
+        {
+            foreach (Control control in flowPanel.Controls)
+            {
+                if (control is AppCard card)
+                {
+                    WritePositionCache(card.AppName, control.Location);
+                }
+            }
+        }
+
         // 软件下载按钮
         private Button btnApps = null!;
         // 下载进度按钮
@@ -164,10 +268,8 @@ namespace AppStore
         {
             // 创建新的应用卡片实例
             AppCard card = new AppCard();
-            
-            // 设置卡片基本属性
-            card.AppName = appName; // 设置显示的应用名称
-            card.DownloadUrl = downloadUrl; // 设置下载链接地址
+            card.AppName = appName;
+            card.DownloadUrl = downloadUrl;
             
             try
             {
@@ -189,23 +291,61 @@ namespace AppStore
             return card;
         }
 
-        private void ShowAppsView()
+        private async void ShowAppsView()
         {
             contentPanel.Controls.Clear();
 
-            // 使用FlowLayoutPanel来组织应用卡片
+            // 同步创建并添加FlowLayoutPanel
             FlowLayoutPanel flowPanel = new FlowLayoutPanel();
             flowPanel.Dock = DockStyle.Fill;
             flowPanel.AutoScroll = true;
-            flowPanel.Padding = new Padding(15, 50, 15, 15); // 恢复原有内边距
+            flowPanel.Padding = new Padding(15, 50, 15, 15);
             flowPanel.WrapContents = true;
             flowPanel.Margin = new Padding(0);
             flowPanel.AutoSize = true;
             flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            flowPanel.AutoScrollMinSize = new Size(0, 999999); // 增加滑动距离
+            flowPanel.AutoScrollMinSize = new Size(0, 3350);
             contentPanel.Controls.Add(flowPanel);
 
-            // 添加所有应用卡片
+            // 添加窗体关闭事件处理
+            this.FormClosing += (sender, e) => {
+                SaveAllCardPositions(flowPanel);
+            };
+
+            // 确保控件已创建
+            await Task.Delay(100);
+            
+            try
+            {
+                // 异步添加卡片
+                await Task.Run(() => {
+                    if (flowPanel.IsHandleCreated)
+                    {
+                        flowPanel.Invoke((MethodInvoker)delegate {
+                            AddAllAppCards(flowPanel);
+                        });
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("渲染应用卡片时出错", ex);
+            }
+        }
+
+        private void AddAllAppCards(FlowLayoutPanel flowPanel)
+        {
+            flowPanel.Dock = DockStyle.Fill;
+            flowPanel.AutoScroll = true;
+            flowPanel.Padding = new Padding(15, 50, 15, 15);
+            flowPanel.WrapContents = true;
+            flowPanel.Margin = new Padding(0);
+            flowPanel.AutoSize = true;
+            flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            flowPanel.AutoScrollMinSize = new Size(0, 3350);
+            contentPanel.Controls.Add(flowPanel);
+
+            // 添加所有应用卡片并恢复位置
             
 
             flowPanel.Controls.Add(CreateAppCard(
@@ -227,6 +367,11 @@ namespace AppStore
                 "NDM",
                 "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.7/NeatDM_setup.exe",
                 "img/jpg/NDM.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "youtube-dl",
+                "https://ghproxy.net/https://github.com/ytdl-org/youtube-dl/releases/download/2021.12.17/youtube-dl.exe",
+                ""));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "python3.8",
@@ -299,6 +444,11 @@ namespace AppStore
                 "img/png/openlist.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "SpaceSniffer",
+                "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.8/SpaceSniffer.exe",
+                "img/png/SpaceSniffer.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 "OpenSpeedy",
                 "https://ghproxy.net/https://github.com/game1024/OpenSpeedy/releases/download/v1.7.1/OpenSpeedy-v1.7.1.zip",
                 "img/png/openspeedy.png"));
@@ -337,6 +487,11 @@ namespace AppStore
                 "peazip",
                 "https://ghproxy.net/https://github.com/peazip/PeaZip/releases/download/10.4.0/peazip-10.4.0.WIN64.exe",
                 "img/jpg/peazip.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "nanazip",
+                "https://ghproxy.net/https://github.com/M2Team/NanaZip/releases/download/5.0.1263.0/NanaZip_5.0.1263.0_DebugSymbols.zip",
+                "img/png/nanazip.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "GreenShot",

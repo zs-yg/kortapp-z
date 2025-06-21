@@ -1,20 +1,33 @@
 using System;
 using System.IO;
 using System.Text;
+
 namespace AppStore
 {
     public static class Logger
     {
-        private static readonly string LogsDirectory = "logs";
+        private static readonly string LogsDirectory = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "zsyg", "kortapp-z", ".logs");
         private static readonly object LockObject = new object();
+
         static Logger()
         {
-            // 确保logs目录存在
-            if (!Directory.Exists(LogsDirectory))
+            try
             {
-                Directory.CreateDirectory(LogsDirectory);
+                // 确保logs目录存在
+                if (!Directory.Exists(LogsDirectory))
+                {
+                    Directory.CreateDirectory(LogsDirectory);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"无法创建日志目录: {LogsDirectory}, 错误: {ex.Message}");
+                throw;
             }
         }
+
         public static void Log(string message)
         {
             lock (LockObject)
@@ -23,6 +36,7 @@ namespace AppStore
                 {
                     string fileName = $"{DateTime.Now:yyyyMMddHHmmss}.log";
                     string filePath = Path.Combine(LogsDirectory, fileName);
+                    
                     using (StreamWriter writer = new StreamWriter(filePath, true, Encoding.UTF8))
                     {
                         writer.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {message}");
@@ -35,6 +49,7 @@ namespace AppStore
                 }
             }
         }
+
         public static void LogError(string message, Exception? ex = null)
         {
             string errorMessage = $"ERROR: {message}";
