@@ -90,6 +90,8 @@ gitee镜像仓库:https://gitee.com/chr_super/kortapp-z
 
 ## 维护
 
+提示：由于github上传文件的限制，img/png/NET.png，请改名为.NET.png，否则程序可能出现无法预料的问题
+
 每一个人都可以通过PR添加属于自己的合法软件
 
 qq群：
