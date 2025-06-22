@@ -6,6 +6,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using System.Diagnostics;
 using AppStore;
 
 namespace AppStore
@@ -145,6 +146,9 @@ namespace AppStore
             buttonPanel.Height = 70;
             buttonPanel.BackColor = Color.FromArgb(240, 240, 240);
             buttonPanel.Padding = new Padding(10, 15, 10, 0);
+            buttonPanel.AutoScroll = true;
+            buttonPanel.AutoSize = true;
+            buttonPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             
             // 导航按钮样式
             Action<Button> styleButton = (Button btn) => {
@@ -211,6 +215,17 @@ namespace AppStore
                 ShowAboutView();
             };
             buttonPanel.Controls.Add(btnAbout);
+
+            // 内置工具按钮
+            var btnTools = new Button();
+            btnTools.Text = "内置工具";
+            btnTools.Location = new Point(590, 0);
+            styleButton(btnTools);
+            btnTools.Click += (s, e) => {
+                Logger.Log("用户点击了'内置工具'按钮");
+                ShowToolsView();
+            };
+            buttonPanel.Controls.Add(btnTools);
             
             // 现代化内容区域
             contentPanel = new Panel();
@@ -241,6 +256,58 @@ namespace AppStore
             contentPanel.Controls.Clear();
             var settingsControl = new SettingsUserControl();
             contentPanel.Controls.Add(settingsControl);
+        }
+
+        private void ShowToolsView()
+        {
+            try
+            {
+                contentPanel.Controls.Clear();
+                
+                var flowPanel = new FlowLayoutPanel();
+                flowPanel.Dock = DockStyle.Fill;
+                flowPanel.AutoScroll = true;
+                flowPanel.WrapContents = false;
+                flowPanel.FlowDirection = FlowDirection.LeftToRight;
+                contentPanel.Controls.Add(flowPanel);
+
+            // 系统清理卡片
+            var cleanerCard = new ToolCard();
+            cleanerCard.ToolName = "系统清理";
+            
+            try 
+            {
+                cleanerCard.ToolIcon = Image.FromFile("img/resource/png/system_cleaner.png");
+            }
+            catch
+            {
+                cleanerCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+            }
+            
+            cleanerCard.UpdateDisplay();
+            cleanerCard.ToolCardClicked += (s, e) => {
+                    try {
+                        string toolPath = Path.Combine(Application.StartupPath, "resource", "system_cleaner.exe");
+                        if (File.Exists(toolPath)) {
+                            Process.Start(toolPath);
+                        } else {
+                            MessageBox.Show("系统清理工具未找到，请确保已正确安装", "错误", 
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    } catch (Exception ex) {
+                        MessageBox.Show($"启动清理工具失败: {ex.Message}", "错误", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                };
+                flowPanel.Controls.Add(cleanerCard);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("显示内置工具视图时出错", ex);
+                MessageBox.Show("加载内置工具时发生错误，请重试", "错误", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowAppsView(); // 回退到默认视图
+            }
         }
 
         private void ShowAboutView()
@@ -494,9 +561,29 @@ namespace AppStore
                 "img/png/nanazip.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "PCL2",
+                "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.9/Plain.Craft.Launcher.2.exe",
+                "img/jpg/pcl2.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 "GreenShot",
                 "https://objects.githubusercontent.com/github-production-release-asset-2e65be/36756917/239aedb0-7d29-11e7-9f9c-d36ec4466ade?X-Amz-Algorithm=AWS4-HMAC-SSHA256&X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250613T041723Z&X-Amz-Expires=300&X-Amz-Signature=be1ef88a68bbc7065af5111809d11de881022933b44f6d961eb6bd6e6b7e60a8&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3DGreenshot-INSTALLER-1.2.10.6-RELEASE.exe&response-content-type=application%2Foctet-stream",
                 "img/png/greenshot-logo.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "DWMBlurGlass",
+                "https://ghproxy.net/https://github.com/Maplespe/DWMBlurGlass/releases/download/2.3.1r/DWMBlurGlass_2.3.1_x64.zip",
+                "img/png/DWMBlurGlass.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Umi-OCR",
+                "https://ghproxy.net/https://github.com/hiroi-sora/Umi-OCR/releases/download/v2.1.5/Umi-OCR_Paddle_v2.1.5.7z.exe",
+                "img/png/Umi-OCR.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "frp",
+                "https://github.com/fatedier/frp/releases/download/v0.62.1/frp_0.62.1_windows_amd64.zip",
+                ""));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "VLC Media Player", 

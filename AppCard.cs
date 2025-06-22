@@ -20,6 +20,7 @@ namespace AppStore
         public string AppName { get; set; } = string.Empty;
         public Image AppIcon { get; set; } = SystemIcons.Application.ToBitmap();
         public string DownloadUrl { get; set; } = string.Empty;
+        public bool ShowDownloadButton { get; set; } = true;
 
         public AppCard()
         {
@@ -88,6 +89,7 @@ namespace AppStore
             
             downloadBtn.Click += DownloadBtn_Click;
             this.Controls.Add(downloadBtn);
+            downloadBtn.Visible = ShowDownloadButton;
         }
 
         /// <summary>
