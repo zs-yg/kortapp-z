@@ -50,7 +50,7 @@ namespace AppStore
 
             // 初始化并添加应用信息
             infoLabel = new Label();
-            infoLabel.Text = "kortapp-z\n版本: 1.0.3\n作者: zs-yg\n一个简单、开源的应用商店\nkortapp-z是完全免费\n基于.NET8和C++的软件";
+            infoLabel.Text = "kortapp-z\n版本: 1.0.4\n作者: zs-yg\n一个简单、开源的应用商店\nkortapp-z是完全免费\n基于.NET8和C++的软件";
             infoLabel.Font = new Font("Microsoft YaHei", 12);
             infoLabel.AutoSize = false;
             infoLabel.Width = 300;

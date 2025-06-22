@@ -20,6 +20,8 @@ namespace AppStore
             this.Text = "二维码生成器";
             this.Size = new Size(500, 600);
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
         }
 
         private void InitializeComponent()

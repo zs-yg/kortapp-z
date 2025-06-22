@@ -325,6 +325,45 @@ namespace AppStore
                 }
             };
             flowPanel.Controls.Add(qrCard);
+
+            // 图片压缩卡片
+            var imageCompressorCard = new ToolCard();
+            imageCompressorCard.ToolName = "图片压缩";
+            
+            try 
+            {
+                string iconPath = Path.Combine(Application.StartupPath, "img", "resource", "png","ImageCompressor.png");
+                if (File.Exists(iconPath))
+                {
+                    imageCompressorCard.ToolIcon = Image.FromFile(iconPath);
+                }
+                else
+                {
+                    imageCompressorCard.ToolIcon = SystemIcons.Application.ToBitmap();
+                }
+            }
+            catch
+            {
+                imageCompressorCard.ToolIcon = SystemIcons.Application.ToBitmap();
+            }
+            
+            imageCompressorCard.UpdateDisplay();
+            imageCompressorCard.ToolCardClicked += (s, e) => {
+                try {
+                    string toolPath = Path.Combine(Application.StartupPath, "resource", "image_compressor.exe");
+                    if (File.Exists(toolPath)) {
+                        var form = new ImageCompressorForm();
+                        form.ShowDialog();
+                    } else {
+                        MessageBox.Show("图片压缩工具未找到，请确保已正确安装", "错误", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                } catch (Exception ex) {
+                    MessageBox.Show($"启动图片压缩工具失败: {ex.Message}", "错误", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+            flowPanel.Controls.Add(imageCompressorCard);
             }
             catch (Exception ex)
             {
@@ -697,7 +736,7 @@ namespace AppStore
                 "https://download-ssl.firefox.com.cn/releases-sha2/full/116.0/zh-CN/Firefox-full-latest-win64.exe",
                 "img/jpg/firefox.jpg"));
 	
-	//这应该是为数不多的国产软件了
+	        //这应该是为数不多的国产软件了
             flowPanel.Controls.Add(CreateAppCard(
                 "星愿浏览器",
                 "https://d1.twinkstar.com/win/Twinkstar_v10.7.1000.2505_Release.exe",
