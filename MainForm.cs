@@ -300,6 +300,31 @@ namespace AppStore
                     }
                 };
                 flowPanel.Controls.Add(cleanerCard);
+
+            // 二维码生成卡片
+            var qrCard = new ToolCard();
+            qrCard.ToolName = "二维码生成";
+            
+            try 
+            {
+                qrCard.ToolIcon = Image.FromFile("img/resource/png/QRcode.png");
+            }
+            catch
+            {
+                qrCard.ToolIcon = SystemIcons.Application.ToBitmap();
+            }
+            
+            qrCard.UpdateDisplay();
+            qrCard.ToolCardClicked += (s, e) => {
+                try {
+                    var qrForm = new QrCodeGeneratorForm();
+                    qrForm.ShowDialog();
+                } catch (Exception ex) {
+                    MessageBox.Show($"启动二维码生成工具失败: {ex.Message}", "错误", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+            flowPanel.Controls.Add(qrCard);
             }
             catch (Exception ex)
             {
@@ -362,11 +387,43 @@ namespace AppStore
         {
             contentPanel.Controls.Clear();
 
-            // 同步创建并添加FlowLayoutPanel
+            // 创建应用卡片面板
             FlowLayoutPanel flowPanel = new FlowLayoutPanel();
             flowPanel.Dock = DockStyle.Fill;
             flowPanel.AutoScroll = true;
-            flowPanel.Padding = new Padding(15, 50, 15, 15);
+            flowPanel.Padding = new Padding(15, 15, 15, 15);
+            flowPanel.WrapContents = true;
+            flowPanel.Margin = new Padding(0);
+            flowPanel.AutoSize = true;
+            flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            flowPanel.AutoScrollMinSize = new Size(0, 3350);
+
+            // 创建搜索框
+            TextBox searchBox = new TextBox();
+            searchBox.Width = 300;
+            searchBox.Height = 32;
+            searchBox.Font = new Font("Microsoft YaHei", 10);
+            searchBox.PlaceholderText = "搜索应用...";
+            searchBox.BorderStyle = BorderStyle.FixedSingle;
+            searchBox.BackColor = Color.White;
+            searchBox.ForeColor = Color.FromArgb(64, 64, 64);
+            searchBox.Location = new Point((contentPanel.Width - searchBox.Width) / 2, 20);
+
+            // 响应窗体大小变化
+            contentPanel.Resize += (s, e) => {
+                searchBox.Location = new Point((contentPanel.Width - searchBox.Width) / 2, 20);
+            };
+
+            // 搜索框事件
+            searchBox.TextChanged += (s, e) => {
+                AppSearch.SearchApps(flowPanel, searchBox.Text);
+            };
+
+            contentPanel.Controls.Add(searchBox);
+            contentPanel.Controls.Add(flowPanel);
+            flowPanel.Dock = DockStyle.Fill;
+            flowPanel.AutoScroll = true;
+            flowPanel.Padding = new Padding(15, 60, 15, 15);
             flowPanel.WrapContents = true;
             flowPanel.Margin = new Padding(0);
             flowPanel.AutoSize = true;
@@ -639,6 +696,12 @@ namespace AppStore
                 "Firefox",
                 "https://download-ssl.firefox.com.cn/releases-sha2/full/116.0/zh-CN/Firefox-full-latest-win64.exe",
                 "img/jpg/firefox.jpg"));
+	
+	//这应该是为数不多的国产软件了
+            flowPanel.Controls.Add(CreateAppCard(
+                "星愿浏览器",
+                "https://d1.twinkstar.com/win/Twinkstar_v10.7.1000.2505_Release.exe",
+                "img/jpg/Twinkstar.jpg"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Mem Reduct",
