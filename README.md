@@ -16,13 +16,8 @@
 
 ## 项目简介
 
-![image](https://gitee.com/chr_super/kortapp-z/raw/master/img/pngimage.png)
-
-这个图片可能有点问题，因为它是gitee仓库中的图片
-这是为了加快图片渲染速度，但是它好像只能渲染一半，在gitee是正常的
-这个我没什么办法了
-
 一个简单的Windows应用商店应用，提供软件下载和管理功能。
+提供软件管理、下载管理、内置工具使用等功能
 
 ## 功能特点
 
