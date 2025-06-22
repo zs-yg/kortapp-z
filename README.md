@@ -56,7 +56,7 @@ bin\Release\net8.0-windows\[platform]\publish
 ## 项目结构
 
 ```
-AppStore/
+kortapp-z/
 ├── MainForm.cs          # 主窗体逻辑
 ├── DownloadManager.cs   # 下载管理
 ├── AppCard.cs           # 应用卡片控件
@@ -77,11 +77,11 @@ AppStore/
 
 MIT License
 
-Copyright (c) 2025 kortapp-z项目组
+Copyright (c) 2025 zsyg
 
 ## 其他网站
 
-gitee镜像仓库:https://gitee.com/chr_super/kortapp-z
+gitee镜像仓库:https://gitee.com/chr_super/kortapp-z(目前已经停止维护)
 
 ## 维护
 
