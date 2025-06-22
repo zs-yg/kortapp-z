@@ -86,6 +86,8 @@ gitee镜像仓库:https://gitee.com/chr_super/kortapp-z(目前已经停止维护
 
 ## 维护
 
+由于gitee我没怎么用，而且操作麻烦，gitee镜像将不会继续同步，有懂得人可以帮我搞下镜像吗，qq： 3872006562，也可以b站直接私信，我会在readme中鸣谢的，谢谢各位
+
 提示：由于github上传文件的限制，img/png/NET.png，请改名为.NET.png，否则程序可能出现无法预料的问题
 
 每一个人都可以通过PR添加属于自己的合法软件
