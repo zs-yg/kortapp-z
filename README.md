@@ -107,6 +107,8 @@ qq群：
 1043867176
 ```
 
+![image](https://github.com/user-attachments/assets/0e7b6c8e-0307-49f6-a41d-b4418f3eb94a)
+
 b站账号：
 ```
 Zayisynth
