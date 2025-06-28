@@ -397,11 +397,50 @@ namespace AppStore
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 } catch (Exception ex) {
-                    MessageBox.Show($"启动内存锻炼器失败: {ex.Message}", "错误", 
+                    MessageBox.Show($"启动内存锻炼器失败: {ex.Message}", "错误",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             };
             flowPanel.Controls.Add(memoryTrainerCard);
+
+            // 系统信息查看器卡片
+            var systemInfoCard = new ToolCard();
+            systemInfoCard.ToolName = "系统信息查看器";
+            
+            try 
+            {
+                string iconPath = Path.Combine(Application.StartupPath, "img", "resource", "png", "system_info.png");
+                if (File.Exists(iconPath))
+                {
+                    systemInfoCard.ToolIcon = Image.FromFile(iconPath);
+                }
+                else
+                {
+                    systemInfoCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+                }
+            }
+            catch
+            {
+                systemInfoCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+            }
+            
+            systemInfoCard.UpdateDisplay();
+            systemInfoCard.ToolCardClicked += (s, e) => {
+                try {
+                    string toolPath = Path.Combine(Application.StartupPath, "resource", "system_info.exe");
+                    if (File.Exists(toolPath)) {
+                        Process.Start(toolPath);
+                    } else {
+                        MessageBox.Show("系统信息查看器工具未找到，请确保已正确安装", "错误", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                } catch (Exception ex) {
+                    MessageBox.Show($"启动系统信息查看器失败: {ex.Message}", "错误", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+            flowPanel.Controls.Add(systemInfoCard);
+
             }
             catch (Exception ex)
             {
