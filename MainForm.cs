@@ -267,8 +267,13 @@ namespace AppStore
                 var flowPanel = new FlowLayoutPanel();
                 flowPanel.Dock = DockStyle.Fill;
                 flowPanel.AutoScroll = true;
-                flowPanel.WrapContents = false;
+                flowPanel.WrapContents = true;
                 flowPanel.FlowDirection = FlowDirection.LeftToRight;
+                flowPanel.Padding = new Padding(15, 50, 15, 15);
+                flowPanel.Margin = new Padding(0);
+                flowPanel.AutoSize = true;
+                flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                flowPanel.AutoScrollMinSize = new Size(0, 3350);
                 contentPanel.Controls.Add(flowPanel);
 
             // 系统清理卡片
@@ -440,6 +445,44 @@ namespace AppStore
                 }
             };
             flowPanel.Controls.Add(systemInfoCard);
+
+            // 视频压缩工具卡片
+            var videoCompressorCard = new ToolCard();
+            videoCompressorCard.ToolName = "视频压缩工具";
+            
+            try 
+            {
+                string iconPath = Path.Combine(Application.StartupPath, "img", "resource", "png", "video_compressor.png");
+                if (File.Exists(iconPath))
+                {
+                    videoCompressorCard.ToolIcon = Image.FromFile(iconPath);
+                }
+                else
+                {
+                    videoCompressorCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+                }
+            }
+            catch
+            {
+                videoCompressorCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+            }
+            
+            videoCompressorCard.UpdateDisplay();
+            videoCompressorCard.ToolCardClicked += (s, e) => {
+                try {
+                    string toolPath = Path.Combine(Application.StartupPath, "resource", "video_compressor.exe");
+                    if (File.Exists(toolPath)) {
+                        Process.Start(toolPath);
+                    } else {
+                        MessageBox.Show("视频压缩工具未找到，请确保已正确安装", "错误", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                } catch (Exception ex) {
+                    MessageBox.Show($"启动视频压缩工具失败: {ex.Message}", "错误", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+            flowPanel.Controls.Add(videoCompressorCard);
 
             }
             catch (Exception ex)
