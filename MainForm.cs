@@ -364,6 +364,44 @@ namespace AppStore
                 }
             };
             flowPanel.Controls.Add(imageCompressorCard);
+
+            // 内存锻炼器卡片
+            var memoryTrainerCard = new ToolCard();
+            memoryTrainerCard.ToolName = "内存锻炼器";
+            
+            try 
+            {
+                string iconPath = Path.Combine(Application.StartupPath, "img", "resource", "png", "memory_trainer.png");
+                if (File.Exists(iconPath))
+                {
+                    memoryTrainerCard.ToolIcon = Image.FromFile(iconPath);
+                }
+                else
+                {
+                    memoryTrainerCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+                }
+            }
+            catch
+            {
+                memoryTrainerCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+            }
+            
+            memoryTrainerCard.UpdateDisplay();
+            memoryTrainerCard.ToolCardClicked += (s, e) => {
+                try {
+                    string toolPath = Path.Combine(Application.StartupPath, "resource", "memory_trainer.exe");
+                    if (File.Exists(toolPath)) {
+                        Process.Start(toolPath);
+                    } else {
+                        MessageBox.Show("内存锻炼器工具未找到，请确保已正确安装", "错误", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                } catch (Exception ex) {
+                    MessageBox.Show($"启动内存锻炼器失败: {ex.Message}", "错误", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+            flowPanel.Controls.Add(memoryTrainerCard);
             }
             catch (Exception ex)
             {
