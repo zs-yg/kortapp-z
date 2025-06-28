@@ -107,7 +107,7 @@ qq群：
 1043867176
 ```
 
-![image](https://github.com/user-attachments/assets/0e7b6c8e-0307-49f6-a41d-b4418f3eb94a)
+![qrcode_1751106091950](https://github.com/user-attachments/assets/bfd9f767-204a-470c-a73b-31589ef501a5)
 
 b站账号：
 ```
