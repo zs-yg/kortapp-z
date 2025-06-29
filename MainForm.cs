@@ -501,6 +501,23 @@ namespace AppStore
             }
             flowPanel.Controls.Add(calculatorCard);
 
+            // 图片查看工具卡片
+            var imageViewerCard = new KortAppZ.Tools.Viewer.ImageViewerToolCard();
+            try 
+            {
+                string iconPath = Path.Combine(Application.StartupPath, "img", "resource", "png", "ImageCompressor.png");
+                if (File.Exists(iconPath))
+                {
+                    imageViewerCard.ToolIcon = Image.FromFile(iconPath);
+                }
+                imageViewerCard.UpdateDisplay();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("加载图片查看器图标失败", ex);
+            }
+            flowPanel.Controls.Add(imageViewerCard);
+
             }
             catch (Exception ex)
             {
