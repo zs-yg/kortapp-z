@@ -35,14 +35,15 @@
 
 ### 打包指令
 
+
 #### 32位版本
 ```bash
-dotnet publish -c Release -r win-x86 -p:PublishSingleFile=true
+dotnet publish AppStore.csproj -c Release -r win-x86 --self-contained false /p:Optimize=true /p:DebugType=None
 ```
 
 #### 64位版本
 ```bash
-dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true
+dotnet publish AppStore.csproj -c Release -r win-x64 --self-contained false /p:Optimize=true /p:DebugType=None
 ```
 
 打包后的可执行文件将包含指定的应用程序图标，输出路径为：
@@ -51,7 +52,9 @@ bin\Release\net8.0-windows\[platform]\publish
 ```
 
 ### 高级选项
-- 添加`--self-contained true`可生成独立包（体积较大）
+- 使用`--self-contained false`生成框架依赖包（默认）
+- 使用`/p:Optimize=true`启用代码优化（默认）
+- 使用`/p:DebugType=None`禁用调试符号生成（默认）
 - 添加`-p:PublishTrimmed=true`可减小包体积（实验性）
 
 ## 项目结构
