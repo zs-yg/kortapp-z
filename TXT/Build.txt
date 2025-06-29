@@ -1,0 +1,12 @@
+首先，如果希望编译程序，那么必须安装.NET8.0 SDK
+下载链接：https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.411-windows-x64-installer
+
+使用一下指令编译
+
+x86:
+
+dotnet publish AppStore.csproj -c Release -r win-x86 --self-contained false /p:Optimize=true /p:DebugType=None
+
+x64:
+
+dotnet publish AppStore.csproj -c Release -r win-x64 --self-contained false /p:Optimize=true /p:DebugType=None
