@@ -484,6 +484,23 @@ namespace AppStore
             };
             flowPanel.Controls.Add(videoCompressorCard);
 
+            // 计算器工具卡片
+            var calculatorCard = new CalculatorToolCard();
+            try 
+            {
+                string iconPath = Path.Combine(Application.StartupPath, "img", "resource", "png", "Calculator.png");
+                if (File.Exists(iconPath))
+                {
+                    calculatorCard.ToolIcon = Image.FromFile(iconPath);
+                }
+                calculatorCard.UpdateDisplay();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("加载计算器图标失败", ex);
+            }
+            flowPanel.Controls.Add(calculatorCard);
+
             }
             catch (Exception ex)
             {
