@@ -518,6 +518,42 @@ namespace AppStore
             }
             flowPanel.Controls.Add(imageViewerCard);
 
+            // 密码生成器工具卡片
+            var passwordGeneratorCard = new ToolCard();
+            passwordGeneratorCard.ToolName = "密码生成器";
+            try 
+            {
+                string iconPath = Path.Combine(Application.StartupPath, "img", "resource", "png", "password_generator.png");
+                if (File.Exists(iconPath))
+                {
+                    passwordGeneratorCard.ToolIcon = Image.FromFile(iconPath);
+                }
+                else
+                {
+                    passwordGeneratorCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+                }
+            }
+            catch
+            {
+                passwordGeneratorCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+            }
+            passwordGeneratorCard.ToolCardClicked += (s, e) => {
+                try {
+                    string toolPath = Path.Combine(Application.StartupPath, "resource", "password_generator.exe");
+                    if (File.Exists(toolPath)) {
+                        Process.Start(toolPath);
+                    } else {
+                        MessageBox.Show("密码生成器工具未找到，请确保已正确安装", "错误", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                } catch (Exception ex) {
+                    MessageBox.Show($"启动密码生成器失败: {ex.Message}", "错误", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+            passwordGeneratorCard.UpdateDisplay();
+            flowPanel.Controls.Add(passwordGeneratorCard);
+
             }
             catch (Exception ex)
             {
