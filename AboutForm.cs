@@ -17,12 +17,13 @@ namespace AppStore
         private void InitializeComponent()
         {
             this.Dock = DockStyle.Fill;
-            this.BackColor = Color.White;
+            this.BackColor = ThemeManager.BackgroundColor;
             this.Padding = new Padding(20);
 
             // 创建主布局面板
             TableLayoutPanel mainLayout = new TableLayoutPanel();
             mainLayout.Dock = DockStyle.Fill;
+            mainLayout.BackColor = ThemeManager.BackgroundColor;
             mainLayout.ColumnCount = 1;
             mainLayout.RowCount = 2;
             mainLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
@@ -50,7 +51,7 @@ namespace AppStore
 
             // 初始化并添加应用信息
             infoLabel = new Label();
-            infoLabel.Text = "kortapp-z\n版本: 1.1.0\n作者: zs-yg\n一个简单、开源的应用商店\nkortapp-z是完全免费\n基于.NET8和C/C++的软件";
+            infoLabel.Text = "kortapp-z\n版本: 1.1.1\n作者: zs-yg\n一个简单、开源的应用商店\nkortapp-z是完全免费\n基于.NET8和C/C++的软件";
             infoLabel.Font = new Font("Microsoft YaHei", 12);
             infoLabel.AutoSize = false;
             infoLabel.Width = 300;
@@ -68,6 +69,7 @@ namespace AppStore
             // 在底部添加GitHub链接区域
             TableLayoutPanel githubPanel = new TableLayoutPanel();
             githubPanel.Dock = DockStyle.Bottom;
+            githubPanel.BackColor = ThemeManager.BackgroundColor;
             githubPanel.Height = 60;
             githubPanel.ColumnCount = 3;
             githubPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
@@ -109,6 +111,7 @@ namespace AppStore
             // 创建包含图标和文字的面板
             Panel linkPanel = new Panel();
             linkPanel.AutoSize = true;
+            linkPanel.BackColor = ThemeManager.BackgroundColor;
             linkPanel.Controls.Add(githubIcon);
             linkPanel.Controls.Add(githubLabel);
             githubIcon.Location = new Point(0, 0);
