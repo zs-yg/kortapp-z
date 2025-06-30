@@ -23,13 +23,40 @@ namespace AppStore
             cancelBtn = new Button();
             
             InitializeComponent();
+            
+            // 监听主题变化
+            ThemeManager.ThemeChanged += (theme) => {
+                this.Invoke((MethodInvoker)delegate {
+                    ApplyTheme();
+                });
+            };
+        }
+
+        private void ApplyTheme()
+        {
+            this.BackColor = ThemeManager.CurrentTheme == ThemeManager.ThemeMode.Light 
+                ? Color.White 
+                : Color.Black;
+            this.ForeColor = ThemeManager.CurrentTheme == ThemeManager.ThemeMode.Light 
+                ? Color.Black 
+                : Color.White;
+            
+            cancelBtn.BackColor = ThemeManager.CurrentTheme == ThemeManager.ThemeMode.Light 
+                ? SystemColors.Control 
+                : Color.FromArgb(70, 70, 70);
+            cancelBtn.ForeColor = ThemeManager.TextColor;
         }
 
         private void InitializeComponent()
         {
             this.Size = new Size(400, 60);
-            this.BackColor = Color.White;
+            this.BackColor = ThemeManager.CurrentTheme == ThemeManager.ThemeMode.Light 
+                ? Color.White 
+                : Color.Black;
             this.BorderStyle = BorderStyle.FixedSingle;
+            this.ForeColor = ThemeManager.CurrentTheme == ThemeManager.ThemeMode.Light 
+                ? Color.Black 
+                : Color.White;
 
             // 文件名标签
             nameLabel = new Label();
@@ -56,6 +83,12 @@ namespace AppStore
             cancelBtn.Text = "取消";
             cancelBtn.Size = new Size(60, 25);
             cancelBtn.Location = new Point(320, 30);
+            cancelBtn.BackColor = ThemeManager.CurrentTheme == ThemeManager.ThemeMode.Light 
+                ? SystemColors.Control 
+                : Color.FromArgb(70, 70, 70);
+            cancelBtn.ForeColor = ThemeManager.TextColor;
+            cancelBtn.FlatStyle = FlatStyle.Flat;
+            cancelBtn.FlatAppearance.BorderSize = 0;
             cancelBtn.Click += CancelBtn_Click;
             this.Controls.Add(cancelBtn);
         }
