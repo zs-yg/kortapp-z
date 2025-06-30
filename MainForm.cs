@@ -140,11 +140,19 @@ namespace AppStore
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Icon = new Icon("img/ico/icon.ico"); // 设置窗体图标
 
+            // 注册主题变更事件
+            ThemeManager.ThemeChanged += (theme) => 
+            {
+                this.Invoke((MethodInvoker)delegate {
+                    AnimateThemeChange();
+                });
+            };
+
             // 现代化顶部导航栏
             Panel buttonPanel = new Panel();
             buttonPanel.Dock = DockStyle.Top;
             buttonPanel.Height = 70;
-            buttonPanel.BackColor = Color.FromArgb(240, 240, 240);
+            buttonPanel.BackColor = ThemeManager.ControlBackgroundColor;
             buttonPanel.Padding = new Padding(10, 15, 10, 0);
             buttonPanel.AutoScroll = true;
             buttonPanel.AutoSize = true;
@@ -154,11 +162,13 @@ namespace AppStore
             Action<Button> styleButton = (Button btn) => {
                 btn.FlatStyle = FlatStyle.Flat;
                 btn.FlatAppearance.BorderSize = 0;
-                btn.BackColor = Color.Transparent;
-                btn.ForeColor = Color.FromArgb(64, 64, 64);
+                btn.BackColor = ThemeManager.ControlBackgroundColor;
+                btn.ForeColor = ThemeManager.TextColor;
                 btn.Font = new Font("Microsoft YaHei", 10, FontStyle.Regular);
                 btn.Size = new Size(120, 40);
                 btn.Cursor = Cursors.Hand;
+                btn.FlatAppearance.MouseOverBackColor = ThemeManager.ButtonHoverColor;
+                btn.FlatAppearance.MouseDownBackColor = ThemeManager.ButtonActiveColor;
                 
                 // 悬停效果
                 btn.MouseEnter += (s, e) => {
@@ -167,7 +177,7 @@ namespace AppStore
                 };
                 
                 btn.MouseLeave += (s, e) => {
-                    btn.ForeColor = Color.FromArgb(64, 64, 64);
+                    btn.ForeColor = ThemeManager.TextColor;
                     btn.Font = new Font(btn.Font, FontStyle.Regular);
                 };
             };
@@ -230,7 +240,7 @@ namespace AppStore
             // 现代化内容区域
             contentPanel = new Panel();
             contentPanel.Dock = DockStyle.Fill;
-            contentPanel.BackColor = Color.White;
+            contentPanel.BackColor = ThemeManager.BackgroundColor;
             contentPanel.Padding = new Padding(20);
             this.Controls.Add(contentPanel);
 
@@ -238,11 +248,13 @@ namespace AppStore
             Panel separator = new Panel();
             separator.Dock = DockStyle.Top;
             separator.Height = 1;
-            separator.BackColor = Color.FromArgb(230, 230, 230);
+            separator.BackColor = ThemeManager.CurrentTheme == ThemeManager.ThemeMode.Light 
+                ? Color.FromArgb(230, 230, 230) 
+                : Color.FromArgb(60, 60, 60);
             contentPanel.Controls.Add(separator);
 
             this.Controls.Add(buttonPanel);
-            this.BackColor = Color.White;
+            this.BackColor = ThemeManager.BackgroundColor;
 
             // 默认显示软件下载视图
             ShowAppsView();
@@ -1271,6 +1283,9 @@ namespace AppStore
             // 初始化窗体组件
             InitializeComponent();
             
+            // 应用主题
+            ThemeManager.ApplyTheme(this);
+            
             // 订阅下载管理器事件
             DownloadManager.Instance.DownloadAdded += OnDownloadAdded; // 下载添加事件
             DownloadManager.Instance.DownloadProgressChanged += OnDownloadProgressChanged; // 下载进度变化事件
@@ -1351,6 +1366,70 @@ namespace AppStore
 
             Logger.Log($"下载完成: {item.FileName}, 状态: {item.Status}"); // 记录日志
             item.UpdateDisplay(); // 更新UI显示
+        }
+
+        /// <summary>
+        /// 主题切换动画效果
+        /// </summary>
+        private void AnimateThemeChange()
+        {
+            const int animationSteps = 10;
+            const int animationInterval = 30;
+            
+            var timer = new System.Windows.Forms.Timer { Interval = animationInterval };
+            int step = 0;
+            
+            // 保存当前和目标颜色
+            var originalBackColor = this.BackColor;
+            var targetBackColor = ThemeManager.BackgroundColor;
+            var originalForeColor = this.ForeColor;
+            var targetForeColor = ThemeManager.TextColor;
+            
+            timer.Tick += (s, e) => {
+                if (step >= animationSteps)
+                {
+                    timer.Stop();
+                    timer.Dispose();
+                    // 确保最终颜色准确
+                    ThemeManager.ApplyTheme(this);
+                    return;
+                }
+                
+                // 计算插值比例
+                float ratio = (float)step / animationSteps;
+                step++;
+                
+                // 插值计算新颜色
+                var newBackColor = Color.FromArgb(
+                    (int)(originalBackColor.R + (targetBackColor.R - originalBackColor.R) * ratio),
+                    (int)(originalBackColor.G + (targetBackColor.G - originalBackColor.G) * ratio),
+                    (int)(originalBackColor.B + (targetBackColor.B - originalBackColor.B) * ratio));
+                    
+                var newForeColor = Color.FromArgb(
+                    (int)(originalForeColor.R + (targetForeColor.R - originalForeColor.R) * ratio),
+                    (int)(originalForeColor.G + (targetForeColor.G - originalForeColor.G) * ratio),
+                    (int)(originalForeColor.B + (targetForeColor.B - originalForeColor.B) * ratio));
+                
+                // 应用新颜色
+                this.Invoke((MethodInvoker)delegate {
+                    this.BackColor = newBackColor;
+                    this.ForeColor = newForeColor;
+                    foreach (Control control in this.Controls)
+                    {
+                        control.BackColor = newBackColor;
+                        control.ForeColor = newForeColor;
+                        
+                        // 特殊处理按钮的悬停状态
+                        if (control is Button button)
+                        {
+                            button.FlatAppearance.MouseOverBackColor = ThemeManager.ButtonHoverColor;
+                            button.FlatAppearance.MouseDownBackColor = ThemeManager.ButtonActiveColor;
+                        }
+                    }
+                });
+            };
+            
+            timer.Start();
         }
     }
 }
