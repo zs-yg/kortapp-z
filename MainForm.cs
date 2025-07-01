@@ -715,7 +715,7 @@ namespace AppStore
 
             flowPanel.Controls.Add(CreateAppCard(
                 "XDM",
-                "https://github.com/subhra74/xdm/releases/download/7.2.11/xdm-setup.msi",
+                "https://hub.gitmirror.com/https://github.com/subhra74/xdm/releases/download/7.2.11/xdm-setup.msi",
                 "img/png/XDM.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
@@ -780,7 +780,7 @@ namespace AppStore
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Msys2",
-                "https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe",
+                "https://ghproxy.net/https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe",
                 "img/png/MSYS2.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
@@ -880,7 +880,7 @@ namespace AppStore
 
             flowPanel.Controls.Add(CreateAppCard(
                 "frp",
-                "https://github.com/fatedier/frp/releases/download/v0.62.1/frp_0.62.1_windows_amd64.zip",
+                "https://ghproxy.net/https://github.com/fatedier/frp/releases/download/v0.62.1/frp_0.62.1_windows_amd64.zip",
                 ""));
 
             flowPanel.Controls.Add(CreateAppCard(
