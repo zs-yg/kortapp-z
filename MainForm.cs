@@ -566,6 +566,46 @@ namespace AppStore
             passwordGeneratorCard.UpdateDisplay();
             flowPanel.Controls.Add(passwordGeneratorCard);
 
+            // 端口检测工具卡片
+            var portCheckerCard = new ToolCard();
+            portCheckerCard.ToolName = "端口检测";
+            try 
+            {
+                string iconPath = Path.Combine(Application.StartupPath, "img", "resource", "png", "system_info.png");
+                if (File.Exists(iconPath))
+                {
+                    portCheckerCard.ToolIcon = Image.FromFile(iconPath);
+                }
+                else
+                {
+                    portCheckerCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+                }
+            }
+            catch
+            {
+                portCheckerCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+            }
+            portCheckerCard.ToolCardClicked += (s, e) => {
+                try {
+                    string toolPath = Path.Combine(Application.StartupPath, "resource", "NetWorkManager", "NetWorkManager.exe");
+                    string absolutePath = Path.GetFullPath(toolPath);
+                    if (File.Exists(absolutePath)) {
+                        Process.Start(new ProcessStartInfo {
+                            FileName = absolutePath,
+                            WorkingDirectory = Path.GetDirectoryName(absolutePath)
+                        });
+                    } else {
+                        MessageBox.Show($"端口检测工具未找到，请确保已正确安装。路径: {absolutePath}", "错误", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                } catch (Exception ex) {
+                    MessageBox.Show($"启动端口检测工具失败: {ex.Message}", "错误", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+            portCheckerCard.UpdateDisplay();
+            flowPanel.Controls.Add(portCheckerCard);
+
             }
             catch (Exception ex)
             {
@@ -780,7 +820,7 @@ namespace AppStore
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Msys2",
-                "https://ghproxy.net/https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe",
+                "https://hub.gitmirror.com/https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe",
                 "img/png/MSYS2.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
@@ -880,7 +920,7 @@ namespace AppStore
 
             flowPanel.Controls.Add(CreateAppCard(
                 "frp",
-                "https://ghproxy.net/https://github.com/fatedier/frp/releases/download/v0.62.1/frp_0.62.1_windows_amd64.zip",
+                "https://hub.gitmirror.com/https://github.com/fatedier/frp/releases/download/v0.62.1/frp_0.62.1_windows_amd64.zip",
                 ""));
 
             flowPanel.Controls.Add(CreateAppCard(

@@ -16,6 +16,9 @@
 
   <ItemGroup>
     <None Include="help.txt" />
+    <None Include="resource\NetWorkManager\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="resource\*.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -31,6 +34,10 @@
     <None Include="img\ico\*.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ZXing.Net" Version="0.16.8" />
   </ItemGroup>
 
 </Project>
