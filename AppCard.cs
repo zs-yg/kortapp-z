@@ -13,7 +13,9 @@ namespace AppStore
     {
         private PictureBox iconBox;
         private Label nameLabel;
+        private Panel namePanel;
         private Button downloadBtn;
+        private Color borderColor = SystemColors.ControlDark;
         private static readonly ConcurrentDictionary<string, System.Drawing.Drawing2D.GraphicsPath> PathCache = 
             new ConcurrentDictionary<string, System.Drawing.Drawing2D.GraphicsPath>();
 
@@ -27,6 +29,7 @@ namespace AppStore
             // 确保关键对象不为null
             iconBox = new PictureBox() { SizeMode = PictureBoxSizeMode.StretchImage };
             nameLabel = new Label() { Text = string.Empty };
+            namePanel = new Panel();
             downloadBtn = new Button() { Text = "下载" };
             
             // 确保DownloadManager已初始化
@@ -57,14 +60,29 @@ namespace AppStore
             iconBox.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Controls.Add(iconBox);
 
-            // 应用名称
+            // 应用名称 - 使用Panel包裹Label实现边框颜色
+            // namePanel已在构造函数中初始化
+            namePanel.Size = new Size(Width - 20, 40);
+            namePanel.Location = new Point(10, 100);
+            namePanel.Paint += (sender, e) => {
+                ControlPaint.DrawBorder(e.Graphics, namePanel.ClientRectangle, 
+                    borderColor, ButtonBorderStyle.Solid);
+            };
+            
             nameLabel = new Label();
-            nameLabel.AutoSize = false;
-            nameLabel.Size = new Size(Width - 20, 40);
-            nameLabel.Location = new Point(10, 100);
+            nameLabel.Dock = DockStyle.Fill;
             nameLabel.Font = new Font("Microsoft YaHei", 10, FontStyle.Bold);
             nameLabel.TextAlign = ContentAlignment.MiddleCenter;
-            this.Controls.Add(nameLabel);
+            
+            namePanel.Controls.Add(nameLabel);
+            
+            // 初始主题设置
+            UpdateLabelTheme();
+            
+            // 订阅主题变化事件
+            ThemeManager.ThemeChanged += (theme) => UpdateLabelTheme();
+            
+            this.Controls.Add(namePanel);
 
             // 下载按钮
             downloadBtn = new Button();
@@ -90,6 +108,25 @@ namespace AppStore
             downloadBtn.Click += DownloadBtn_Click;
             this.Controls.Add(downloadBtn);
             downloadBtn.Visible = ShowDownloadButton;
+        }
+
+        private void UpdateLabelTheme()
+        {
+            if (ThemeManager.CurrentTheme == ThemeManager.ThemeMode.Dark)
+            {
+                nameLabel.BackColor = Color.Black;
+                nameLabel.ForeColor = Color.White;
+                namePanel.BackColor = Color.Black;
+                borderColor = Color.White;
+            }
+            else
+            {
+                nameLabel.BackColor = Color.White;
+                nameLabel.ForeColor = Color.Black;
+                namePanel.BackColor = Color.White;
+                borderColor = SystemColors.ControlDark;
+            }
+            namePanel.Invalidate(); // 触发重绘
         }
 
         /// <summary>
