@@ -12,6 +12,7 @@
     <WarningsAsErrors>CS8618</WarningsAsErrors>
     <ApplicationIcon>img\ico\icon.ico</ApplicationIcon>
     <Platforms>x86;x64</Platforms>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
   <ItemGroup>
