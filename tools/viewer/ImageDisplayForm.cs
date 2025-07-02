@@ -50,7 +50,10 @@ namespace KortAppZ.Tools.Viewer
                 }
                 
                 currentImage = ImageFileHandler.LoadImage(filePath);
-                pictureBox.Image = currentImage;
+                if (pictureBox != null)
+                {
+                    pictureBox.Image = currentImage;
+                }
                 this.Text = $"图片查看 - {Path.GetFileName(filePath)}";
             }
             catch (Exception ex)
