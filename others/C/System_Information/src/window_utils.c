@@ -21,7 +21,7 @@ BOOL register_window_class(HINSTANCE hInstance) {
     wcex.hInstance = hInstance;
     wcex.hIcon = LoadIcon(hInstance, IDI_APPLICATION);
     wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    wcex.hbrBackground = CreateSolidBrush(RGB(240, 240, 240));
     wcex.lpszMenuName = NULL;
     wcex.lpszClassName = _T("SystemInfoWindowClass");
     wcex.hIconSm = LoadIcon(hInstance, IDI_APPLICATION);
@@ -47,10 +47,10 @@ int create_main_window(HINSTANCE hInstance, SystemInfo* sysInfo, UINT codePage) 
         HWND hWnd = CreateWindowW(
         L"SystemInfoWindowClass",
         windowTitle,
-        WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_CLIPCHILDREN,
+        WS_POPUP | WS_VISIBLE,
         CW_USEDEFAULT, CW_USEDEFAULT,
-        450, 300,
-        NULL, NULL, hInstance, NULL);
+        800, 600,
+        NULL, NULL, hInstance, sysInfo);
 
     if (!hWnd) {
         return 0;
@@ -75,12 +75,26 @@ int create_main_window(HINSTANCE hInstance, SystemInfo* sysInfo, UINT codePage) 
 LRESULT CALLBACK MainWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
         case WM_CREATE: {
+            // 安全初始化系统信息指针
+            if (lParam) {
+                g_sysInfo = (SystemInfo*)((CREATESTRUCT*)lParam)->lpCreateParams;
+            }
+            if (!g_sysInfo) {
+                MessageBoxW(hWnd, L"系统信息初始化失败", L"错误", MB_ICONERROR);
+                return -1;
+            }
+            
             // 创建显示系统信息的按钮
-            CreateWindowW(L"BUTTON", L"刷新信息", 
-                         WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
-                         10, 10, 150, 30, 
-                         hWnd, (HMENU)IDC_MAIN_BUTTON, 
+            CreateWindowW(L"BUTTON", L"刷新信息",
+                         WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | WS_BORDER,
+                         10, 10, 150, 30,
+                         hWnd, (HMENU)IDC_MAIN_BUTTON,
                          (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), NULL);
+            break;
+        }
+        case WM_SIZE: {
+            // 窗口大小变化时更新布局
+            update_main_window(hWnd, g_sysInfo);
             break;
         }
         case WM_COMMAND: {
@@ -90,6 +104,25 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
                 update_main_window(hWnd, g_sysInfo);
             }
             break;
+        }
+        case WM_KEYDOWN: {
+            // F11键切换全屏
+            if (wParam == VK_F11) {
+                toggle_fullscreen(hWnd);
+                update_main_window(hWnd, g_sysInfo);
+            }
+            break;
+        }
+        case WM_NCCALCSIZE:
+            if (wParam) {
+                return 0;
+            }
+            break;
+        case WM_ERASEBKGND: {
+            RECT rc;
+            GetClientRect(hWnd, &rc);
+            FillRect((HDC)wParam, &rc, (HBRUSH)GetClassLongPtr(hWnd, GCLP_HBRBACKGROUND));
+            return 1;
         }
         case WM_DESTROY: {
             PostQuitMessage(0);
