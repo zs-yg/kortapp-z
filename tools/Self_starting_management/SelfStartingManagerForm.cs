@@ -131,29 +131,39 @@ namespace AppStore
                 {
                     foreach (var item in items)
                     {
-                        Image iconImage = null;
+                        Image? iconImage = null;
                         try
                         {
                             if (!string.IsNullOrEmpty(item.Value) && System.IO.File.Exists(item.Value))
                             {
                                 using (Icon icon = Icon.ExtractAssociatedIcon(item.Value))
                                 {
-                                    iconImage = icon.ToBitmap();
+                                    iconImage = icon?.ToBitmap() ?? SystemIcons.Application.ToBitmap();
                                 }
                             }
                             else
                             {
                                 // 使用默认图标
-                                iconImage = SystemIcons.Application.ToBitmap();
+                                iconImage = SystemIcons.Application?.ToBitmap() ?? SystemIcons.WinLogo.ToBitmap();
                             }
                         }
                         catch (Exception ex)
                         {
                             Logger.LogWarning($"无法加载程序图标: {item.Value}", ex);
-                            iconImage = SystemIcons.Warning.ToBitmap();
+                            // 确保在任何情况下都有有效的图标
+                            iconImage = SystemIcons.Warning?.ToBitmap() 
+                                     ?? SystemIcons.Error?.ToBitmap()
+                                     ?? SystemIcons.Application?.ToBitmap()
+                                     ?? SystemIcons.WinLogo?.ToBitmap()
+                                     ?? SystemIcons.Shield?.ToBitmap()
+                                     ?? new Bitmap(16, 16);
+                            if (iconImage == null)
+                            {
+                                iconImage = new Bitmap(16, 16);
+                            }
                         }
                         
-                        dataGridView.Rows.Add(iconImage, item.Key, item.Value);
+                        dataGridView.Rows.Add(iconImage!, item.Key, item.Value);
                     }
                 }
             }

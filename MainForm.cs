@@ -464,44 +464,6 @@ namespace AppStore
             };
             flowPanel.Controls.Add(systemInfoCard);
 
-            // 视频压缩工具卡片
-            var videoCompressorCard = new ToolCard();
-            videoCompressorCard.ToolName = "视频压缩工具";
-            
-            try 
-            {
-                string iconPath = Path.Combine(Application.StartupPath, "img", "resource", "png", "video_compressor.png");
-                if (File.Exists(iconPath))
-                {
-                    videoCompressorCard.ToolIcon = Image.FromFile(iconPath);
-                }
-                else
-                {
-                    videoCompressorCard.ToolIcon = SystemIcons.Shield.ToBitmap();
-                }
-            }
-            catch
-            {
-                videoCompressorCard.ToolIcon = SystemIcons.Shield.ToBitmap();
-            }
-            
-            videoCompressorCard.UpdateDisplay();
-            videoCompressorCard.ToolCardClicked += (s, e) => {
-                try {
-                    string toolPath = Path.Combine(Application.StartupPath, "resource", "video_compressor.exe");
-                    if (File.Exists(toolPath)) {
-                        Process.Start(toolPath);
-                    } else {
-                        MessageBox.Show("视频压缩工具未找到，请确保已正确安装", "错误", 
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                } catch (Exception ex) {
-                    MessageBox.Show($"启动视频压缩工具失败: {ex.Message}", "错误", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            };
-            flowPanel.Controls.Add(videoCompressorCard);
-
             // 计算器工具卡片
             var calculatorCard = new CalculatorToolCard();
             try 

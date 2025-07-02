@@ -209,7 +209,7 @@ namespace AppStore
                 {
                     string jsonString = File.ReadAllText(jsonPath);
                     var jsonData = JsonSerializer.Deserialize<JsonElement>(jsonString);
-                    string customPath = jsonData.GetProperty("DownloadPath").GetString();
+                    string customPath = jsonData.GetProperty("DownloadPath").GetString() ?? "";
                     
                     // 如果自定义路径有效则显示，否则显示默认路径
                     txtBox.Text = !string.IsNullOrWhiteSpace(customPath) ? customPath : defaultPath;
