@@ -455,11 +455,15 @@ namespace AppStore
                 var downloadsFolderGuid = new Guid("374DE290-123F-4565-9164-39C4925E467B");
                 if (SHGetKnownFolderPath(downloadsFolderGuid, 0, IntPtr.Zero, out pathPtr) == 0)
                 {
-                    string defaultPath = Marshal.PtrToStringUni(pathPtr);
+                    string? defaultPath = Marshal.PtrToStringUni(pathPtr);
                     if (!string.IsNullOrEmpty(defaultPath))
                     {
                         Directory.CreateDirectory(defaultPath);
                         return defaultPath;
+                    }
+                    else
+                    {
+                        Logger.LogWarning("获取到的系统下载路径为空");
                     }
                 }
             }
@@ -477,16 +481,19 @@ namespace AppStore
 
             // 3. 最终回退到相对路径 ~/Downloads
             string relativePath = "~/Downloads";
-            string fallbackPath = relativePath.Replace("~", 
-                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
+            string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) ?? string.Empty;
+            string fallbackPath = relativePath.Replace("~", userProfile);
             fallbackPath = Path.GetFullPath(fallbackPath);
             
             try {
                 Directory.CreateDirectory(fallbackPath);
                 // 测试路径可写性
                 string testFile = Path.Combine(fallbackPath, "write_test.tmp");
-                File.WriteAllText(testFile, "test");
-                File.Delete(testFile);
+                if (!string.IsNullOrEmpty(testFile))
+                {
+                    File.WriteAllText(testFile, "test");
+                    File.Delete(testFile);
+                }
                 return fallbackPath;
             }
             catch {

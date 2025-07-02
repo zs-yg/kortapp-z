@@ -59,28 +59,53 @@ namespace AppStore
                 InitializeBorder();
             });
 
-            // 应用图标
-            iconBox = new PictureBox();
-            iconBox.Size = new Size(80, 80);
-            iconBox.Location = new Point((Width - 80) / 2, 15);
-            iconBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            this.Controls.Add(iconBox);
+            // 应用图标 - 添加null检查
+            if (iconBox != null && this != null && this.Controls != null)
+            {
+                iconBox.Size = new Size(80, 80);
+                iconBox.Location = new Point((Width - 80) / 2, 15);
+                iconBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                this.Controls.Add(iconBox);
+            }
+            else
+            {
+                Logger.LogWarning("iconBox或Controls为null");
+            }
 
             // 应用名称 - 使用Panel包裹Label实现边框颜色
-            // namePanel已在构造函数中初始化
-            namePanel.Size = new Size(Width - 20, 40);
-            namePanel.Location = new Point(10, 100);
-            namePanel.Paint += (sender, e) => {
-                ControlPaint.DrawBorder(e.Graphics, namePanel.ClientRectangle, 
-                    borderColor, ButtonBorderStyle.Solid);
-            };
+            if (namePanel != null)
+            {
+                namePanel.Size = new Size(Width - 20, 40);
+                namePanel.Location = new Point(10, 100);
+                namePanel.Paint += (sender, e) => {
+                    try
+                    {
+                        if (e != null && e.Graphics != null && namePanel != null)
+                        {
+                            var rect = namePanel.ClientRectangle;
+                            if (rect.Width > 0 && rect.Height > 0)
+                            {
+                                ControlPaint.DrawBorder(e.Graphics, rect, 
+                                    borderColor, ButtonBorderStyle.Solid);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.LogWarning($"绘制namePanel边框失败: {ex.Message}");
+                    }
+                };
+            }
             
             nameLabel = new Label();
             nameLabel.Dock = DockStyle.Fill;
             nameLabel.Font = new Font("Microsoft YaHei", 10, FontStyle.Bold);
             nameLabel.TextAlign = ContentAlignment.MiddleCenter;
             
-            namePanel.Controls.Add(nameLabel);
+            if (namePanel != null && nameLabel != null)
+            {
+                namePanel.Controls.Add(nameLabel);
+            }
             
             // 初始主题设置
             UpdateLabelTheme();
@@ -88,32 +113,43 @@ namespace AppStore
             // 订阅主题变化事件
             ThemeManager.ThemeChanged += (theme) => UpdateLabelTheme();
             
-            this.Controls.Add(namePanel);
+            if (this != null && this.Controls != null && namePanel != null)
+            {
+                this.Controls.Add(namePanel);
+            }
 
-            // 下载按钮
-            downloadBtn = new Button();
-            downloadBtn.Text = "下载";
-            downloadBtn.Size = new Size(100, 32);
-            downloadBtn.Location = new Point((Width - 100) / 2, 150);
-            downloadBtn.BackColor = Color.FromArgb(0, 120, 215);
-            downloadBtn.ForeColor = Color.White;
-            downloadBtn.FlatStyle = FlatStyle.Flat;
-            downloadBtn.FlatAppearance.BorderSize = 0;
-            downloadBtn.Cursor = Cursors.Hand;
-            downloadBtn.Font = new Font("Microsoft YaHei", 9);
-            
-            // 按钮悬停效果
-            downloadBtn.MouseEnter += (s, e) => {
-                downloadBtn.BackColor = Color.FromArgb(0, 150, 255);
-            };
-            
-            downloadBtn.MouseLeave += (s, e) => {
+            // 下载按钮 - 添加null检查
+            if (downloadBtn != null)
+            {
+                downloadBtn.Text = "下载";
+                downloadBtn.Size = new Size(100, 32);
+                downloadBtn.Location = new Point((Width - 100) / 2, 150);
                 downloadBtn.BackColor = Color.FromArgb(0, 120, 215);
-            };
-            
-            downloadBtn.Click += DownloadBtn_Click;
-            this.Controls.Add(downloadBtn);
-            downloadBtn.Visible = ShowDownloadButton;
+                downloadBtn.ForeColor = Color.White;
+                downloadBtn.FlatStyle = FlatStyle.Flat;
+                downloadBtn.FlatAppearance.BorderSize = 0;
+                downloadBtn.Cursor = Cursors.Hand;
+                downloadBtn.Font = new Font("Microsoft YaHei", 9);
+                
+                // 按钮悬停效果 - 添加null检查
+                downloadBtn.MouseEnter += (s, e) => {
+                    if (downloadBtn != null)
+                    {
+                        downloadBtn.BackColor = Color.FromArgb(0, 150, 255);
+                    }
+                };
+                
+                downloadBtn.MouseLeave += (s, e) => {
+                    if (downloadBtn != null)
+                    {
+                        downloadBtn.BackColor = Color.FromArgb(0, 120, 215);
+                    }
+                };
+                
+                downloadBtn.Click += DownloadBtn_Click;
+                this.Controls.Add(downloadBtn);
+                downloadBtn.Visible = ShowDownloadButton;
+            }
         }
 
         private void UpdateLabelTheme()
@@ -132,7 +168,14 @@ namespace AppStore
                 namePanel.BackColor = Color.White;
                 borderColor = SystemColors.ControlDark;
             }
-            namePanel.Invalidate(); // 触发重绘
+            if (namePanel != null && !namePanel.IsDisposed)
+            {
+                namePanel.Invalidate(); // 触发重绘
+            }
+            else
+            {
+                Logger.LogWarning("namePanel为null或已释放");
+            }
         }
 
         /// <summary>
@@ -262,22 +305,37 @@ namespace AppStore
                     };
 
                     // 启动C++程序计算路径
-                    using (var process = Process.Start(startInfo)) {
-                        process.WaitForExit();
-                        
-                        // 检查计算结果
-                        if (process.ExitCode == 0 && File.Exists(tempFile)) {
-                            // 读取生成的路径点
-                            var lines = File.ReadAllLines(tempFile);
-                            PointF[] points = lines.Select(line => {
-                                var parts = line.Split(','); // 解析坐标
-                                return new PointF(float.Parse(parts[0]), float.Parse(parts[1]));
-                            }).ToArray();
-                            
-                            // 创建并缓存路径对象
-                            path = new System.Drawing.Drawing2D.GraphicsPath();
-                            path.AddLines(points);
-                            PathCache.TryAdd(cacheKey, path);
+                    if (startInfo != null)
+                    {
+                        using (var process = Process.Start(startInfo)) 
+                        {
+                            if (process != null)
+                            {
+                                process.WaitForExit();
+                                
+                                // 检查计算结果
+                                if (process.ExitCode == 0 && File.Exists(tempFile)) 
+                                {
+                                    try
+                                    {
+                                        // 读取生成的路径点
+                                        var lines = File.ReadAllLines(tempFile);
+                                        PointF[] points = lines.Select(line => {
+                                            var parts = line.Split(','); // 解析坐标
+                                            return new PointF(float.Parse(parts[0]), float.Parse(parts[1]));
+                                        }).ToArray();
+                                        
+                                        // 创建并缓存路径对象
+                                        path = new System.Drawing.Drawing2D.GraphicsPath();
+                                        path.AddLines(points);
+                                        PathCache.TryAdd(cacheKey, path);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Logger.LogWarning($"读取路径点失败: {ex.Message}");
+                                    }
+                                }
+                            }
                         }
                     }
                 } catch {
@@ -353,9 +411,13 @@ namespace AppStore
 
         public void UpdateDisplay()
         {
-            if (nameLabel != null)
+            if (nameLabel != null && AppName != null)
             {
                 nameLabel.Text = AppName;
+            }
+            else
+            {
+                Logger.LogWarning("nameLabel或AppName为null");
             }
             if (iconBox != null && AppIcon != null)
             {
@@ -370,14 +432,15 @@ namespace AppStore
                 // 更严格的null检查
                 // 更严格的null检查，包括DownloadManager.Instance和其方法
                 // 全面的null和状态检查
+                var downloadManager = DownloadManager.Instance;
                 if (sender == null || e == null || 
                     string.IsNullOrWhiteSpace(DownloadUrl) || 
                     string.IsNullOrWhiteSpace(AppName) ||
                     !this.IsHandleCreated ||
                     this.IsDisposed ||
-                    DownloadManager.Instance == null ||
-                    DownloadManager.Instance.DownloadItems == null ||
-                    DownloadManager.Instance.StartDownload == null)
+                    downloadManager == null ||
+                    downloadManager.DownloadItems == null ||
+                    downloadManager.StartDownload == null)
                 {
                     return;
                 }
@@ -385,7 +448,7 @@ namespace AppStore
                 string safeAppName = AppName ?? "未知应用";
                 string fileName = $"{safeAppName.Replace(" ", "_")}.exe";
                 
-                DownloadManager.Instance.StartDownload(fileName, DownloadUrl);
+                downloadManager.StartDownload(fileName, DownloadUrl);
                 
                 string message = $"已开始下载: {safeAppName}";
                 this.Invoke((MethodInvoker)delegate {

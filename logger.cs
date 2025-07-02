@@ -65,5 +65,15 @@ namespace AppStore
             }
             Log(errorMessage);
         }
+
+        public static void LogWarning(string message, Exception? ex = null)
+        {
+            string warningMessage = $"WARNING: {message}";
+            if (ex != null)
+            {
+                warningMessage += $"\nException: {ex}\nStackTrace: {ex.StackTrace}";
+            }
+            Log(warningMessage);
+        }
     }
 }
