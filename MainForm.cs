@@ -572,6 +572,23 @@ namespace AppStore
             passwordGeneratorCard.UpdateDisplay();
             flowPanel.Controls.Add(passwordGeneratorCard);
 
+            // 自启动管理工具卡片
+            var selfStartingManagerCard = new SelfStartingManagerToolCard();
+            try 
+            {
+                string iconPath = Path.Combine(Application.StartupPath, "img", "resource", "png", "Self_starting_management.png");
+                if (File.Exists(iconPath))
+                {
+                    selfStartingManagerCard.ToolIcon = Image.FromFile(iconPath);
+                }
+                selfStartingManagerCard.UpdateDisplay();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("加载自启动管理工具图标失败", ex);
+            }
+            flowPanel.Controls.Add(selfStartingManagerCard);
+
             }
             catch (Exception ex)
             {
