@@ -5,7 +5,7 @@
 #define MyAppVersion "1.1.3"
 #define MyAppPublisher "zsyg"
 #define MyAppURL "https://github.com/zs-yg/kortapp-z"
-#define MyAppExeName "kortapp.exe"
+#define MyAppExeName "kortapp-z.exe"
 #define MyAppAssocName MyAppName + ""
 #define MyAppAssocExt ".exe"
 #define MyAppAssocKey StringChange(MyAppAssocName, " ", "") + MyAppAssocExt
