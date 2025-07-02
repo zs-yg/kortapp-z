@@ -715,7 +715,7 @@ namespace AppStore
 
             flowPanel.Controls.Add(CreateAppCard(
                 "XDM",
-                "https://hub.gitmirror.com/https://github.com/subhra74/xdm/releases/download/7.2.11/xdm-setup.msi",
+                "https://ghproxy.net/https://github.com/subhra74/xdm/releases/download/7.2.11/xdm-setup.msi",
                 "img/png/XDM.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
