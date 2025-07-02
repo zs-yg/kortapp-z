@@ -101,11 +101,12 @@ namespace AppStore
                         throw new Exception("无法获取下载文件夹路径");
                     }
                     
-                    downloadsDir = Marshal.PtrToStringUni(pathPtr);
+                    downloadsDir = Marshal.PtrToStringUni(pathPtr) ?? 
+                        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
                 }
                 catch 
                 {
-                    throw new Exception("无法确定下载文件夹位置，请手动指定下载路径");
+                    downloadsDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
                 }
                 finally
                 {
@@ -114,7 +115,15 @@ namespace AppStore
                         Marshal.FreeCoTaskMem(pathPtr);
                     }
                 }
-                Directory.CreateDirectory(downloadsDir);
+                
+                if (!string.IsNullOrEmpty(downloadsDir))
+                {
+                    Directory.CreateDirectory(downloadsDir);
+                }
+                else
+                {
+                    throw new Exception("无法确定下载文件夹位置");
+                }
                 
 
 
@@ -322,7 +331,7 @@ namespace AppStore
             try
             {
                 var process = currentProcess;
-                if (process == null || process.HasExited || process.StartInfo == null)
+                if (process?.StartInfo == null || process.HasExited)
                 {
                     item.Status = "已取消";
                     DownloadProgressChanged?.Invoke(item);

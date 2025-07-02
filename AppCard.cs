@@ -347,8 +347,14 @@ namespace AppStore
 
         public void UpdateDisplay()
         {
-            nameLabel.Text = AppName;
-            iconBox.Image = AppIcon;
+            if (nameLabel != null)
+            {
+                nameLabel.Text = AppName;
+            }
+            if (iconBox != null && AppIcon != null)
+            {
+                iconBox.Image = AppIcon;
+            }
         }
 
         private void DownloadBtn_Click(object sender, EventArgs e)

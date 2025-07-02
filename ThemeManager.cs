@@ -42,6 +42,8 @@ namespace AppStore
             try
             {
                 var dir = Path.GetDirectoryName(ThemeConfigPath);
+                if (dir == null) return;
+                
                 if (!Directory.Exists(dir))
                 {
                     Directory.CreateDirectory(dir);
