@@ -54,9 +54,23 @@ namespace AppStore
             this.Padding = new Padding(10);
             
             // 异步初始化卡片路径和边框
+            // 预加载边框路径
             Task.Run(() => {
                 InitializeCardPath();
                 InitializeBorder();
+                
+                // 确保在主线程注册事件
+                this.Invoke((MethodInvoker)(() => {
+                    this.Paint += (sender, e) => {
+                        if (BorderCache.IsEmpty) 
+                        {
+                            Task.Run(() => {
+                                InitializeBorder();
+                                this.Invoke((MethodInvoker)(() => this.Invalidate()));
+                            });
+                        }
+                    };
+                }));
             });
 
             // 应用图标 - 添加null检查
@@ -187,52 +201,58 @@ namespace AppStore
             // 使用卡片尺寸作为缓存键
             string cacheKey = $"{Width}_{Height}_10";
             
-            // 检查缓存中是否已有路径
+            // 双重检查锁模式确保线程安全
             if (!BorderCache.TryGetValue(cacheKey, out var borderPath))
             {
-                // 创建临时文件存储路径数据
-                string tempFile = Path.GetTempFileName();
-                try 
+                lock (BorderCache)
                 {
-                    // 配置C++程序启动参数
-                    ProcessStartInfo startInfo = new ProcessStartInfo 
+                    if (!BorderCache.TryGetValue(cacheKey, out borderPath))
                     {
-                        FileName = Path.Combine(Application.StartupPath, "resource", "border_renderer.exe"),
-                        Arguments = $"{Width} {Height} 10 \"{tempFile}\"", // 传递宽高和圆角半径
-                        UseShellExecute = false, // 不显示命令行窗口
-                        CreateNoWindow = true    // 静默运行
-                    };
-
-                    // 启动C++程序计算路径
-                    using (var process = Process.Start(startInfo)) 
-                    {
-                        process.WaitForExit();
-                        
-                        // 检查计算结果
-                        if (process.ExitCode == 0 && File.Exists(tempFile)) 
+                        // 创建临时文件存储路径数据
+                        string tempFile = Path.GetTempFileName();
+                        try 
                         {
-                            // 读取C++程序生成的路径点
-                            var lines = File.ReadAllLines(tempFile);
-                            PointF[] points = lines.Select(line => {
-                                var parts = line.Split(','); // 解析坐标点
-                                return new PointF(float.Parse(parts[0]), float.Parse(parts[1]));
-                            }).ToArray();
-                            
-                            // 创建GraphicsPath对象
-                            borderPath = new System.Drawing.Drawing2D.GraphicsPath();
-                            borderPath.AddLines(points); // 添加路径点
-                            
-                            // 缓存路径对象
-                            BorderCache.TryAdd(cacheKey, borderPath);
+                            // 配置C++程序启动参数
+                            ProcessStartInfo startInfo = new ProcessStartInfo 
+                            {
+                                FileName = Path.Combine(Application.StartupPath, "resource", "border_renderer.exe"),
+                                Arguments = $"{Width} {Height} 10 \"{tempFile}\"", // 传递宽高和圆角半径
+                                UseShellExecute = false, // 不显示命令行窗口
+                                CreateNoWindow = true    // 静默运行
+                            };
+
+                            // 启动C++程序计算路径
+                            using (var process = Process.Start(startInfo)) 
+                            {
+                                process.WaitForExit();
+                                
+                                // 检查计算结果
+                                if (process.ExitCode == 0 && File.Exists(tempFile)) 
+                                {
+                                    // 读取C++程序生成的路径点
+                                    var lines = File.ReadAllLines(tempFile);
+                                    PointF[] points = lines.Select(line => {
+                                        var parts = line.Split(','); // 解析坐标点
+                                        return new PointF(float.Parse(parts[0]), float.Parse(parts[1]));
+                                    }).ToArray();
+                                    
+                                    // 创建GraphicsPath对象
+                                    borderPath = new System.Drawing.Drawing2D.GraphicsPath();
+                                    borderPath.AddLines(points); // 添加路径点
+                                    
+                                    // 缓存路径对象
+                                    BorderCache.TryAdd(cacheKey, borderPath);
+                                }
+                            }
                         }
-                    }
-                }
-                finally 
-                {
-                    // 确保临时文件被删除
-                    if (File.Exists(tempFile)) 
-                    {
-                        File.Delete(tempFile);
+                        finally 
+                        {
+                            // 确保临时文件被删除
+                            if (File.Exists(tempFile)) 
+                            {
+                                File.Delete(tempFile);
+                            }
+                        }
                     }
                 }
             }
@@ -242,6 +262,12 @@ namespace AppStore
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+            
+            // 确保边框已初始化
+            if (BorderCache.IsEmpty) 
+            {
+                InitializeBorder();
+            }
             
             // 绘制背景
             using (var brush = new SolidBrush(this.BackColor)) {

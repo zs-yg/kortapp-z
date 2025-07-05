@@ -76,6 +76,10 @@ namespace AppStore
         private static readonly Color DarkText = Color.FromArgb(240, 240, 240);
         private static readonly Color DarkButtonHover = Color.FromArgb(60, 60, 60);
         private static readonly Color DarkButtonActive = Color.FromArgb(70, 70, 70);
+        private static readonly Color DarkBorder = Color.FromArgb(80, 80, 80);
+        
+        // 浅色主题边框颜色
+        private static readonly Color LightBorder = Color.FromArgb(180, 180, 180);
 
         public static event Action<ThemeMode> ThemeChanged = delegate {};
 
@@ -107,6 +111,9 @@ namespace AppStore
 
         public static Color ButtonActiveColor => 
             _currentTheme == ThemeMode.Light ? LightButtonActive : DarkButtonActive;
+
+        public static Color BorderColor => 
+            _currentTheme == ThemeMode.Light ? LightBorder : DarkBorder;
 
         public static void ApplyTheme(Control control)
         {

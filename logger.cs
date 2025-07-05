@@ -75,5 +75,25 @@ namespace AppStore
             }
             Log(warningMessage);
         }
+
+        public static void LogDebug(string message, Exception? ex = null)
+        {
+            string debugMessage = $"DEBUG: {message}";
+            if (ex != null)
+            {
+                debugMessage += $"\nException: {ex}\nStackTrace: {ex.StackTrace}";
+            }
+            Log(debugMessage);
+        }
+
+        public static void LogTip(string message, Exception? ex = null)
+        {
+            string tipMessage = $"TIP: {message}";
+            if (ex != null)
+            {
+                tipMessage += $"\nException: {ex}\nStackTrace: {ex.StackTrace}";
+            }
+            Log(tipMessage);
+        }
     }
 }
