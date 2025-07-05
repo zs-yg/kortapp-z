@@ -1022,6 +1022,16 @@ namespace AppStore
                 "img/png/terminal.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "github_cli",
+                "https://ghproxy.cn/https://github.com/cli/cli/releases/download/v2.74.2/gh_2.74.2_windows_arm64.msi",
+                "img/png/github_cli.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "ReactOS",
+                "https://ghproxy.cn/https://github.com/reactos/reactos/releases/download/0.4.15-release/ReactOS-0.4.15-release-1-gdbb43bbaeb2-x86-iso.zip",
+                "img/png/ReactOS.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 "typescript",
                 "https://ghproxy.net/https://github.com/microsoft/TypeScript/releases/download/v5.8.3/typescript-5.8.3.tgz",
                 ""));
