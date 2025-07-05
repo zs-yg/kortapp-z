@@ -248,6 +248,7 @@ namespace AppStore
             contentPanel.Dock = DockStyle.Fill;
             contentPanel.BackColor = ThemeManager.BackgroundColor;
             contentPanel.Padding = new Padding(20);
+            contentPanel.AutoScroll = true;
             this.Controls.Add(contentPanel);
 
             // 添加分隔线
@@ -635,11 +636,11 @@ namespace AppStore
             flowPanel.Dock = DockStyle.Fill;
             flowPanel.AutoScroll = true;
             flowPanel.Padding = new Padding(15, 15, 15, 15);
-            flowPanel.WrapContents = true;
+            flowPanel.WrapContents = false;
             flowPanel.Margin = new Padding(0);
             flowPanel.AutoSize = true;
             flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            flowPanel.AutoScrollMinSize = new Size(0, 3350);
+            flowPanel.AutoScrollMinSize = new Size(0, 5000);
 
             // 创建搜索框
             TextBox searchBox = new TextBox();
@@ -667,11 +668,11 @@ namespace AppStore
             flowPanel.Dock = DockStyle.Fill;
             flowPanel.AutoScroll = true;
             flowPanel.Padding = new Padding(15, 60, 15, 15);
-            flowPanel.WrapContents = true;
+            flowPanel.WrapContents = false;
             flowPanel.Margin = new Padding(0);
             flowPanel.AutoSize = true;
             flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            flowPanel.AutoScrollMinSize = new Size(0, 3350);
+            flowPanel.AutoScrollMinSize = new Size(0, 5000);
             contentPanel.Controls.Add(flowPanel);
 
             // 添加窗体关闭事件处理
@@ -709,7 +710,7 @@ namespace AppStore
             flowPanel.Margin = new Padding(0);
             flowPanel.AutoSize = true;
             flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            flowPanel.AutoScrollMinSize = new Size(0, 3350);
+            flowPanel.AutoScrollMinSize = new Size(0, 3550);
             contentPanel.Controls.Add(flowPanel);
 
             // 添加所有应用卡片并恢复位置
