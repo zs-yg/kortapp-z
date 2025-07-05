@@ -787,6 +787,11 @@ namespace AppStore
                 "img/png/MSYS2.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "OpenJDK by Azul JDKs",
+                "https://cdn.azul.com/zulu/bin/zulu21.42.19-ca-jdk21.0.7-win_x64.msi",
+                "img/png/Azul_JDKs.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 ".NET SDK 8.0",
                 "https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.411-windows-x64-installer",
                 "img/png/.NET.png"));
@@ -820,6 +825,16 @@ namespace AppStore
                 "OpenSpeedy",
                 "https://ghproxy.net/https://github.com/game1024/OpenSpeedy/releases/download/v1.7.1/OpenSpeedy-v1.7.1.zip",
                 "img/png/openspeedy.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Final2x",
+                "https://ghproxy.net/https://github.com/Tohrusky/Final2x/releases/download/2024-12-14/Final2x-windows-x64-setup.exe",
+                "img/png/Final2x.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Pixpin",
+                "https://download.pixpin.cn/PixPin_2.0.0.3.exe",
+                "img/png/pixpin.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "QuickLook",
