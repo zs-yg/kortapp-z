@@ -1165,9 +1165,19 @@ namespace AppStore
                 "img/png/cloudreve.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "ollama",
+                "https://www.ghproxy.cn/https://github.com/ollama/ollama/releases/download/v0.9.5/OllamaSetup.exe",
+                "img/png/ollama.png"));
+	
+            flowPanel.Controls.Add(CreateAppCard(
                 "SeelenUI",
                 "https://ghproxy.net/https://github.com/eythaann/Seelen-UI/releases/download/v2.3.8/Seelen.UI_2.3.8_x64-setup.exe",
                 "img/png/SeelenUI.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "ollama",
+                "https://www.ghproxy.cn/https://github.com/ollama/ollama/releases/download/v0.9.5/OllamaSetup.exe",
+                "img/png/ollama.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "git汉化包",
