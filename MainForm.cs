@@ -1175,11 +1175,6 @@ namespace AppStore
                 "img/png/SeelenUI.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
-                "ollama",
-                "https://www.ghproxy.cn/https://github.com/ollama/ollama/releases/download/v0.9.5/OllamaSetup.exe",
-                "img/png/ollama.png"));
-
-            flowPanel.Controls.Add(CreateAppCard(
                 "git汉化包",
                 "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.6/zh_cn.msg",
                 ""));
