@@ -2,7 +2,7 @@
 ; 有关创建 Inno Setup 脚本文件的详细信息，请参阅帮助文档！
 
 #define MyAppName "kortapp-z"
-#define MyAppVersion "1.2.0"
+#define MyAppVersion "1.2.1"
 #define MyAppPublisher "zsyg"
 #define MyAppURL "https://github.com/zs-yg/kortapp-z"
 #define MyAppExeName "kortapp-z.exe"
