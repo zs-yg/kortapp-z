@@ -1007,6 +1007,11 @@ namespace AppStore
                 "img/png/vnote.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "notepad--",
+                "https://www.ghproxy.cn/https://github.com/cxasm/notepad--/releases/download/notepad-v3.3/Notepad--v3.3-plugin-Installer.exe",
+                "img/png/notepad--.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 "PowerToys",
                 "https://ghproxy.net/https://github.com/microsoft/PowerToys/releases/download/v0.91.1/PowerToysSetup-0.91.1-x64.exe",
                 "img/png/PowerToys.png"));
