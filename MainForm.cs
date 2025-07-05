@@ -551,6 +551,23 @@ namespace AppStore
             }
             flowPanel.Controls.Add(selfStartingManagerCard);
 
+            // 图标提取器工具卡片
+            var iconExtractorCard = new AppStore.Tools.IconExtractor.IconExtractorToolCard();
+            try 
+            {
+                string iconPath = Path.Combine(Application.StartupPath, "img", "resource", "png", "ico_extractor.png");
+                if (File.Exists(iconPath))
+                {
+                    iconExtractorCard.ToolIcon = Image.FromFile(iconPath);
+                }
+                iconExtractorCard.UpdateDisplay();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("加载图标提取器图标失败", ex);
+            }
+            flowPanel.Controls.Add(iconExtractorCard);
+
             }
             catch (Exception ex)
             {

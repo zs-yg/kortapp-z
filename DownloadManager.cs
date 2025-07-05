@@ -48,7 +48,7 @@ namespace AppStore
         private ProcessResult GetProcessResult(Process? process)
         {
             var result = new ProcessResult();
-            if (process == null) return result;
+            if (process == null || process.StartInfo == null) return result;
             
             try 
             {
@@ -363,6 +363,7 @@ namespace AppStore
 
         private string GetDownloadPath()
         {
+            string fallbackPath = string.Empty;
             // 1. 优先读取用户设置的下载路径
             try
             {
@@ -481,9 +482,18 @@ namespace AppStore
 
             // 3. 最终回退到相对路径 ~/Downloads
             string relativePath = "~/Downloads";
-            string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) ?? string.Empty;
-            string fallbackPath = relativePath.Replace("~", userProfile);
-            fallbackPath = Path.GetFullPath(fallbackPath);
+            string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) ?? 
+                Environment.GetFolderPath(Environment.SpecialFolder.Desktop) ?? 
+                AppDomain.CurrentDomain.BaseDirectory;
+            
+            if (!string.IsNullOrEmpty(userProfile))
+            {
+                fallbackPath = relativePath.Replace("~", userProfile);
+                if (!string.IsNullOrEmpty(fallbackPath))
+                {
+                    fallbackPath = Path.GetFullPath(fallbackPath);
+                }
+            }
             
             try {
                 Directory.CreateDirectory(fallbackPath);
