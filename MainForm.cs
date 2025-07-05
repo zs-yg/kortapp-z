@@ -710,7 +710,7 @@ namespace AppStore
             flowPanel.Margin = new Padding(0);
             flowPanel.AutoSize = true;
             flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            flowPanel.AutoScrollMinSize = new Size(0, 3550);
+            flowPanel.AutoScrollMinSize = new Size(0, 3800);//大概一行250像素
             contentPanel.Controls.Add(flowPanel);
 
             // 添加所有应用卡片并恢复位置
@@ -1061,6 +1061,11 @@ namespace AppStore
                 "Gimp",
                 "https://mirror.nju.edu.cn/gimp/gimp/v3.0/windows/gimp-3.0.4-setup.exe",
                 "img/jpg/Gimp.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "ClamAV",
+                "https://www.clamav.net/downloads/production/clamav-1.4.3.win.x64.msi",
+                "img/png/ClamAV.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Shotcut",
