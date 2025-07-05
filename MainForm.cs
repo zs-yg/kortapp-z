@@ -1048,6 +1048,11 @@ namespace AppStore
                 "img/png/ReactOS.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "Ubuntu桌面发行版",
+                "https://releases.ubuntu.com/24.04/ubuntu-24.04.2-desktop-amd64.iso",
+                "img/png/Ubuntu.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 "typescript",
                 "https://ghproxy.net/https://github.com/microsoft/TypeScript/releases/download/v5.8.3/typescript-5.8.3.tgz",
                 ""));
