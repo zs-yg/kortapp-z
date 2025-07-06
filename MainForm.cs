@@ -1026,21 +1026,41 @@ namespace AppStore
                 "notepad--",
                 "https://www.ghproxy.cn/https://github.com/cxasm/notepad--/releases/download/notepad-v3.3/Notepad--v3.3-plugin-Installer.exe",
                 "img/png/notepad--.png"));
+                
+            flowPanel.Controls.Add(CreateAppCard(
+                "chatlog",
+                "https://www.ghproxy.cn/https://github.com/sjzar/chatlog/releases/download/v0.0.15/chatlog_0.0.15_windows_amd64.zip",
+                "img/jpg/github.jpg"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "PowerToys",
                 "https://ghproxy.net/https://github.com/microsoft/PowerToys/releases/download/v0.91.1/PowerToysSetup-0.91.1-x64.exe",
                 "img/png/PowerToys.png"));
+                
+            flowPanel.Controls.Add(CreateAppCard(
+                "Powershell",
+                "https://ghproxy.net/https://github.com/Powershell/Powershell/releases/download/v7.5.2/Powershell-7.5.2-win-x64.exe",
+                "img/png/powershell.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "terminal",
                 "https://ghproxy.net/https://github.com/microsoft/terminal/releases/download/v1.22.11141.0/Microsoft.WindowsTerminal_1.22.11141.0_x64.zip",
                 "img/png/terminal.png"));
+                
+            flowPanel.Controls.Add(CreateAppCard(
+                "edit",
+                "https://ghproxy.net/https://github.com/microsoft/edit/releases/download/v1.2.0/edit-1.2.0-x86_64-windows.zip",
+                "img/png/edit.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "github_cli",
                 "https://ghproxy.cn/https://github.com/cli/cli/releases/download/v2.74.2/gh_2.74.2_windows_arm64.msi",
                 "img/png/github_cli.png"));
+                
+            flowPanel.Controls.Add(CreateAppCard(
+                "VideoCaptioner",
+                "https://ghproxy.cn/https://github.com/WEIFENG2333/VideoCaptioner/releases/download/v1.3.3/VideoCaptioner-Setup-win64-v1.3.3.exe",
+                "img/png/VideoCaptioner.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "ReactOS",
