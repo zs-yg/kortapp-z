@@ -569,6 +569,43 @@ namespace AppStore
             }
             flowPanel.Controls.Add(iconExtractorCard);
 
+            // 文本转换器工具卡片
+            var textConverterCard = new ToolCard();
+            textConverterCard.ToolName = "文本转换器";
+            try 
+            {
+                string iconPath = Path.Combine(Application.StartupPath, "img", "resource", "png", "text converter.png");
+                if (File.Exists(iconPath))
+                {
+                    textConverterCard.ToolIcon = Image.FromFile(iconPath);
+                }
+                else
+                {
+                    textConverterCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+                }
+            }
+            catch
+            {
+                textConverterCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+            }
+            
+            textConverterCard.UpdateDisplay();
+            textConverterCard.ToolCardClicked += (s, e) => {
+                try {
+                    string toolPath = Path.Combine(Application.StartupPath, "resource", "text_converter.exe");
+                    if (File.Exists(toolPath)) {
+                        Process.Start(toolPath);
+                    } else {
+                        MessageBox.Show("文本转换器工具未找到，请确保已正确安装", "错误", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                } catch (Exception ex) {
+                    MessageBox.Show($"启动文本转换器失败: {ex.Message}", "错误", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+            flowPanel.Controls.Add(textConverterCard);
+
             }
             catch (Exception ex)
             {
