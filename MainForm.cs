@@ -126,6 +126,10 @@ namespace AppStore
         private Button btnAbout = null!;
         // 内容显示面板
         private Panel contentPanel = null!;
+        // 系统托盘图标
+        private NotifyIcon trayIcon = null!;
+        // 托盘右键菜单
+        private ContextMenuStrip trayMenu = null!;
 
         /// <summary>
         /// 初始化窗体组件
@@ -139,6 +143,41 @@ namespace AppStore
             this.MinimumSize = new Size(600, 600); // 设置最小尺寸
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Icon = new Icon("img/ico/icon.ico"); // 设置窗体图标
+
+            // 初始化系统托盘
+            trayMenu = new ContextMenuStrip();
+            trayMenu.Items.Add("打开", null, (s, e) => {
+                this.Show();
+                this.WindowState = FormWindowState.Normal;
+            });
+            trayMenu.Items.Add("退出", null, (s, e) => Application.Exit());
+
+            trayIcon = new NotifyIcon();
+            trayIcon.Text = "kortapp-z";
+            trayIcon.Icon = new Icon("img/ico/icon.ico");
+            trayIcon.ContextMenuStrip = trayMenu;
+            trayIcon.Visible = true;
+            trayIcon.DoubleClick += (s, e) => {
+                this.Show();
+                this.WindowState = FormWindowState.Normal;
+            };
+
+            // 窗体最小化到托盘处理
+            this.Resize += (s, e) => {
+                if (this.WindowState == FormWindowState.Minimized)
+                {
+                    this.Hide();
+                }
+            };
+
+            // 窗体关闭按钮处理 - 隐藏到托盘而不是退出
+            this.FormClosing += (s, e) => {
+                if (e.CloseReason == CloseReason.UserClosing)
+                {
+                    e.Cancel = true;
+                    this.Hide();
+                }
+            };
 
             // 注册主题变更事件
             ThemeManager.ThemeChanged += (theme) => 
