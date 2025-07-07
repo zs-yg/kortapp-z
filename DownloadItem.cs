@@ -1,9 +1,3 @@
- // _              _                             
- //| | _____  _ __| |_ __ _ _ __  _ __       ____
- //| |/ / _ \| '__| __/ _` | '_ \| '_ \ ____|_  /
- //|   | (_) | |  | || (_| | |_) | |_) |_____/ / 
- //|_|\_\___/|_|   \__\__,_| .__/| .__/     /___|
- //                        |_|   |_|             
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -59,10 +53,11 @@ namespace AppStore
             this.BackColor = ThemeManager.CurrentTheme == ThemeManager.ThemeMode.Light 
                 ? Color.White 
                 : Color.Black;
-            this.BorderStyle = BorderStyle.FixedSingle;
+            this.BorderStyle = BorderStyle.None; // 禁用默认边框
             this.ForeColor = ThemeManager.CurrentTheme == ThemeManager.ThemeMode.Light 
                 ? Color.Black 
                 : Color.White;
+            this.Paint += DownloadItem_Paint; // 添加自定义绘制
 
             // 文件名标签
             nameLabel = new Label();
@@ -104,6 +99,17 @@ namespace AppStore
             nameLabel.Text = FileName;
             progressBar.Value = Progress;
             statusLabel.Text = Status;
+            this.Invalidate(); // 触发重绘
+        }
+
+        private void DownloadItem_Paint(object sender, PaintEventArgs e)
+        {
+            // 自定义边框绘制
+            using (var pen = new Pen(ThemeManager.BorderColor, 1))
+            {
+                e.Graphics.DrawRectangle(pen, 
+                    new Rectangle(0, 0, this.Width - 1, this.Height - 1));
+            }
         }
 
         private void CancelBtn_Click(object sender, EventArgs e)
