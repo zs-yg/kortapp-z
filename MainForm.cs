@@ -967,6 +967,11 @@ namespace AppStore
                 "img/png/Umi-OCR.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "pocketbase",
+                "https://ghproxy.net/https://github.com/pocketbase/pocketbase/releases/download/v0.28.4/pocketbase_0.28.4_windows_amd64.zip",
+                "img/png/pocketbase.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 "frp",
                 "https://ghproxy.net/https://github.com/fatedier/frp/releases/download/v0.62.1/frp_0.62.1_windows_amd64.zip",
                 ""));
