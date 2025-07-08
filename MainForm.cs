@@ -780,7 +780,7 @@ namespace AppStore
             flowPanel.Margin = new Padding(0);
             flowPanel.AutoSize = true;
             flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            flowPanel.AutoScrollMinSize = new Size(0, 3800);//大概一行250像素
+            flowPanel.AutoScrollMinSize = new Size(0, 4050);//大概一行250像素
             contentPanel.Controls.Add(flowPanel);
 
             // 添加所有应用卡片并恢复位置
@@ -940,6 +940,11 @@ namespace AppStore
                 "Dev-C++",
                 "https://down.wsyhn.com/23_355739",
                 "img/png/Dev-C++.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Code::Blocks",
+                "https://down.wsyhn.com/23_277571",
+                "img/png/CodeBlocks.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "7-Zip",
