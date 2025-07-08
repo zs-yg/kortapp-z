@@ -937,6 +937,11 @@ namespace AppStore
                 "img/png/codium_cnl.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "Dev-C++",
+                "https://down.wsyhn.com/23_355739",
+                "img/png/Dev-C++.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 "7-Zip",
                 "https://objects.githubusercontent.com/github-production-release-asset-2e65be/466446150/1645817e-3677-4207-93ff-e62de7e147be?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250613T035936Z&X-Amz-Expires=300&X-Amz-Signature=5e02d5fc34f45bd8308029c9fc78052007e9475ce0e32775619921cb8f3b83ea&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D7z2409-x64.exe&response-content-type=application%2Foctet-stream",
                 "img/png/7ziplogo.png"));
