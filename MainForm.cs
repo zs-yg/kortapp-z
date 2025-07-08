@@ -922,6 +922,16 @@ namespace AppStore
                 "img/jpg/vs.jpg"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "vs build tools 2019",
+                "https://download.visualstudio.microsoft.com/download/pr/8918edd5-ae24-4ac8-b90a-5e30583f8261/df275a4c77916fe65e39d24e85eafb369c4ee458cc3dd627b920fe18a4606ce0/vs_BuildTools.exe",
+                "img/jpg/vs.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "vs build tools 2022",
+                "https://download.visualstudio.microsoft.com/download/pr/13907dbe-8bb3-4cfe-b0ae-147e70f8b2f3/a3193e6e6135ef7f598d6a9e429b010d77260dba33dddbee343a47494b5335a3/vs_BuildTools.exe",
+                "img/jpg/vs.jpg"));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 "VSCodium",
                 "https://visualstudio.microsoft.com/zh-hans/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false",
                 "img/png/codium_cnl.png"));
