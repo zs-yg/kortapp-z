@@ -64,18 +64,93 @@ namespace AppStore.Tools.IconExtractor
         /// <param name="iconIndex">图标索引</param>
         /// <param name="largeIcon">是否提取大图标</param>
         /// <returns>提取的图标</returns>
-        public static Icon ExtractIconFromFile(string filePath, int iconIndex = 0)
+        public enum IconSize
         {
-            IntPtr[] hIcons = new IntPtr[1];
-            int extractedCount = ExtractIconEx(filePath, iconIndex, hIcons, null, 1);
+            Large,
+            Small
+        }
 
-            if (extractedCount <= 0 || hIcons[0] == IntPtr.Zero)
-                throw new FileNotFoundException("无法从文件中提取图标");
+        public static Icon ExtractIconFromFile(string filePath, int iconIndex = 0, IconSize size = IconSize.Large)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+                throw new ArgumentNullException(nameof(filePath));
 
-            // 直接返回原始图标
-            Icon icon = (Icon)Icon.FromHandle(hIcons[0]).Clone();
-            DestroyIcon(hIcons[0]);
-            return icon;
+            // 增强文件检查
+            try
+            {
+                // 规范化路径
+                filePath = Path.GetFullPath(filePath);
+                
+                // 检查文件属性（比File.Exists更可靠）
+                var fileInfo = new FileInfo(filePath);
+                if (!fileInfo.Exists)
+                {
+                    throw new FileNotFoundException($"文件不存在或无法访问: {filePath}\n" +
+                        $"当前工作目录: {Environment.CurrentDirectory}\n" +
+                        $"绝对路径: {Path.GetFullPath(filePath)}");
+                }
+
+                // 尝试打开文件测试是否被锁定
+                try
+                {
+                    using (var stream = fileInfo.Open(FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    {
+                        // 文件可访问
+                    }
+                }
+                catch (IOException ioEx)
+                {
+                    throw new IOException($"文件被锁定或无法访问: {filePath}", ioEx);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new FileNotFoundException($"无法访问文件: {filePath}\n" +
+                    $"错误详情: {ex.Message}", ex);
+            }
+
+            // 尝试从索引0到3提取图标
+            for (int i = 0; i < 4; i++)
+            {
+                IntPtr[] hLargeIcons = new IntPtr[1];
+                IntPtr[] hSmallIcons = new IntPtr[1];
+                
+                int extractedCount = ExtractIconEx(filePath, i, hLargeIcons, hSmallIcons, 1);
+
+                if (extractedCount > 0)
+                {
+                    IntPtr hIcon = size == IconSize.Large ? hLargeIcons[0] : hSmallIcons[0];
+                    if (hIcon == IntPtr.Zero)
+                    {
+                        // 回退到另一种尺寸
+                        hIcon = size == IconSize.Large ? hSmallIcons[0] : hLargeIcons[0];
+                    }
+
+                    if (hIcon != IntPtr.Zero)
+                    {
+                        try
+                        {
+                            Icon icon = (Icon)Icon.FromHandle(hIcon).Clone();
+                            return icon;
+                        }
+                        finally
+                        {
+                            if (hLargeIcons[0] != IntPtr.Zero) DestroyIcon(hLargeIcons[0]);
+                            if (hSmallIcons[0] != IntPtr.Zero) DestroyIcon(hSmallIcons[0]);
+                        }
+                    }
+                }
+            }
+
+            // 尝试使用ExtractAssociatedIcon作为后备方案
+            try
+            {
+                return Icon.ExtractAssociatedIcon(filePath);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"无法从文件中提取图标(尝试了索引0-3和ExtractAssociatedIcon)", ex);
+            }
         }
 
         /// <summary>
