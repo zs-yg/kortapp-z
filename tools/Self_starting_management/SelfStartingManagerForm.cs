@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Security;
+using System.IO;
+using AppStore.Tools.IconExtractor;
 
 namespace AppStore
 {
@@ -40,12 +42,14 @@ namespace AppStore
             dataGridView.BackgroundColor = SystemColors.Window;
             dataGridView.BorderStyle = BorderStyle.Fixed3D;
             
-            // 添加列
-            var iconColumn = new DataGridViewImageColumn();
-            iconColumn.HeaderText = "图标";
-            iconColumn.Name = "Icon";
-            iconColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            iconColumn.FillWeight = 10;
+            // 添加图标列
+            var iconColumn = new DataGridViewImageColumn
+            {
+                HeaderText = "图标",
+                Name = "Icon",
+                ImageLayout = DataGridViewImageCellLayout.Zoom,
+                FillWeight = 10
+            };
             
             var nameColumn = new DataGridViewTextBoxColumn();
             nameColumn.HeaderText = "名称";
@@ -112,6 +116,8 @@ namespace AppStore
             LoadStartupItems();
         }
 
+
+
         private void LoadStartupItems()
         {
             dataGridView.Rows.Clear();
@@ -134,32 +140,55 @@ namespace AppStore
                         Image? iconImage = null;
                         try
                         {
-                            if (!string.IsNullOrEmpty(item.Value) && System.IO.File.Exists(item.Value))
+                            Logger.Log($"正在处理自启动项: {item.Key} = {item.Value}");
+                            
+                            if (!string.IsNullOrEmpty(item.Value))
                             {
-                                using (Icon icon = Icon.ExtractAssociatedIcon(item.Value))
+                                // 详细路径调试信息
+                                Logger.Log($"正在检查文件路径: {item.Value}");
+                                Logger.Log($"当前工作目录: {Environment.CurrentDirectory}");
+                                Logger.Log($"完整路径: {Path.GetFullPath(item.Value)}");
+                                
+                                // 清理路径，移除参数
+                                string cleanPath = PathHelper.CleanExecutablePath(item.Value);
+                                var fullPath = Path.GetFullPath(cleanPath);
+                                
+                                if (System.IO.File.Exists(fullPath))
                                 {
-                                    iconImage = icon?.ToBitmap() ?? SystemIcons.Application.ToBitmap();
+                                    Logger.Log($"文件存在，尝试提取图标: {fullPath}");
+                                    try
+                                    {
+                                        var icon = IconExtractor.ExtractIconFromFile(cleanPath);
+                                        // 转换为Bitmap并保持高DPI显示质量
+                                        iconImage = new Bitmap(icon.ToBitmap(), 
+                                            new Size(32, 32));
+                                        Logger.Log($"成功提取并转换图标: {item.Value} ({icon.Width}x{icon.Height})");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Logger.LogError($"图标提取失败: {item.Value}", ex);
+                                        iconImage = SystemIcons.Application.ToBitmap();
+                                    }
+                                }
+                                else
+                                {
+                                    Logger.LogWarning($"文件不存在: {item.Value}");
+                                    iconImage = SystemIcons.Application.ToBitmap();
                                 }
                             }
                             else
                             {
-                                // 使用默认图标
-                                iconImage = SystemIcons.Application?.ToBitmap() ?? SystemIcons.WinLogo.ToBitmap();
+                                Logger.LogWarning("自启动项路径为空");
+                                iconImage = SystemIcons.WinLogo.ToBitmap();
                             }
                         }
                         catch (Exception ex)
                         {
-                            Logger.LogWarning($"无法加载程序图标: {item.Value}", ex);
-                            // 确保在任何情况下都有有效的图标
-                            iconImage = SystemIcons.Warning?.ToBitmap() 
-                                     ?? SystemIcons.Error?.ToBitmap()
-                                     ?? SystemIcons.Application?.ToBitmap()
-                                     ?? SystemIcons.WinLogo?.ToBitmap()
-                                     ?? SystemIcons.Shield?.ToBitmap()
-                                     ?? new Bitmap(16, 16);
-                            if (iconImage == null)
+                            Logger.LogError($"加载程序图标失败: {item.Value}", ex);
+                            iconImage = new Bitmap(16, 16);
+                            using (Graphics g = Graphics.FromImage(iconImage))
                             {
-                                iconImage = new Bitmap(16, 16);
+                                g.Clear(Color.Red);
                             }
                         }
                         
