@@ -639,6 +639,43 @@ namespace AppStore
             };
             flowPanel.Controls.Add(textConverterCard);
 
+            // 图片转换器工具卡片
+            var imageConverterCard = new ToolCard();
+            imageConverterCard.ToolName = "图片转换器";
+            try 
+            {
+                string iconPath = Path.Combine(Application.StartupPath, "img", "resource", "png", "Image_format_converter.png");
+                if (File.Exists(iconPath))
+                {
+                    imageConverterCard.ToolIcon = Image.FromFile(iconPath);
+                }
+                else
+                {
+                    imageConverterCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+                }
+            }
+            catch
+            {
+                imageConverterCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+            }
+            
+            imageConverterCard.UpdateDisplay();
+            imageConverterCard.ToolCardClicked += (s, e) => {
+                try {
+                    string toolPath = Path.Combine(Application.StartupPath, "resource", "image_converter.exe");
+                    if (File.Exists(toolPath)) {
+                        Process.Start(toolPath);
+                    } else {
+                        MessageBox.Show("图片转换器工具未找到，请确保已正确安装", "错误", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                } catch (Exception ex) {
+                    MessageBox.Show($"启动图片转换器失败: {ex.Message}", "错误", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+            flowPanel.Controls.Add(imageConverterCard);
+
             }
             catch (Exception ex)
             {
