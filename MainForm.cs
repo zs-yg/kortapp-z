@@ -1252,6 +1252,31 @@ namespace AppStore
                 "img/png/catime_resize.png"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "Cataclysm-DDA",
+                "https://ghproxy.cn/https://github.com/CleverRaven/Cataclysm-DDA/releases/download/0.H-RELEASE/cdda-windows-with-graphics-and-sounds-x64-2024-11-23-1857.zip",
+                "img/png/Cataclysm-DDA.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "gophish",
+                "https://ghproxy.cn/https://github.com/gophish/gophish/releases/download/v0.12.1/gophish-v0.12.1-windows-64bit.zip",
+                "img/png/gophish.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "NoteGen",
+                "https://ghproxy.cn/https://github.com/codexu/note-gen/releases/download/note-gen-v0.19.3/NoteGen_0.19.3_x64-setup.exe",
+                "img/png/NoteGen.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "hashcat",
+                "https://ghproxy.cn/https://github.com/hashcat/hashcat/releases/download/v6.2.6/hashcat-6.2.6.7z",
+                "img/png/hashcat.png"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "rpg-cli",
+                "https://gh-proxy.com/https://github.com/facundoolano/rpg-cli/releases/download/1.2.0/rpg-cli-1.2.0-windows.exe",
+                ""));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 "fluxy",
                 "https://ghproxy.net/https://github.com/alley-rs/fluxy/releases/download/v0.1.17/fluxy_0.1.17_x64-setup.exe",
                 "img/png/fluxy.png"));
