@@ -8,14 +8,43 @@ using System.Text;
 using System.Text.Json;
 using System.Diagnostics;
 using AppStore;
+using Sunny.UI;
+using System.Runtime.InteropServices;
 
 namespace AppStore
 {
-    /// <summary>
-    /// 主窗体类，负责应用程序的主界面显示和交互
-    /// </summary>
-    public class MainForm : Form
+    public class MainForm : UIForm
     {
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn(
+            int nLeftRect,
+            int nTopRect,
+            int nRightRect,
+            int nBottomRect,
+            int nWidthEllipse,
+            int nHeightEllipse
+        );
+
+        [DllImport("dwmapi.dll")]
+        private static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref MARGINS pMarInset);
+
+        [DllImport("dwmapi.dll")]
+        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
+
+        [DllImport("dwmapi.dll")]
+        private static extern int DwmIsCompositionEnabled(ref int pfEnabled);
+
+        private struct MARGINS
+        {
+            public int leftWidth;
+            public int rightWidth;
+            public int topHeight;
+            public int bottomHeight;
+        }
+
+        private const int DWMWA_WINDOW_CORNER_PREFERENCE = 33;
+        private const int DWMWCP_ROUND = 2;
+
         private static readonly string CacheDir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             "zsyg", "kortapp-z", ".cache");
@@ -139,10 +168,32 @@ namespace AppStore
             // 设置窗体基本属性
             // 窗体基本设置
             this.Text = "kortapp-z";
-            this.Size = new Size(1430, 1050); // 增加窗体高度
-            this.MinimumSize = new Size(600, 600); // 设置最小尺寸
+            this.Size = new Size(1430, 1050);
+            this.MinimumSize = new Size(600, 600);
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.Icon = new Icon("img/ico/icon.ico"); // 设置窗体图标
+            this.Icon = new Icon("img/ico/icon.ico");
+            this.Style = UIStyle.Custom;
+            this.FormBorderStyle = FormBorderStyle.None;
+            
+            // 应用现代化圆角
+            this.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 
+                ThemeManager.FormRadius, ThemeManager.FormRadius));
+
+            // 启用窗口阴影
+            if (Environment.OSVersion.Version.Major >= 6)
+            {
+                int val = DWMWCP_ROUND;
+                DwmSetWindowAttribute(this.Handle, DWMWA_WINDOW_CORNER_PREFERENCE, ref val, sizeof(int));
+
+                MARGINS margins = new MARGINS()
+                {
+                    leftWidth = 1,
+                    rightWidth = 1,
+                    topHeight = 1,
+                    bottomHeight = 1
+                };
+                DwmExtendFrameIntoClientArea(this.Handle, ref margins);
+            }
 
             // 初始化系统托盘
             trayMenu = new ContextMenuStrip();
@@ -190,12 +241,68 @@ namespace AppStore
             // 现代化顶部导航栏
             Panel buttonPanel = new Panel();
             buttonPanel.Dock = DockStyle.Top;
-            buttonPanel.Height = 70;
+            buttonPanel.Height = 80;
             buttonPanel.BackColor = ThemeManager.ControlBackgroundColor;
-            buttonPanel.Padding = new Padding(10, 15, 10, 0);
+            buttonPanel.Padding = new Padding(15, 20, 15, 5);
             buttonPanel.AutoScroll = true;
             buttonPanel.AutoSize = true;
             buttonPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+
+            // 添加支持作者按钮
+            UIButton btnSupport = new UIButton();
+            btnSupport.Text = "支持作者";
+            btnSupport.Font = new Font("微软雅黑", 10F, FontStyle.Bold);
+            btnSupport.Size = new Size(120, 45);
+            btnSupport.Location = new Point(buttonPanel.Width - 140, 15);
+            btnSupport.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnSupport.Style = UIStyle.Custom;
+            btnSupport.FillColor = ThemeManager.AccentColor;
+            btnSupport.ForeColor = Color.White;
+            btnSupport.Click += (s, e) => {
+                // 使用SunnyUI的现代化MessageBox
+                var form = new UIForm();
+                form.Style = UIStyle.Custom;
+                form.Text = "支持作者";
+                form.Size = new Size(400, 200);
+                form.StartPosition = FormStartPosition.CenterParent;
+
+                var label = new Label();
+                label.Text = "您确定要前往GitHub支持作者吗？";
+                label.Font = new Font("Microsoft YaHei", 10);
+                label.AutoSize = false;
+                label.Size = new Size(300, 40);
+                label.TextAlign = ContentAlignment.MiddleCenter;
+                label.Location = new Point(50, 40);
+                form.Controls.Add(label);
+
+                var btnOK = new UIButton();
+                btnOK.Text = "确定";
+                btnOK.Style = UIStyle.Custom;
+                btnOK.Size = new Size(80, 30);
+                btnOK.Location = new Point(120, 100);
+                btnOK.Click += (s, e) => {
+                    form.DialogResult = DialogResult.OK;
+                    form.Close();
+                };
+                form.Controls.Add(btnOK);
+
+                var btnCancel = new UIButton();
+                btnCancel.Text = "取消";
+                btnCancel.Style = UIStyle.Custom;
+                btnCancel.Size = new Size(80, 30);
+                btnCancel.Location = new Point(220, 100);
+                btnCancel.Click += (s, e) => {
+                    form.DialogResult = DialogResult.Cancel;
+                    form.Close();
+                };
+                form.Controls.Add(btnCancel);
+
+                if (form.ShowDialog(this) == DialogResult.OK)
+                {
+                    Process.Start(new ProcessStartInfo("https://github.com/zs-yg/kortapp-z") { UseShellExecute = true });
+                }
+            };
+            buttonPanel.Controls.Add(btnSupport);
             
             // 导航按钮样式
             Action<Button> styleButton = (Button btn) => {
