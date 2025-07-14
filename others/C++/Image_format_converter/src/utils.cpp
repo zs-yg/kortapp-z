@@ -7,5 +7,7 @@ ImageFormat get_format_from_extension(const std::string& path) {
     
     if (ext == "png") return ImageFormat::PNG;
     if (ext == "jpg" || ext == "jpeg") return ImageFormat::JPG;
+    if (ext == "tif" || ext == "tiff") return ImageFormat::TIFF;
+    if (ext == "webp") return ImageFormat::WEBP;
     return ImageFormat::UNKNOWN;
 }

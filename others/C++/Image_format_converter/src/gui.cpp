@@ -12,6 +12,22 @@
 #include "png_to_tiff.hpp"
 #include "tiff_to_jpg.hpp"
 #include "jpg_to_tiff.hpp"
+#include "webp_to_jpg.hpp"
+#include "webp_to_png.hpp"
+#include "webp_to_bmp.hpp"
+#include "webp_to_tiff.hpp"
+#include "jpg_to_webp.hpp"
+#include "png_to_webp.hpp"
+#include "bmp_to_webp.hpp"
+#include "tiff_to_webp.hpp"
+#include "jpeg_to_png.hpp"
+#include "jpeg_to_bmp.hpp"
+#include "jpeg_to_tiff.hpp"
+#include "jpeg_to_webp.hpp"
+#include "png_to_jpeg.hpp"
+#include "bmp_to_jpeg.hpp"
+#include "tiff_to_jpeg.hpp"
+#include "webp_to_jpeg.hpp"
 #include <FL/Fl_File_Chooser.H>
 #include <FL/fl_ask.H>
 #include <stdexcept>
@@ -45,6 +61,22 @@ MainWindow::MainWindow(int w, int h, const char* title)
     format_choice->add("PNG to TIFF");
     format_choice->add("TIFF to JPG");
     format_choice->add("JPG to TIFF");
+    format_choice->add("WEBP to JPG");
+    format_choice->add("WEBP to PNG");
+    format_choice->add("WEBP to BMP");
+    format_choice->add("WEBP to TIFF");
+    format_choice->add("JPG to WEBP");
+    format_choice->add("PNG to WEBP");
+    format_choice->add("BMP to WEBP");
+    format_choice->add("TIFF to WEBP");
+    format_choice->add("JPEG to PNG");
+    format_choice->add("JPEG to BMP");
+    format_choice->add("JPEG to TIFF");
+    format_choice->add("JPEG to WEBP");
+    format_choice->add("PNG to JPEG");
+    format_choice->add("BMP to JPEG");
+    format_choice->add("TIFF to JPEG");
+    format_choice->add("WEBP to JPEG");
     format_choice->value(0);
     
     convert_btn = new Fl_Button(150, 150, 100, 30, "转换");
@@ -121,6 +153,54 @@ void MainWindow::convert_cb(Fl_Widget* w, void* data) {
                 break;
             case 11: // JPG to TIFF
                 success = JpgToTiffConverter::convert(input, output);
+                break;
+            case 12: // WEBP to JPG
+                success = WebpToJpgConverter::convert(input, output);
+                break;
+            case 13: // WEBP to PNG
+                success = WebpToPngConverter::convert(input, output);
+                break;
+            case 14: // WEBP to BMP
+                success = WebpToBmpConverter::convert(input, output);
+                break;
+            case 15: // WEBP to TIFF
+                success = WebpToTiffConverter::convert(input, output);
+                break;
+            case 16: // JPG to WEBP
+                success = JpgToWebpConverter::convert(input, output);
+                break;
+            case 17: // PNG to WEBP
+                success = PngToWebpConverter::convert(input, output);
+                break;
+            case 18: // BMP to WEBP
+                success = BmpToWebpConverter::convert(input, output);
+                break;
+            case 19: // TIFF to WEBP
+                success = TiffToWebpConverter::convert(input, output);
+                break;
+            case 20: // JPEG to PNG
+                success = JpegToPngConverter::convert(input, output);
+                break;
+            case 21: // JPEG to BMP
+                success = JpegToBmpConverter::convert(input, output);
+                break;
+            case 22: // JPEG to TIFF
+                success = JpegToTiffConverter::convert(input, output);
+                break;
+            case 23: // JPEG to WEBP
+                success = JpegToWebpConverter::convert(input, output);
+                break;
+            case 24: // PNG to JPEG
+                success = PngToJpegConverter::convert(input, output);
+                break;
+            case 25: // BMP to JPEG
+                success = BmpToJpegConverter::convert(input, output);
+                break;
+            case 26: // TIFF to JPEG
+                success = TiffToJpegConverter::convert(input, output);
+                break;
+            case 27: // WEBP to JPEG
+                success = WebpToJpegConverter::convert(input, output);
                 break;
         }
         if (!success) throw std::runtime_error("转换失败");
