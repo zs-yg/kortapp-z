@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -I./include
-LDFLAGS = -Wl,-subsystem,windows -municode -luser32 -lgdi32 -lcomctl32 -lpsapi
+LDFLAGS = -static -Wl,-subsystem,windows -municode -luser32 -lgdi32 -lcomctl32 -lpsapi
 SRC = src/main.c src/memory_ops.c src/ui.c src/init.c \
       src/utils.c src/config.c src/benchmark.c src/log.c \
       src/error.c src/version.c
