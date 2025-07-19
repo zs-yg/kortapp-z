@@ -22,6 +22,10 @@ MainWindow::MainWindow(int w, int h, const char* title) : Fl_Window(w, h, title)
     conversionType->add("MD5");
     conversionType->add("SHA1");
     conversionType->add("SHA256");
+    conversionType->add("SHA224");
+    conversionType->add("SHA384");
+    conversionType->add("SHA512");
+    conversionType->add("SHA3");
     conversionType->add("Base64");
     conversionType->add("Base32");
     conversionType->add("Ascii85");
@@ -48,19 +52,25 @@ void MainWindow::ConvertCallback(Fl_Widget* widget, void* data) {
 }
 
 void MainWindow::ConvertText() {
-    const char* input = inputText->value();
-    if (!input || strlen(input) == 0) {
-        fl_alert("请输入要转换的文本");
-        return;
-    }
+    try {
+        const char* input = inputText->value();
+        if (!input || strlen(input) == 0) {
+            fl_alert("请输入要转换的文本");
+            return;
+        }
 
-    int type = conversionType->value();
-    auto converter = Utils::createConverter(type);
-    if (!converter) {
-        fl_alert("不支持的转换类型");
-        return;
-    }
+        int type = conversionType->value();
+        auto converter = Utils::createConverter(type);
+        if (!converter) {
+            fl_alert("不支持的转换类型");
+            return;
+        }
 
-    std::string result = converter->convert(input);
-    outputText->value(result.c_str());
+        std::string result = converter->convert(input);
+        outputText->value(result.c_str());
+    } catch (const std::exception& e) {
+        fl_alert(("转换失败: " + std::string(e.what())).c_str());
+    } catch (...) {
+        fl_alert("未知错误: 转换失败");
+    }
 }
