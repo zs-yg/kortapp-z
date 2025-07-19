@@ -18,6 +18,7 @@ enum class ImageFormat {
     JPG,
     TIFF,
     WEBP,
+    AVIF,
     UNKNOWN
 };
 

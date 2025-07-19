@@ -28,6 +28,18 @@
 #include "bmp_to_jpeg.hpp"
 #include "tiff_to_jpeg.hpp"
 #include "webp_to_jpeg.hpp"
+#include "avif_to_png.hpp"
+#include "avif_to_jpg.hpp"
+#include "avif_to_jpeg.hpp"
+#include "avif_to_bmp.hpp"
+#include "avif_to_tiff.hpp"
+#include "avif_to_webp.hpp"
+#include "png_to_avif.hpp"
+#include "jpg_to_avif.hpp"
+#include "jpeg_to_avif.hpp"
+#include "bmp_to_avif.hpp"
+#include "tiff_to_avif.hpp"
+#include "webp_to_avif.hpp"
 #include <FL/Fl_File_Chooser.H>
 #include <FL/fl_ask.H>
 #include <stdexcept>
@@ -77,6 +89,18 @@ MainWindow::MainWindow(int w, int h, const char* title)
     format_choice->add("BMP to JPEG");
     format_choice->add("TIFF to JPEG");
     format_choice->add("WEBP to JPEG");
+    format_choice->add("AVIF to PNG");
+    format_choice->add("AVIF to JPG");
+    format_choice->add("AVIF to JPEG");
+    format_choice->add("AVIF to BMP");
+    format_choice->add("AVIF to TIFF");
+    format_choice->add("AVIF to WEBP");
+    format_choice->add("PNG to AVIF");
+    format_choice->add("JPG to AVIF");
+    format_choice->add("JPEG to AVIF");
+    format_choice->add("BMP to AVIF");
+    format_choice->add("TIFF to AVIF");
+    format_choice->add("WEBP to AVIF");
     format_choice->value(0);
     
     convert_btn = new Fl_Button(150, 150, 100, 30, "转换");
@@ -201,6 +225,42 @@ void MainWindow::convert_cb(Fl_Widget* w, void* data) {
                 break;
             case 27: // WEBP to JPEG
                 success = WebpToJpegConverter::convert(input, output);
+                break;
+            case 28: // AVIF to PNG
+                success = AvifToPngConverter().convert(input, output);
+                break;
+            case 29: // AVIF to JPG
+                success = AvifToJpgConverter().convert(input, output);
+                break;
+            case 30: // AVIF to JPEG
+                success = AvifToJpegConverter().convert(input, output);
+                break;
+            case 31: // AVIF to BMP
+                success = AvifToBmpConverter().convert(input, output);
+                break;
+            case 32: // AVIF to TIFF
+                success = AvifToTiffConverter().convert(input, output);
+                break;
+            case 33: // AVIF to WEBP
+                success = AvifToWebpConverter().convert(input, output);
+                break;
+            case 34: // PNG to AVIF
+                success = PngToAvifConverter().convert(input, output);
+                break;
+            case 35: // JPG to AVIF
+                success = JpgToAvifConverter().convert(input, output);
+                break;
+            case 36: // JPEG to AVIF
+                success = JpegToAvifConverter().convert(input, output);
+                break;
+            case 37: // BMP to AVIF
+                success = BmpToAvifConverter().convert(input, output);
+                break;
+            case 38: // TIFF to AVIF
+                success = TiffToAvifConverter().convert(input, output);
+                break;
+            case 39: // WEBP to AVIF
+                success = WebpToAvifConverter().convert(input, output);
                 break;
         }
         if (!success) throw std::runtime_error("转换失败");

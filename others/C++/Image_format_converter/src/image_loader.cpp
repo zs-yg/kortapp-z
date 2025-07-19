@@ -3,10 +3,24 @@
 #include <stb/stb_image.h>
 #include <stb/stb_image_write.h>
 #include <webp/decode.h>
+#include <avif/avif.h>
 #include <fstream>
 #include <stdexcept>
 #include <iostream>
 #include <cstring>
+
+
+
+static bool is_avif_file(const std::string& path) {
+    std::ifstream file(path, std::ios::binary);
+    if (!file) return false;
+    
+    char header[12];
+    if (!file.read(header, 12)) return false;
+    
+    return !memcmp(header, "\0\0\0 ftypavif", 12) || 
+           !memcmp(header, "\0\0\0 ftypavis", 12);
+}
 
 static bool is_webp_file(const std::string& path) {
     std::ifstream file(path, std::ios::binary);
@@ -18,11 +32,74 @@ static bool is_webp_file(const std::string& path) {
     return !memcmp(header, "RIFF", 4) && !memcmp(header + 8, "WEBP", 4);
 }
 
+static ImageData load_avif(const std::string& path) {
+    ImageData data;
+    
+    avifDecoder* decoder = avifDecoderCreate();
+    if (!decoder) {
+        throw std::runtime_error("无法创建AVIF解码器");
+    }
+    
+    avifResult result = avifDecoderSetIOFile(decoder, path.c_str());
+    if (result != AVIF_RESULT_OK) {
+        avifDecoderDestroy(decoder);
+        throw std::runtime_error("无法读取AVIF文件");
+    }
+    
+    result = avifDecoderParse(decoder);
+    if (result != AVIF_RESULT_OK) {
+        avifDecoderDestroy(decoder);
+        throw std::runtime_error("无效的AVIF图像");
+    }
+    
+    result = avifDecoderNextImage(decoder);
+    if (result != AVIF_RESULT_OK) {
+        avifDecoderDestroy(decoder);
+        throw std::runtime_error("无法解码AVIF图像");
+    }
+    
+    data.width = decoder->image->width;
+    data.height = decoder->image->height;
+    data.channels = 4; // AVIF解码为RGBA
+    
+    // 分配内存并转换图像数据
+    uint8_t* rgba_pixels = new uint8_t[data.width * data.height * 4];
+    avifRGBImage rgb;
+    avifRGBImageSetDefaults(&rgb, decoder->image);
+    rgb.format = AVIF_RGB_FORMAT_RGBA;
+    rgb.depth = 8;
+    rgb.pixels = rgba_pixels;
+    rgb.rowBytes = data.width * 4;
+    
+    if (avifImageYUVToRGB(decoder->image, &rgb) != AVIF_RESULT_OK) {
+        delete[] rgba_pixels;
+        avifDecoderDestroy(decoder);
+        throw std::runtime_error("AVIF颜色空间转换失败");
+    }
+    
+    avifDecoderDestroy(decoder);
+    
+    // 验证图像数据
+    try {
+        ImageLoader::validate_image(rgba_pixels, data.width, data.height);
+    } catch (...) {
+        delete[] rgba_pixels;
+        throw;
+    }
+    
+    data.pixels = std::unique_ptr<unsigned char, void(*)(void*)>(rgba_pixels, [](void* p) { delete[] static_cast<uint8_t*>(p); });
+    return data;
+}
+
 ImageData ImageLoader::load(const std::string& path) {
     ImageData data;
     
+    // 检查是否为AVIF格式
+    if (is_avif_file(path)) {
+        return load_avif(path);
+    }
     // 检查是否为WebP格式
-    if (is_webp_file(path)) {
+    else if (is_webp_file(path)) {
         // 读取WebP文件数据
         std::ifstream file(path, std::ios::binary | std::ios::ate);
         if (!file) {
@@ -65,7 +142,7 @@ ImageData ImageLoader::load(const std::string& path) {
             
             // 验证图像数据
             try {
-                validate_image(rgb_pixels, data.width, data.height);
+        ImageLoader::validate_image(rgb_pixels, data.width, data.height);
             } catch (...) {
                 delete[] rgb_pixels;
                 throw;
@@ -75,7 +152,7 @@ ImageData ImageLoader::load(const std::string& path) {
         } else {
             // 验证图像数据
             try {
-                validate_image(rgba_pixels, data.width, data.height);
+        ImageLoader::validate_image(rgba_pixels, data.width, data.height);
             } catch (...) {
                 WebPFree(rgba_pixels);
                 throw;
@@ -96,7 +173,7 @@ ImageData ImageLoader::load(const std::string& path) {
         
         // 验证图像数据
         try {
-            validate_image(pixels, data.width, data.height);
+        ImageLoader::validate_image(pixels, data.width, data.height);
         } catch (...) {
             stbi_image_free(pixels);
             throw;
