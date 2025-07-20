@@ -814,12 +814,13 @@ namespace AppStore
         /// <param name="downloadUrl">应用下载地址</param>
         /// <param name="iconPath">应用图标路径</param>
         /// <returns>创建完成的应用卡片对象</returns>
-        private AppCard CreateAppCard(string appName, string downloadUrl, string iconPath)
+        private AppCard CreateAppCard(string appName, string downloadUrl, string iconPath, string description = "")
         {
             // 创建新的应用卡片实例
             AppCard card = new AppCard();
             card.AppName = appName;
             card.DownloadUrl = downloadUrl;
+            card.Description = description;
             
             try
             {
@@ -924,7 +925,7 @@ namespace AppStore
             flowPanel.Margin = new Padding(0);
             flowPanel.AutoSize = true;
             flowPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            flowPanel.AutoScrollMinSize = new Size(0, 4050);//大概一行250像素
+            flowPanel.AutoScrollMinSize = new Size(0, 4200);//大概一行250像素
             contentPanel.Controls.Add(flowPanel);
 
             // 添加所有应用卡片并恢复位置
@@ -933,288 +934,351 @@ namespace AppStore
             flowPanel.Controls.Add(CreateAppCard(
                 "XDM",
                 "https://ghproxy.net/https://github.com/subhra74/xdm/releases/download/7.2.11/xdm-setup.msi",
-                "img/png/XDM.png"));
+                "img/png/XDM.png",
+                "Xtreme Download Manager - 强大的下载管理器，支持多种协议"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "FDM",
                 "https://files2.freedownloadmanager.org/6/latest/fdm_x64_setup.exe",
-                "img/png/FDM.png"));
+                "img/png/FDM.png",
+                "Free Download Manager - 免费的多线程下载工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "ABDM",
                 "https://ghproxy.net/https://github.com/amir1376/ab-download-manager/releases/download/v1.6.4/ABDownloadManager_1.6.4_windows_x64.exe",
-                "img/png/ABDM.png"));
+                "img/png/ABDM.png",
+                "AB Download Manager - 轻量级下载管理器"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "NDM",
                 "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.7/NeatDM_setup.exe",
-                "img/jpg/NDM.jpg"));
+                "img/jpg/NDM.jpg",
+                "Neat Download Manager - 简洁高效的下载工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "youtube-dl",
                 "https://ghproxy.net/https://github.com/ytdl-org/youtube-dl/releases/download/2021.12.17/youtube-dl.exe",
-                ""));
+                "",
+                "命令行youtube下载工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "python3.8",
                 "https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64.exe",
-                "img/png/python.png"));
+                "img/png/python.png",
+                "Python 3.8 - 流行的脚本语言，适合快速开发"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Oracle Java8",
                 "https://sdlc-esd.oracle.com/ESD6/JSCDL/jdk/8u451-b10/8a1589aa0fe24566b4337beee47c2d29/jre-8u451-windows-x64.exe?GroupName=JSC&FilePath=/ESD6/JSCDL/jdk/8u451-b10/8a1589aa0fe24566b4337beee47c2d29/jre-8u451-windows-x64.exe&BHost=javadl.sun.com&File=jre-8u451-windows-x64.exe&AuthParam=1750252610_4d0f61835e3392b8f0158398fd5ebd90&ext=.exe",
-                "img/png/java.png"));
+                "img/png/java.png",
+                "Java 8 - 跨平台的面向对象编程语言"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Rust",
                 "https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe",
-                "img/png/rust.png"));
+                "img/png/rust.png",
+                "Rust - 高性能系统编程语言，内存安全"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Ruby",
                 "https://mirror.sjtu.edu.cn/github-release/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.4.4-2/rubyinstaller-devkit-3.4.4-2-x64.exe",
-                "img/png/ruby.png"));
+                "img/png/ruby.png",
+                "Ruby - 优雅的面向对象脚本语言"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "D",
                 "https://downloads.dlang.org/releases/2.x/2.111.0/dmd-2.111.0.exe",
-                "img/jpg/D.jpg"));
+                "img/jpg/D.jpg",
+                "D语言 - 结合C++性能和脚本语言便利性"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Go",
                 "https://golang.google.cn/dl/go1.24.4.windows-amd64.msi",
-                "img/png/Go.png"));
+                "img/png/Go.png",
+                "Go语言 - 谷歌开发的静态强类型语言"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Node.js",
                 "https://nodejs.org/dist/v22.16.0/node-v22.16.0-x64.msi",
-                "img/png/nodejs.png"));
+                "img/png/nodejs.png",
+                "Node.js - JavaScript运行时环境"));
                 
             flowPanel.Controls.Add(CreateAppCard(
                 "mingw-64",
                 "https://ghproxy.net/https://github.com/niXman/mingw-builds-binaries/releases/download/15.1.0-rt_v12-rev0/x86_64-15.1.0-release-posix-seh-ucrt-rt_v12-rev0.7z",
-                "img/png/mingw-64.png"));
+                "img/png/mingw-64.png",
+                "MinGW-w64 - Windows下的GCC编译器套件"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Msys2",
                 "https://ghproxy.net/https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe",
-                "img/png/MSYS2.png"));
+                "img/png/MSYS2.png",
+                "MSYS2 - Windows下的Linux开发环境"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "OpenJDK by Azul JDKs",
                 "https://cdn.azul.com/zulu/bin/zulu21.42.19-ca-jdk21.0.7-win_x64.msi",
-                "img/png/Azul_JDKs.png"));
+                "img/png/Azul_JDKs.png",
+                "Azul Zulu OpenJDK - 免费的企业级Java发行版"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 ".NET SDK 8.0",
                 "https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.411-windows-x64-installer",
-                "img/png/.NET.png"));
+                "img/png/.NET.png",
+                ".NET 8 SDK - 微软跨平台开发框架"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "ASP.NET Core 运行时 8.0",
                 "https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-aspnetcore-8.0.17-windows-x64-installer",
-                "img/png/.NET.png"));
+                "img/png/.NET.png",
+                "C#的服务器端运行环境"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 ".NET 桌面运行时 8.0",
                 "https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-desktop-8.0.17-windows-x64-installer",
-                "img/png/.NET.png"));
+                "img/png/.NET.png",
+                ".NET桌面运行时 - 一个为微软Windows提供C#命令行程序和桌面程序运行的环境"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 ".NET 运行时 8.0",
                 "https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-8.0.17-windows-x64-installer",
-                "img/png/.NET.png"));
+                "img/png/.NET.png",
+                ".NET运行时 - 一个为微软Windows提供C#命令行程序的运行环境"));
             
             flowPanel.Controls.Add(CreateAppCard(
                 "openlist",
                 "https://ghproxy.net/https://github.com/OpenListTeam/OpenList/releases/download/beta/openlist-windows-amd64.zip",
-                "img/png/openlist.png"));
+                "img/png/openlist.png",
+                "openlist - 一个为防止Alist获取用户数据的开源增强网盘管理工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "SpaceSniffer",
                 "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.8/SpaceSniffer.exe",
-                "img/png/SpaceSniffer.png"));
+                "img/png/SpaceSniffer.png",
+                "SpaceSniffer - 可视化磁盘空间分析工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "OpenSpeedy",
                 "https://ghproxy.net/https://github.com/game1024/OpenSpeedy/releases/download/v1.7.1/OpenSpeedy-v1.7.1.zip",
-                "img/png/openspeedy.png"));
+                "img/png/openspeedy.png",
+                "OpenSpeedy - 开源游戏加速工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Final2x",
                 "https://ghproxy.net/https://github.com/Tohrusky/Final2x/releases/download/2024-12-14/Final2x-windows-x64-setup.exe",
-                "img/png/Final2x.png"));
+                "img/png/Final2x.png",
+                "Final2x - 图片超分辨率放大工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Pixpin",
                 "https://download.pixpin.cn/PixPin_2.0.0.3.exe",
-                "img/png/pixpin.png"));
+                "img/png/pixpin.png",
+                "Pixpin - 一个支持更多功能的大部分免费截图工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "QuickLook",
                 "https://ghproxy.net/https://github.com/QL-Win/QuickLook/releases/download/4.0.2/QuickLook-4.0.2.exe",
-                "img/png/quicklook.png"));
+                "img/png/quicklook.png",
+                "Quicklook - 一个为win提供像Macos一样的空格预览文件功能的软件"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "VSCode",
                 "https://vscode.download.prss.microsoft.com/dbazure/download/stable/dfaf44141ea9deb3b4096f7cd6d24e00c147a4b1/VSCodeSetup-x64-1.101.0.exe",
-                "img/png/vscode.png"));
+                "img/png/vscode.png",
+                "Vscode - 一个微软提供的免费开源、生态丰富的跨平台代码编辑器"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "vs community 2022",
                 "https://visualstudio.microsoft.com/zh-hans/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false",
-                "img/jpg/vs.jpg"));
+                "img/jpg/vs.jpg",
+                "vs - 一个微软的付费/免费的win环境下强大的集成代码编辑器"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "vs build tools 2019",
                 "https://download.visualstudio.microsoft.com/download/pr/8918edd5-ae24-4ac8-b90a-5e30583f8261/df275a4c77916fe65e39d24e85eafb369c4ee458cc3dd627b920fe18a4606ce0/vs_BuildTools.exe",
-                "img/jpg/vs.jpg"));
+                "img/jpg/vs.jpg",
+                "vs build 2019 - 一个被微软官方隐藏下载链接的比现在更轻量构建工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "vs build tools 2022",
                 "https://download.visualstudio.microsoft.com/download/pr/13907dbe-8bb3-4cfe-b0ae-147e70f8b2f3/a3193e6e6135ef7f598d6a9e429b010d77260dba33dddbee343a47494b5335a3/vs_BuildTools.exe",
-                "img/jpg/vs.jpg"));
+                "img/jpg/vs.jpg",
+                "vs build 2022 - 一个目前相对臃肿的构建工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "VSCodium",
                 "https://visualstudio.microsoft.com/zh-hans/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false",
-                "img/png/codium_cnl.png"));
+                "img/png/codium_cnl.png",
+                "Vscodium - 一个根据微软vscode的源码改动的注重隐私的社区vscode"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Dev-C++",
                 "https://down.wsyhn.com/23_355739",
-                "img/png/Dev-C++.png"));
+                "img/png/Dev-C++.png",
+                "Dev-C++ - 一个老牌开源集成式C++编辑/编译环境编辑器"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Code::Blocks",
                 "https://down.wsyhn.com/23_277571",
-                "img/png/CodeBlocks.png"));
+                "img/png/CodeBlocks.png",
+                "Code::Blocks - 一个与Dev-C++难分高下的老牌开源C++编译编辑器"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "Godot游戏引擎",
+                "https://ghproxy.net/https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_win64.exe.zip",
+                "img/png/godot.png",
+                "Godot - 免费开源的由社区驱动的游戏引擎"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "7-Zip",
                 "https://objects.githubusercontent.com/github-production-release-asset-2e65be/466446150/1645817e-3677-4207-93ff-e62de7e147be?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250613T035936Z&X-Amz-Expires=300&X-Amz-Signature=5e02d5fc34f45bd8308029c9fc78052007e9475ce0e32775619921cb8f3b83ea&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D7z2409-x64.exe&response-content-type=application%2Foctet-stream",
-                "img/png/7ziplogo.png"));
+                "img/png/7ziplogo.png",
+                "7-Zip - 开源的高压缩比文件压缩工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "7-Zip Lite",
                 "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.1/7-Zip.7z",
-                "img/png/7ziplogo.png"));
+                "img/png/7ziplogo.png",
+                "7-Zip Lite - 精简版的7-Zip压缩工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "peazip",
                 "https://ghproxy.net/https://github.com/peazip/PeaZip/releases/download/10.4.0/peazip-10.4.0.WIN64.exe",
-                "img/jpg/peazip.jpg"));
+                "img/jpg/peazip.jpg",
+                "PeaZip - 支持多种压缩格式的开源工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "nanazip",
                 "https://ghproxy.net/https://github.com/M2Team/NanaZip/releases/download/5.0.1263.0/NanaZip_5.0.1263.0_DebugSymbols.zip",
-                "img/png/nanazip.png"));
+                "img/png/nanazip.png",
+                "nanazip - 根据7-zip改编的具有现代化win特征的开源压缩软件"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "PCL2",
                 "https://ghproxy.net/https://github.com/zs-yg/package/releases/download/v0.9/Plain.Craft.Launcher.2.exe",
-                "img/jpg/pcl2.jpg"));
+                "img/jpg/pcl2.jpg",
+                "PCL2 - 强大的minecraft启动器，具有版本管理、镜像下载、mod/光影/材质包管理功能"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "GreenShot",
                 "https://objects.githubusercontent.com/github-production-release-asset-2e65be/36756917/239aedb0-7d29-11e7-9f9c-d36ec4466ade?X-Amz-Algorithm=AWS4-HMAC-SSHA256&X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250613T041723Z&X-Amz-Expires=300&X-Amz-Signature=be1ef88a68bbc7065af5111809d11de881022933b44f6d961eb6bd6e6b7e60a8&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3DGreenshot-INSTALLER-1.2.10.6-RELEASE.exe&response-content-type=application%2Foctet-stream",
-                "img/png/greenshot-logo.png"));
+                "img/png/greenshot-logo.png",
+                "Greenshot - 一款适用于Windows的轻量级屏幕截图软件工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "DWMBlurGlass",
                 "https://ghproxy.net/https://github.com/Maplespe/DWMBlurGlass/releases/download/2.3.1r/DWMBlurGlass_2.3.1_x64.zip",
-                "img/png/DWMBlurGlass.png"));
+                "img/png/DWMBlurGlass.png",
+                "DWMBlurGlass - 为全局系统标题栏添加自定义效果"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Umi-OCR",
                 "https://ghproxy.net/https://github.com/hiroi-sora/Umi-OCR/releases/download/v2.1.5/Umi-OCR_Paddle_v2.1.5.7z.exe",
-                "img/png/Umi-OCR.png"));
+                "img/png/Umi-OCR.png",
+                "Umi-OCR - 开源免费的离线OCR工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "pocketbase",
                 "https://ghproxy.net/https://github.com/pocketbase/pocketbase/releases/download/v0.28.4/pocketbase_0.28.4_windows_amd64.zip",
-                "img/png/pocketbase.png"));
+                "img/png/pocketbase.png",
+                "pocketbase - 1个文件实现的开源实时后端"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "frp",
                 "https://ghproxy.net/https://github.com/fatedier/frp/releases/download/v0.62.1/frp_0.62.1_windows_amd64.zip",
-                ""));
+                "",
+                "frp - 一个由社区驱动的快速内网穿透工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "VLC Media Player", 
                 "https://mirrors.ustc.edu.cn/videolan-ftp/vlc/3.0.21/win64/vlc-3.0.21-win64.exe",
-                "img/jpg/VLC.jpg"));
+                "img/jpg/VLC.jpg",
+                "VLC - 最棒的开源播放器"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "OBS Studio",
                 "https://cdn-fastly.obsproject.com/downloads/OBS-Studio-31.0.3-Windows-Installer.exe",
-                "img/png/OBS.png"));
+                "img/png/OBS.png",
+                "OBS - 强大的开源直播推流录屏工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Everything",
                 "https://www.voidtools.com/Everything-1.4.1.1027.x64-Setup.exe",
-                "img/jpg/everything.jpg"));
+                "img/jpg/everything.jpg",
+                "everything - 一个免费的跨平台检索工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Everything Lite",
                 "https://www.voidtools.com/Everything-1.4.1.1027.x64.Lite-Setup.exe",
-                "img/jpg/everything.jpg"));
+                "img/jpg/everything.jpg",
+                "everything lite - 一个官方精简版本的everythingm，去除了一些小白不需要功能"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Pinta",
                 "https://ghproxy.net/https://github.com/PintaProject/Pinta/releases/download/3.0.1/pinta-3.0.1.zip",
-                "img/png/pinta.png"));
+                "img/png/pinta.png",
+                "Pinta - 一个开源免费的PS平替位图编辑工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "ShareX",
                 "https://ghproxy.net/https://github.com/ShareX/ShareX/releases/download/v17.1.0/ShareX-17.1.0-setup.exe",
-                "img/png/ShareX.png"));
+                "img/png/ShareX.png",
+                "ShareX - 最好的免费开源屏幕截图工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "LosslessCut",
                 "https://ghproxy.net/https://github.com/mifi/lossless-cut/releases/download/v3.64.0/LosslessCut-win-x64.7z",
-                "img/png/LosslessCut.png"));
+                "img/png/LosslessCut.png",
+                "LosslessCut - 无损编辑/音频编辑的瑞士军刀"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Edge",
                 "https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/cb21e6b5-3f63-4df2-bec3-a2015b80dc56/MicrosoftEdgeEnterpriseX64.msi",
-                "img/jpg/edge.jpg"));
+                "img/jpg/edge.jpg",
+                "Edge - 一个微软开放的win10+自带的功能强大/兼容性强的网页浏览器"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Min",
                 "https://ghproxy.net/https://github.com/minbrowser/min/releases/download/v1.35.0/min-1.35.0-setup.exe",
-                "img/jpg/Min.jpg"));
+                "img/jpg/Min.jpg",
+                "Min - 一个极度精简的开源浏览器"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Brave",
                 "https://ghproxy.net/https://github.com/brave/brave-browser/releases/download/v1.79.126/BraveBrowserSetup.exe",
-                "img/png/brave.png"));
+                "img/png/brave.png",
+                "Brave - 一个注重隐私安全的开源网页浏览器"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Firefox",
                 "https://download-ssl.firefox.com.cn/releases-sha2/full/116.0/zh-CN/Firefox-full-latest-win64.exe",
-                "img/jpg/firefox.jpg"));
+                "img/jpg/firefox.jpg",
+                "Firefox - 国内的火狐浏览器，老牌开源网页浏览器(证书有部分失效，类似IE，但更强点)"));
 	
 	        //这应该是为数不多的国产软件了
             flowPanel.Controls.Add(CreateAppCard(
                 "星愿浏览器",
                 "https://d1.twinkstar.com/win/Twinkstar_v10.7.1000.2505_Release.exe",
-                "img/jpg/Twinkstar.jpg"));
+                "img/jpg/Twinkstar.jpg",
+                "星愿浏览器 - 一个大学生都爱用的仅64位的网页浏览器"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Mem Reduct",
                 "https://memreduct.org/files/memreduct-3.5.2-setup.exe",
-                "img/png/mem reduct.png"));
+                "img/png/mem reduct.png",
+                "Mem Reduct - 一个开源的轻量级内存清理工具，解决你的内存烦恼"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "LibreOffice",
                 "https://mirrors.cloud.tencent.com/libreoffice/libreoffice/stable/24.8.6/win/x86_64/LibreOffice_24.8.6_Win_x86-64.msi",
-                "img/png/LibreOffice.png"));
+                "img/png/LibreOffice.png",
+                "LibreOffice - 一个开源免费的轻量无广告的办公套件(比WPS还轻量)"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "CherryStudio",
                 "https://file-cdn.gitcode.com/5007375/releases/untagger_fa019f33ee3b413db46d9329625a2fdf/Cherry-Studio-1.4.2-x64-setup.signed.exe?auth_key=1749794532-8fe6a6851ae34764bb94ea340cd34724-0-84f8c3bb7ca7abe033b03fc07bac78b97e1c9b2863dedb89e5b89ea236205bc0",
-                "img/png/CherryStudio.png"));
+                "img/png/CherryStudio.png",
+                "CherryStudio - 开源免费的ai大模型管理工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "GeekUninstaller",
