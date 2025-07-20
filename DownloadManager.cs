@@ -59,7 +59,7 @@ namespace AppStore
             }
             catch 
             {
-                // 忽略所有异常，使用默认值
+                // 忽略所有异常,使用默认值
             }
             
             return result;
@@ -115,7 +115,7 @@ namespace AppStore
                         Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), 
                         "Downloads");
                     
-                    Logger.LogError($"下载路径{downloadsDir}不可用，将使用默认路径: {defaultPath}", ex);
+                    Logger.LogError($"下载路径{downloadsDir}不可用,将使用默认路径: {defaultPath}", ex);
                     downloadsDir = defaultPath;
                     Directory.CreateDirectory(downloadsDir);
                 }

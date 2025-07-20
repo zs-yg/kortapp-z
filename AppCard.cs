@@ -15,6 +15,7 @@ namespace AppStore
         private Label nameLabel;
         private Panel namePanel;
         private Button downloadBtn;
+        private ToolTip? toolTip;
         private Color borderColor = SystemColors.ControlDark;
         private static readonly ConcurrentDictionary<string, System.Drawing.Drawing2D.GraphicsPath> PathCache = 
             new ConcurrentDictionary<string, System.Drawing.Drawing2D.GraphicsPath>();
@@ -22,6 +23,7 @@ namespace AppStore
         public string AppName { get; set; } = string.Empty;
         public Image AppIcon { get; set; } = SystemIcons.Application.ToBitmap();
         public string DownloadUrl { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public bool ShowDownloadButton { get; set; } = true;
 
         public AppCard()
@@ -126,6 +128,13 @@ namespace AppStore
                 this.Controls.Add(namePanel);
             }
 
+            // 初始化ToolTip控件
+            toolTip = new ToolTip();
+            toolTip.AutoPopDelay = 5000;
+            toolTip.InitialDelay = 500;
+            toolTip.ReshowDelay = 500;
+            toolTip.ShowAlways = true;
+
             // 下载按钮 - 添加null检查
             if (downloadBtn != null)
             {
@@ -144,6 +153,10 @@ namespace AppStore
                     if (downloadBtn != null)
                     {
                         downloadBtn.BackColor = Color.FromArgb(0, 150, 255);
+                        if (!string.IsNullOrEmpty(Description))
+                        {
+                            toolTip.SetToolTip(downloadBtn, Description);
+                        }
                     }
                 };
                 
@@ -373,7 +386,7 @@ namespace AppStore
             try 
             {
                 var safePath = path ?? CalculatePathFallback(Width, Height, 10);
-                // 更严格的null检查，包括路径和控件状态
+                // 更严格的null检查,包括路径和控件状态
                 if (safePath != null && 
                     safePath.PointCount > 0 && 
                     this.IsHandleCreated &&
@@ -450,7 +463,7 @@ namespace AppStore
             try
             {
                 // 更严格的null检查
-                // 更严格的null检查，包括DownloadManager.Instance和其方法
+                // 更严格的null检查,包括DownloadManager.Instance和其方法
                 // 全面的null和状态检查
                 var downloadManager = DownloadManager.Instance;
                 if (sender == null || e == null || 

@@ -1,4 +1,4 @@
-如果希望运行，那么必须安装.NET8.0 SDK
+如果希望运行,那么必须安装.NET8.0 SDK
 
 下载链接：https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.411-windows-x64-installer
 

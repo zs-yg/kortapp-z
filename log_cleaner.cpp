@@ -44,7 +44,7 @@ int main() {
                 }
             }
         } else {
-            std::cout << "日志目录不存在，无需清理" << std::endl;
+            std::cout << "日志目录不存在,无需清理" << std::endl;
             return 0;
         }
 

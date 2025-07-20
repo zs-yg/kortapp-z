@@ -1,20 +1,20 @@
-# Kortapp-z - Windows应用商店 --主张软件开源、免费，拒绝广告
+# Kortapp-z - Windows应用商店 --主张软件开源、免费,拒绝广告
 
-小立一个flag：从不接受广告，不停更新
+小立一个flag：从不接受广告,不停更新
 
 ## 项目开源行为
 
-1. 项目代码开源，允许任何人使用、修改、分发、商用，但必须注明原作者。
-2. 项目图标、截图等资源开源，允许任何人使用、修改、分发、商用，但必须注明原作者。
+1. 项目代码开源,允许任何人使用、修改、分发、商用,但必须注明原作者。
+2. 项目图标、截图等资源开源,允许任何人使用、修改、分发、商用,但必须注明原作者。
 3. 项目的任何衍生品（包括但不限于网站、APP、插件等）必须遵循以上开源协议。
-4. 项目不接受任何形式的广告，不得在任何地方投放广告。
+4. 项目不接受任何形式的广告,不得在任何地方投放广告。
 5. 项目不接受任何形式的捐赠、赞助
-6. 项目可以进行PR，欢迎任何形式的PR，不提交issue也可以
-7. 本项目可以PR一些你自己的项目，如果star数量不到1k，都会被删除
+6. 项目可以进行PR,欢迎任何形式的PR,不提交issue也可以
+7. 本项目可以PR一些你自己的项目,如果star数量不到1k,都会被删除
 
 ## 项目简介
 
-一个简单的Windows应用商店应用，提供软件下载和管理功能。
+一个简单的Windows应用商店应用,提供软件下载和管理功能。
 提供软件管理、下载管理、内置工具使用等功能
 
 ## 功能特点
@@ -44,7 +44,7 @@ dotnet publish AppStore.csproj -c Release -r win-x86 --self-contained false /p:O
 dotnet publish AppStore.csproj -c Release -r win-x64 --self-contained false /p:Optimize=true /p:DebugType=None
 ```
 
-打包后的可执行文件将包含指定的应用程序图标，输出路径为：
+打包后的可执行文件将包含指定的应用程序图标,输出路径为：
 ```
 bin\Release\net8.0-windows\[platform]\publish
 ```
@@ -84,14 +84,12 @@ Copyright (c) 2025 zsyg
 ## 其他网站
 
 gitee镜像仓库:https://gitee.com/chr_super/kortapp-z  (目前已经停止维护)
-sourceforge镜像仓库：https://sourceforge.net/projects/kortapp-z/（仅镜像releases）
-
 
 ## 维护
 
-由于gitee我没怎么用，而且操作麻烦，gitee镜像将不会继续同步，有懂得人可以帮我搞下镜像吗，qq： 3872006562，也可以b站直接私信，我会在readme中鸣谢的，谢谢各位
-由于和Daye发生了矛盾，所以windowscleaner将永远不上架，我要自己努力
-提示：由于github上传文件的限制，img/png/NET.png，请改名为.NET.png，否则程序可能出现无法预料的问题
+由于gitee我没怎么用,而且操作麻烦,gitee镜像将不会继续同步,有懂得人可以帮我搞下镜像吗,qq： 3872006562,也可以b站直接私信,我会在readme中鸣谢的,谢谢各位
+由于和Daye发生了矛盾,所以windowscleaner将永远不上架,我要自己努力
+提示：由于github上传文件的限制,img/png/NET.png,请改名为.NET.png,否则程序可能出现无法预料的问题
 
 每一个人都可以通过PR添加属于自己的合法软件
 

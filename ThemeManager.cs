@@ -32,7 +32,7 @@ namespace AppStore
             }
             catch
             {
-                // 忽略错误，使用默认主题
+                // 忽略错误,使用默认主题
             }
             return ThemeMode.Light;
         }
