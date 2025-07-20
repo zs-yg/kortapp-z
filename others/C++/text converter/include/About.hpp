@@ -9,7 +9,7 @@ public:
     static std::string getVersion() { return "1.0.0"; }
     static std::string getAuthor() { return "zsyg"; }
     static std::string getDescription() { 
-        return "一个简单的文本转换工具，支持文本转换"; 
+        return "一个简单的文本转换工具,支持文本转换"; 
     }
 };
 

@@ -3,10 +3,6 @@
 #include "../include/MD5Converter.hpp"
 #include "../include/SHA1Converter.hpp"
 #include "../include/SHA256Converter.hpp"
-#include "../include/SHA224Converter.hpp"
-#include "../include/SHA384Converter.hpp"
-#include "../include/SHA512Converter.hpp"
-#include "../include/SHA3Converter.hpp"
 #include "../include/Base64Converter.hpp"
 #include "../include/Base32Converter.hpp"
 #include "../include/Ascii85Converter.hpp"
@@ -24,10 +20,6 @@ std::unique_ptr<Converter> Utils::createConverter(int type) {
         case 7: return std::unique_ptr<Converter>(new Base32Converter());
         case 8: return std::unique_ptr<Converter>(new Ascii85Converter());
         case 9: return std::unique_ptr<Converter>(new CRC32Converter());
-        case 10: return std::unique_ptr<Converter>(new SHA224Converter());
-        case 11: return std::unique_ptr<Converter>(new SHA384Converter());
-        case 12: return std::unique_ptr<Converter>(new SHA512Converter());
-        case 13: return std::unique_ptr<Converter>(new SHA3Converter());
         default: return nullptr;
     }
 }
