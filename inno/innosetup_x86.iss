@@ -1,8 +1,8 @@
 ; 脚本由 Inno Setup 脚本向导生成。
-; 有关创建 Inno Setup 脚本文件的详细信息，请参阅帮助文档！
+; 有关创建 Inno Setup 脚本文件的详细信息,请参阅帮助文档！
 
 #define MyAppName "kortapp-z"
-#define MyAppVersion "1.3.3"
+#define MyAppVersion "1.3.4"
 #define MyAppPublisher "zsyg"
 #define MyAppURL "https://github.com/zs-yg/kortapp-z"
 #define MyAppExeName "kortapp-z.exe"
@@ -12,7 +12,7 @@
 
 [Setup]
 ; 注意：AppId 的值唯一标识此应用程序。不要在其他应用程序的安装程序中使用相同的 AppId 值。
-; (若要生成新的 GUID，请在 IDE 中单击 "工具|生成 GUID"。)
+; (若要生成新的 GUID,请在 IDE 中单击 "工具|生成 GUID"。)
 AppId={{BF1944C3-CD0C-4119-A340-49C54961D48B}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}

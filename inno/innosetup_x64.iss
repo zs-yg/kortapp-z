@@ -1,8 +1,8 @@
 ; 脚本由 Inno Setup 脚本向导生成。
-; 有关创建 Inno Setup 脚本文件的详细信息，请参阅帮助文档！
+; 有关创建 Inno Setup 脚本文件的详细信息,请参阅帮助文档！
 
 #define MyAppName "kortapp-z"
-#define MyAppVersion "1.3.3"
+#define MyAppVersion "1.3.4"
 #define MyAppPublisher "zsyg"
 #define MyAppURL "https://github.com/zs-yg/kortapp-z"
 #define MyAppExeName "kortapp-z.exe"
@@ -12,7 +12,7 @@
 
 [Setup]
 ; 注意：AppId 的值唯一标识此应用程序。不要在其他应用程序的安装程序中使用相同的 AppId 值。
-; (若要生成新的 GUID，请在 IDE 中单击 "工具|生成 GUID"。)
+; (若要生成新的 GUID,请在 IDE 中单击 "工具|生成 GUID"。)
 AppId={{8020EC01-6133-40BB-8B8B-0EB71E49696C}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
@@ -27,7 +27,7 @@ UninstallDisplayIcon={app}\{#MyAppExeName}
 ; 除 Arm 上的 x64 和 Windows 11 之外的任何平台上。
 ArchitecturesAllowed=x64compatible
 ; "ArchitecturesInstallIn64BitMode=x64compatible" 要求
-; 安装可以在 x64 或 Arm 上的 Windows 11 上以“64 位模式”完成，
+; 安装可以在 x64 或 Arm 上的 Windows 11 上以“64 位模式”完成,
 ; 这意味着它应该使用本机 64 位 Program Files 目录和
 ; 注册表的 64 位视图。
 ArchitecturesInstallIn64BitMode=x64compatible
