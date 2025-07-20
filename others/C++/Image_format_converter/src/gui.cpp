@@ -272,6 +272,6 @@ void MainWindow::convert_cb(Fl_Widget* w, void* data) {
     if (success) {
         fl_message("转换成功!");
     } else {
-        fl_alert("转换失败，请检查输入文件!");
+        fl_alert("转换失败,请检查输入文件!");
     }
 }

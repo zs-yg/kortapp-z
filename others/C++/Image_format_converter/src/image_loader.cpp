@@ -130,7 +130,7 @@ ImageData ImageLoader::load(const std::string& path) {
             throw std::runtime_error("无法解码WebP图像");
         }
         
-        // 如果没有alpha通道，转换为RGB格式
+        // 如果没有alpha通道,转换为RGB格式
         if (data.channels == 3) {
             uint8_t* rgb_pixels = new uint8_t[data.width * data.height * 3];
             for (int i = 0; i < data.width * data.height; ++i) {
