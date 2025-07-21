@@ -28,6 +28,9 @@ find_library(AVIF_STATIC_LIB NAMES libavif.a PATHS ${AVIF_LIBRARY_DIRS})
 find_package(FLTK REQUIRED)
 find_library(FLTK_STATIC_LIB NAMES libfltk.a PATHS ${FLTK_LIBRARY_DIRS})
 
+# 查找cairo导入库
+find_library(CAIRO_IMPORT_LIB NAMES libcairo.dll.a PATHS "C:/msys64/ucrt64/lib")
+
 # 查找其他依赖库
 find_library(JPEG_STATIC_LIB NAMES libjpeg.a PATHS ${MSYS2_LIB_DIR})
 find_library(ZLIB_STATIC_LIB NAMES libz.a PATHS ${MSYS2_LIB_DIR})
@@ -44,7 +47,7 @@ find_library(RAV1E_STATIC_LIB NAMES librav1e.a PATHS ${MSYS2_LIB_DIR})
 find_library(DAV1D_STATIC_LIB NAMES libdav1d.a PATHS ${MSYS2_LIB_DIR})
 
 # 包含头文件目录
-include_directories(include ${TIFF_INCLUDE_DIRS} ${WEBP_INCLUDE_DIRS} ${FLTK_INCLUDE_DIRS} ${AVIF_INCLUDE_DIRS})
+include_directories(include ${TIFF_INCLUDE_DIRS} ${WEBP_INCLUDE_DIRS} ${FLTK_INCLUDE_DIRS} ${AVIF_INCLUDE_DIRS} "C:/msys64/ucrt64/include/cairo")
 
 # 收集所有源文件
 file(GLOB SOURCES "src/*.cpp")
@@ -55,7 +58,7 @@ add_executable(ImageFormatConverter WIN32 ${SOURCES})
 # 链接静态库
 target_link_libraries(ImageFormatConverter 
     ${TIFF_STATIC_LIB} 
-    ${WEBP_STATIC_LIB} 
+    ${WEBP_STATIC_LIB}
     ${FLTK_STATIC_LIB}
     ${JPEG_STATIC_LIB}
     ${ZLIB_STATIC_LIB}
@@ -71,6 +74,9 @@ target_link_libraries(ImageFormatConverter
     ${SVTAV1_ENC_STATIC_LIB}
     ${RAV1E_STATIC_LIB}
     ${DAV1D_STATIC_LIB}
+    ${CAIRO_IMPORT_LIB}
+    "C:/msys64/ucrt64/lib/libcairo.a"
+    -lgdi32 -lmsimg32  # 添加Windows图形库
     -lstdc++ -lgcc -lwinpthread -lcomctl32 -lole32 -luuid -lws2_32 -lntdll)
 
 # 设置输出目录
