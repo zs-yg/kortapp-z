@@ -1338,7 +1338,7 @@ namespace AppStore
                 "NoteGen",
                 "https://ghproxy.cn/https://github.com/codexu/note-gen/releases/download/note-gen-v0.19.3/NoteGen_0.19.3_x64-setup.exe",
                 "img/png/NoteGen.png",
-                "NoteGen - 跨平台Markdown ai笔记软件"));
+                "NoteGen - 在不中断快捷方式或安装的情况下移动目录"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "hashcat",
