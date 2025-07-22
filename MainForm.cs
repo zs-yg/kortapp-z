@@ -1338,7 +1338,7 @@ namespace AppStore
                 "NoteGen",
                 "https://ghproxy.cn/https://github.com/codexu/note-gen/releases/download/note-gen-v0.19.3/NoteGen_0.19.3_x64-setup.exe",
                 "img/png/NoteGen.png",
-                "NoteGen - 在不中断快捷方式或安装的情况下移动目录"));
+                "NoteGen - 跨平台Markdown ai笔记软件"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "hashcat",
@@ -1362,7 +1362,7 @@ namespace AppStore
                 "FreeMove",
                 "https://ghproxy.monkeyray.net/https://github.com/imDema/FreeMove/releases/download/2.1.0/FreeMove.exe",
                 "img/png/FreeMove.png",
-                "FreeMove - 轻量级文件传输工具"));
+                "FreeMove - 移动目录而不破坏快捷方式或安装"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "vnote",
