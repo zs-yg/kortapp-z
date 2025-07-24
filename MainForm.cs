@@ -1130,6 +1130,12 @@ namespace AppStore
                 "Godot - 免费开源的由社区驱动的游戏引擎"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "luanti游戏引擎",
+                "https://www.ghproxy.cn/https://github.com/luanti-org/luanti/releases/download/5.12.0/luanti-5.12.0-win64.zip",
+                "img/png/Luanti.png",
+                "Luanti - Luanti(以前称为 Minetest)是一个开源体素游戏创建平台,具有简单的模组和游戏创建功能"));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 "7-Zip",
                 "https://objects.githubusercontent.com/github-production-release-asset-2e65be/466446150/1645817e-3677-4207-93ff-e62de7e147be?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20250613%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250613T035936Z&X-Amz-Expires=300&X-Amz-Signature=5e02d5fc34f45bd8308029c9fc78052007e9475ce0e32775619921cb8f3b83ea&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D7z2409-x64.exe&response-content-type=application%2Foctet-stream",
                 "img/png/7ziplogo.png",
@@ -1543,6 +1549,12 @@ namespace AppStore
                 "https://files2.sumatrapdfreader.org/software/sumatrapdf/rel/3.5.2/SumatraPDF-3.5.2-64-install.exe",
                 "img/ico/Sumatra PDF.ico",
                 "Sumatra PDF - 轻量级的PDF阅读器"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "LiveRecorder",
+                "https://ghproxy.net/https://github.com/auqhjjqdo/LiveRecorder/releases/download/v2.35/LiveRecorder_Windows_v2.35.zip",
+                "",
+                "LiveRecorder - 基于Streamlink的全自动直播录制工具"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "Freeplane",
