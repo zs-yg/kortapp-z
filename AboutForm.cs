@@ -125,7 +125,7 @@ namespace AppStore
         }
     }
 
-    // 保留原AboutForm作为容器(可选)
+    // 保留原AboutForm作为容器
     public class AboutForm : Form
     {
         public AboutForm()
