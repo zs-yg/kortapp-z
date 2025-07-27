@@ -83,7 +83,7 @@ Copyright (c) 2025 zsyg
 
 ## 其他网站
 
-gitee镜像仓库:https://gitee.com/chr_super/kortapp-z  (目前已经停止维护)
+gitee镜像仓库:https://gitee.com/chr_super/kortapp-z  (目前已经停止维护,仅镜像代码)
 
 ## 维护
 
