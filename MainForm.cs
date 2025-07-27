@@ -1563,6 +1563,18 @@ namespace AppStore
                 "Freeplane - 思维导图软件,帮助组织思路"));
 
             flowPanel.Controls.Add(CreateAppCard(
+                "Win11Debloat",
+                "https://ghproxy.net/https://github.com/Raphire/Win11Debloat/releases/download/2025.06.12/Get.ps1",
+                "img/png/powershell.png",
+                "Win11Debloat - 这是一个简单易用的PowerShell脚本，可用于删除预装应用程序、禁用遥测以及执行各种其他更改，以自定义、整理和改善您的Windows体验。Win11Debloat适用于Windows 10和Windows 11。"));
+
+            flowPanel.Controls.Add(CreateAppCard(
+                "keycloak",
+                "https://ghproxy.net/https://github.com/keycloak/keycloak/releases/download/26.3.2/keycloak-26.3.2.zip",
+                "img/png/keycloak.png",
+                "keycloak - 现代应用程序和服务的开源身份和访问管理"));
+
+            flowPanel.Controls.Add(CreateAppCard(
                 "Motrix",
                 "https://dl.motrix.app/release/Motrix-Setup-1.8.19.exe",
                 "img/png/Motrix.png",
