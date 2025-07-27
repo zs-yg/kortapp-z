@@ -24,7 +24,6 @@ namespace AppStore
         private static DownloadManager instance = null!;
         public static DownloadManager Instance => instance ??= new DownloadManager();
 
-        private Process? currentProcess;
         public List<DownloadItem> DownloadItems { get; } = new List<DownloadItem>();
         
         public event Action<DownloadItem> DownloadAdded = delegate { };
@@ -78,6 +77,8 @@ namespace AppStore
                 Status = "准备下载"
             };
             
+            // 创建进程并关联到下载项
+            downloadItem.DownloadProcess = new Process();
             DownloadItems.Add(downloadItem);
             DownloadAdded?.Invoke(downloadItem);
 
@@ -137,18 +138,15 @@ namespace AppStore
                 var arguments = $"--out=\"{originalFileName}\" --dir=\"{downloadsDir}\" --split=16 --max-connection-per-server=16 {url}";
 
 
-                currentProcess = new Process
+                downloadItem.DownloadProcess.StartInfo = new ProcessStartInfo
                 {
-                    StartInfo = new ProcessStartInfo
-                    {
-                        FileName = aria2cPath,
-                        Arguments = arguments,
-                        WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory,
-                        UseShellExecute = false,
-                        CreateNoWindow = true,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true
-                    }
+                    FileName = aria2cPath,
+                    Arguments = arguments,
+                    WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true
                 };
 
                 // 获取目标文件路径
@@ -170,7 +168,7 @@ namespace AppStore
                     }
                 };
                 
-                currentProcess.OutputDataReceived += (sender, e) =>
+                downloadItem.DownloadProcess.OutputDataReceived += (sender, e) =>
                 {
                     if (!string.IsNullOrEmpty(e.Data))
                     {
@@ -211,7 +209,7 @@ namespace AppStore
                     }
                 };
 
-                currentProcess.ErrorDataReceived += (sender, e) =>
+                downloadItem.DownloadProcess.ErrorDataReceived += (sender, e) =>
                 {
                     if (!string.IsNullOrEmpty(e.Data))
                     {
@@ -221,9 +219,9 @@ namespace AppStore
                     }
                 };
 
-                currentProcess.Exited += (sender, e) =>
+                downloadItem.DownloadProcess.Exited += (sender, e) =>
                 {
-                    var process = currentProcess;
+                    var process = downloadItem.DownloadProcess;
                     if (process == null) return;
                     
                     var result = GetProcessResult(process);
@@ -292,10 +290,8 @@ namespace AppStore
                     }
                     finally
                     {
-                        if (process != null)
-                        {
-                            currentProcess = null;
-                        }
+                        // 清理资源
+                        downloadItem.DownloadProcess = null;
                     }
                     
                     // 强制更新显示
@@ -304,13 +300,13 @@ namespace AppStore
 
 
 
-                if (!currentProcess.Start())
+                if (!downloadItem.DownloadProcess.Start())
                 {
                     throw new Exception("进程启动失败");
                 }
 
-                currentProcess.BeginOutputReadLine();
-                currentProcess.BeginErrorReadLine();
+                downloadItem.DownloadProcess.BeginOutputReadLine();
+                downloadItem.DownloadProcess.BeginErrorReadLine();
                 progressTimer.Start();
             }
                 catch (Exception ex)
@@ -333,7 +329,7 @@ namespace AppStore
         {
             try
             {
-                var process = currentProcess;
+                var process = item.DownloadProcess;
                 if (process?.StartInfo == null || process.HasExited)
                 {
                     item.Status = "已取消";
@@ -343,7 +339,7 @@ namespace AppStore
 
                 process.Kill();
                 process.Dispose();
-                currentProcess = null;
+                item.DownloadProcess = null;
                 
                 item.Status = "已取消";
                 DownloadProgressChanged?.Invoke(item);

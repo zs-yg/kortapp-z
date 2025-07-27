@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -14,6 +15,7 @@ namespace AppStore
         public string FileName { get; set; } = string.Empty;
         public int Progress { get; set; }
         public string Status { get; set; } = string.Empty;
+        public Process? DownloadProcess { get; set; }
 
         public DownloadItem()
         {
@@ -123,9 +125,26 @@ namespace AppStore
 
             try
             {
+                // 1. 先取消下载
                 DownloadManager.Instance.CancelDownload(this);
+                
+                // 2. 更新状态为已取消
                 Status = "已取消";
                 UpdateDisplay();
+                
+                // 3. 延迟100ms后移除控件，确保UI更新完成
+                var timer = new System.Windows.Forms.Timer { Interval = 100 };
+                timer.Tick += (s, args) =>
+                {
+                    timer.Stop();
+                    timer.Dispose();
+                    if (this.Parent != null)
+                    {
+                        this.Parent.Controls.Remove(this);
+                        this.Dispose();
+                    }
+                };
+                timer.Start();
             }
             catch (Exception ex)
             {
