@@ -783,6 +783,43 @@ namespace AppStore
             };
             flowPanel.Controls.Add(imageConverterCard);
 
+            // 哈希提取器工具卡片
+            var hashExtractorCard = new ToolCard();
+            hashExtractorCard.ToolName = "哈希提取器";
+            try 
+            {
+                string iconPath = Path.Combine(Application.StartupPath, "img", "resource", "png", "hash_value_extractor.png");
+                if (File.Exists(iconPath))
+                {
+                    hashExtractorCard.ToolIcon = Image.FromFile(iconPath);
+                }
+                else
+                {
+                    hashExtractorCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+                }
+            }
+            catch
+            {
+                hashExtractorCard.ToolIcon = SystemIcons.Shield.ToBitmap();
+            }
+            
+            hashExtractorCard.UpdateDisplay();
+            hashExtractorCard.ToolCardClicked += (s, e) => {
+                try {
+                    string toolPath = Path.Combine(Application.StartupPath, "resource", "hash_value_extractor.exe");
+                    if (File.Exists(toolPath)) {
+                        Process.Start(toolPath);
+                    } else {
+                        MessageBox.Show("哈希提取器工具未找到,请确保已正确安装", "错误", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                } catch (Exception ex) {
+                    MessageBox.Show($"启动哈希提取器失败: {ex.Message}", "错误", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+            flowPanel.Controls.Add(hashExtractorCard);
+
             }
             catch (Exception ex)
             {
@@ -1686,7 +1723,7 @@ namespace AppStore
                 "BongoCat",
                 "https://ghproxy.net/https://github.com/ayangweb/BongoCat/releases/download/v0.5.0/BongoCat_0.5.0_x64-setup.exe",
                 "img/png/BongoCat.png",
-                "BongoCat - 让b你的桌面多一个同步操作的可爱的桌宠"));
+                "BongoCat - 让你的桌面多一个同步操作的可爱的桌宠"));
 
             flowPanel.Controls.Add(CreateAppCard(
                 "GalaceanEngine(code)",
