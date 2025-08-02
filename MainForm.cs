@@ -147,6 +147,8 @@ namespace AppStore
 
         // 软件下载按钮
         private Button btnApps = null!;
+        // 网站推荐按钮
+        private Button btnWebsites = null!;
         // 下载进度按钮
         private Button btnDownloads = null!;
         // 设置按钮
@@ -155,6 +157,8 @@ namespace AppStore
         private Button btnAbout = null!;
         // 内容显示面板
         private Panel contentPanel = null!;
+        // 网站卡片流式布局面板
+        private FlowLayoutPanel websitesFlowPanel = new FlowLayoutPanel();
         // 系统托盘图标
         private NotifyIcon trayIcon = null!;
         // 托盘右键菜单
@@ -372,10 +376,21 @@ namespace AppStore
             };
             buttonPanel.Controls.Add(btnAbout);
 
+            // 网站推荐按钮
+            btnWebsites = new Button();
+            btnWebsites.Text = "网站推荐";
+            btnWebsites.Location = new Point(590, 0);
+            styleButton(btnWebsites);
+            btnWebsites.Click += (s, e) => {
+                Logger.Log("用户点击了'网站推荐'按钮");
+                ShowWebsitesView();
+            };
+            buttonPanel.Controls.Add(btnWebsites);
+
             // 内置工具按钮
             var btnTools = new Button();
             btnTools.Text = "内置工具";
-            btnTools.Location = new Point(590, 0);
+            btnTools.Location = new Point(730, 0);
             styleButton(btnTools);
             btnTools.Click += (s, e) => {
                 Logger.Log("用户点击了'内置工具'按钮");
@@ -828,6 +843,31 @@ namespace AppStore
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 ShowAppsView(); // 回退到默认视图
             }
+        }
+
+        private void ShowWebsitesView()
+        {
+            contentPanel.Controls.Clear();
+            websitesFlowPanel.Dock = DockStyle.Fill;
+            websitesFlowPanel.AutoScroll = true;
+            websitesFlowPanel.WrapContents = false;
+            websitesFlowPanel.Padding = new Padding(20);
+            contentPanel.Controls.Add(websitesFlowPanel);
+
+            // 添加示例网站卡片
+            var card1 = new WebSiteCards();
+            card1.WebSiteName = "GitHub";
+            card1.WebSiteIconPath = "img/jpg/github.jpg";
+            card1.Description = "全球最大的代码托管平台，支持Git版本控制";
+            card1.WebSiteUrl = "https://github.com";
+            websitesFlowPanel.Controls.Add(card1);
+
+            var card2 = new WebSiteCards();
+            card2.WebSiteName = "Stack Overflow";
+            card2.WebSiteIconPath = "img/png/StackOverflow.png";
+            card2.Description = "程序员问答社区，解决各种编程问题";
+            card2.WebSiteUrl = "https://stackoverflow.com";
+            websitesFlowPanel.Controls.Add(card2);
         }
 
         private void ShowAboutView()
