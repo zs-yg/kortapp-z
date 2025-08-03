@@ -854,7 +854,6 @@ namespace AppStore
             websitesFlowPanel.Padding = new Padding(20);
             contentPanel.Controls.Add(websitesFlowPanel);
 
-            // 添加示例网站卡片
             var card1 = new WebSiteCards();
             card1.WebSiteName = "GitHub";
             card1.WebSiteIconPath = "img/jpg/github.jpg";
