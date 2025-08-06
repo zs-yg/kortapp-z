@@ -867,6 +867,13 @@ namespace AppStore
             card2.Description = "程序员问答社区，解决各种编程问题";
             card2.WebSiteUrl = "https://stackoverflow.com";
             websitesFlowPanel.Controls.Add(card2);
+
+            var card3 = new WebSiteCards();
+            card2.WebSiteName = "果核剥壳";
+            card2.WebSiteIconPath = "img/png/gkbk.png";
+            card2.Description = "互联网的净土，分享互联网的精神与价值";
+            card2.WebSiteUrl = "https://www.ghxi.com/";
+            websitesFlowPanel.Controls.Add(card3);
         }
 
         private void ShowAboutView()
