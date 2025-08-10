@@ -869,10 +869,10 @@ namespace AppStore
             websitesFlowPanel.Controls.Add(card2);
 
             var card3 = new WebSiteCards();
-            card2.WebSiteName = "果核剥壳";
-            card2.WebSiteIconPath = "img/png/gkbk.png";
-            card2.Description = "互联网的净土，分享互联网的精神与价值";
-            card2.WebSiteUrl = "https://www.ghxi.com/";
+            card3.WebSiteName = "果核剥壳";
+            card3.WebSiteIconPath = "img/png/gkbk.png";
+            card3.Description = "互联网的净土，分享互联网的精神与价值";
+            card3.WebSiteUrl = "https://www.ghxi.com/";
             websitesFlowPanel.Controls.Add(card3);
         }
 
